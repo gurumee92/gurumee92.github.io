@@ -499,6 +499,41 @@ $ hugo server -D
 <p>컨텐츠 작성이 완료되면, 다시 터미널에 다음을 입력해서 배포하면 된다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ./deploy.sh
 </code></pre></div><h2 id="utterences-github-댓글-위젯-추가하기">Utterences (Github 댓글 위젯) 추가하기</h2>
+<p>이제 블로그에 댓글을 달아보자. 이 때, 레포지토리가 하나 더 필요하다. 나는 <code>blog-comments</code>로 지었다. 그 후 <a href="https://utteranc.es/">이 곳</a>으로 이동하자. 그리고 <code>configuration</code> 절로 이동해서 &ldquo;repo&rdquo; 입력 창에, 자신에 레포지토리를 입력하자. 나의 경우는 <code>gurumee92/blog-comments</code>이다.</p>
+<p><img src="https://gurumee92.github.io/images/etc/create-blog-with-hugo/04.png" alt="Utterences 1"></p>
+<p>그리고 <code>Blog Post ↔️ Issue Mapping</code> 절로 이동해서 다음 6개 중 하나를 고른다. 나는 3번째 것을 선택했다.</p>
+<p><img src="https://gurumee92.github.io/images/etc/create-blog-with-hugo/05.png" alt="Utterences 2"></p>
+<p>그러면 밑에 다음 스크립트가 생성된다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://utteranc.es/client.js&#34;</span>
+        <span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gurumee92/blog-comments&#34;</span>
+        <span style="color:#a6e22e">issue-term</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span>
+        <span style="color:#a6e22e">theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;github-light&#34;</span>
+        <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
+        <span style="color:#a6e22e">async</span>&gt;
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><p>이 스크립트를 복사하여, <code>blog/themes/&lt;자신의 테마&gt;/layouts/partials/post/disqus.html</code> 에다 다음 코드를 수정하면 된다.</p>
+<blockquote>
+<p>참고!
+이건 내 테마에만 그럴 수 있다. 하지만 보통 테마 밑에 &ldquo;layouts&rdquo; 디렉토리는 있으니 차분히, 디스커스 혹은 footer 쪽을 찾다 보면, 적당한 위치를 찾을 수 있을 것이다.</p>
+</blockquote>
+<p>blog/themes/hugo-tranquilpeak-theme/layouts/partials/post/disqus.html</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;disqus_thread&#34;</span>&gt;
+  &lt;<span style="color:#f92672">noscript</span>&gt;Please enable JavaScript to view the &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;//disqus.com/?ref_noscript&#34;</span>&gt;comments powered by Disqus.&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">noscript</span>&gt;
+&lt;/<span style="color:#f92672">div</span>&gt;
+<span style="color:#75715e">&lt;!-- 추가 코드 --&gt;</span>
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://utteranc.es/client.js&#34;</span>
+        <span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gurumee92/blog-comments&#34;</span>
+        <span style="color:#a6e22e">issue-term</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;title&#34;</span>
+        <span style="color:#a6e22e">theme</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;github-light&#34;</span>
+        <span style="color:#a6e22e">crossorigin</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;anonymous&#34;</span>
+        <span style="color:#a6e22e">async</span>&gt;
+&lt;/<span style="color:#f92672">script</span>&gt;
+</code></pre></div><p>실제 내 블로그의 포스트는 다음과 같이 댓글이 연결되어 있다.</p>
+<p><img src="https://gurumee92.github.io/images/etc/create-blog-with-hugo/06.png" alt="Utterences 3"></p>
+<blockquote>
+<p>참고!
+댓글 달 때, <code>Utterences</code>앱을 설치하지 않으면, 설치하라는 문구가 뜬다 <code>blog-comments</code>에만 설치하도록 하자. 자신이 블로그를 개설할 때, 댓글을 먼저 달아보도록 하자.</p>
+</blockquote>
 <h2 id="참고">참고</h2>
 <ul>
 <li><a href="https://gohugo.io/getting-started/quick-start/">Hugo 공식 홈페이지 Quick Start</a></li>
