@@ -47,23 +47,5 @@
       <description></description>
     </item>
     
-    <item>
-      <title>tag1</title>
-      <link>https://gurumee92.github.io/tags/tag1/</link>
-      <pubDate>Fri, 28 Aug 2020 21:48:13 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/tag1/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tag2</title>
-      <link>https://gurumee92.github.io/tags/tag2/</link>
-      <pubDate>Fri, 28 Aug 2020 21:48:13 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/tag2/</guid>
-      <description></description>
-    </item>
-    
   </channel>
 </rss>
