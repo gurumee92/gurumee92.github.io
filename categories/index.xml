@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 29 Aug 2020 16:28:51 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 04 Sep 2020 21:28:25 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cloud</title>
+      <link>https://gurumee92.github.io/categories/cloud/</link>
+      <pubDate>Fri, 04 Sep 2020 21:28:25 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gcp</title>
+      <link>https://gurumee92.github.io/categories/gcp/</link>
+      <pubDate>Fri, 04 Sep 2020 21:28:25 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/gcp/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>basic-programming-language</title>
