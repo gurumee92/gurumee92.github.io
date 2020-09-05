@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCE 인스턴스 생성 및 설정하기">
+<meta name="twitter:title" content="GCE 인스턴스 생성 및 설정하기">
+<meta property="og:url" content="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-09-05T16:51:41">
+  
+  
+    <meta property="article:modified_time" content="2020-09-05T16:51:41">
+  
+  
+  
+    
+      <meta property="article:section" content="cloud">
+    
+      <meta property="article:section" content="gcp">
+    
+  
+  
+    
+      <meta property="article:tag" content="gcp">
+    
+      <meta property="article:tag" content="cloud">
+    
+      <meta property="article:tag" content="google cloud platform">
+    
+      <meta property="article:tag" content="gce">
+    
+      <meta property="article:tag" content="google compute engine">
+    
+      <meta property="article:tag" content="google cloud sdk">
+    
+      <meta property="article:tag" content="gcloud">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/cloud/gcp/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/cloud/gcp/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>GCE 인스턴스 생성 및 설정하기</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">Hi I&rsquo;m Gurumee~! Nice to meet you</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/#about">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+      
+      <span class="sidebar-button-desc">About</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      GCE 인스턴스 생성 및 설정하기
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-09-05T16:51:41&#43;09:00">
+        
+  September 5, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/cloud">cloud</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/gcp">gcp</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/cloud/gcp/logo.png" alt="로고"></p>
+<blockquote>
+<p>실제 GCP를 이용하면서 정리한 내용입니다. 이 문서는 Google Compute Engine에 VM을 생성하고, gcloud와 연결하는 내용을 다루고 있습니다.</p>
+</blockquote>
+<h2 id="gce란">GCE란?</h2>
+<p><code>GCE</code>란 <code>Google Compute Engine</code>에 줄임말로, <code>GCP</code>에서 제공하는 가상 인스턴스(VM)이다. 쉽게 말해서, 구글이 서버 1대를 제공해준다고 생각하면 된다. 서버는 크게 분류하여 리눅스 서버와, 윈도우 서버를 제공해준다. 바로 리눅스 서버를 생성해보자.</p>
+<h2 id="gce-인스턴스-생성하기">GCE 인스턴스 생성하기</h2>
+<blockquote>
+<p>먼저 <code>GCP</code>에 가입 후 결제 계좌 정보를 설정해야 합니다. 설정하지 않았다면 <a href="https://gurumee92.github.io/2020/09/gcp-%EA%B0%80%EC%9E%85%ED%95%98%EA%B8%B0/">이 문서</a>를 먼저 살펴보고 와주세요.</p>
+</blockquote>
+<p>먼저 프로젝트를 생성해야 한다. <code>GCP</code> &ldquo;프로젝트 선태기&rdquo; 페이지로 이동한다. <a href="https://console.cloud.google.com/projectselector2/home">페이지로 이동</a></p>
+<p>그럼 다음 화면이 뜬다. 화면에서 &ldquo;프로젝트 만들기&quot;를 누른다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/01.png" alt="01"></p>
+<p>그럼 다음 화면이 뜬다. &ldquo;프로젝트 이름&quot;을 설정하고 &ldquo;만들기&rdquo; 버튼을 누른다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/02.png" alt="02"></p>
+<p>그럼 GCP 콘솔로 이동하게 된다. 다음 화면처럼 대략적인 프로젝트의 정보가 보인다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/03.png" alt="03"></p>
+<p>그 다음에 &ldquo;Compute Engine API&rdquo; 사용 설정을 해야 한다. <a href="https://console.cloud.google.com/apis/api/compute.googleapis.com/">이 곳</a>을 클릭하여 다음 페이지로 넘어간다. &ldquo;사용 설정&rdquo;(파란색 버튼)을 누른다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/04.png" alt="04"></p>
+<p>그 후 &ldquo;VM 인스턴스 생성&rdquo; 페이지로 이동한다. <a href="https://console.cloud.google.com/compute/">이 곳</a>을 클릭한다. 그럼 다음 화면이 보인다. &ldquo;만들기&rdquo; 버튼을 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/05.png" alt="05"></p>
+<p>그럼 다음 화면이 뜬다. 인스턴스 이름을 설정하고, 리전 및 영역을 설정한다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/06.png" alt="06"></p>
+<p>대략적인 예시는 다음과 같다. 나는 서울지역에 리전을 잡았다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/07.png" alt="07"></p>
+<p>그 다음에 &ldquo;기본 액세스 허용&quot;으로 해도 되지만 나는 모든 &ldquo;Cloud API에 대한 전체 액세스 허용&quot;을 선택하고, 방화벽에 대해서 HTTP, HTTPS 모두 허용하게 해주었다. 그 후 &ldquo;만들기&rdquo; 버튼을 누른다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/08.png" alt="08"></p>
+<p>그럼 인스턴스가 다음 화면처럼 생성된 것을 볼 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/09.png" alt="09"></p>
+<p>이제 &ldquo;SSH&quot;를 통해서 서버 인스턴스에 접속해보자. 밑에처럴 &ldquo;SSH&quot;를 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/10.png" alt="10"></p>
+<p>그럼 다음 화면으로 이동된다. 리눅스 VM이기 때문에 다음 명령어들이 먹힌다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/11.png" alt="11"></p>
+<p>끌 때는 &ldquo;exit&quot;를 누르고 나오면 된다. 요약하면 다음과 같다.</p>
+<ol>
+<li>GCP 가입</li>
+<li>프로젝트 선택기 페이지 &gt; 프로젝트 생성</li>
+<li>Compute Engine API 설정</li>
+<li>VM 인스턴스 생성
+<ol>
+<li>인스턴스 만들기</li>
+<li>부팅 디스크 이미지 설정</li>
+<li>API 설정</li>
+<li>방화벽 설정</li>
+<li>만들기</li>
+</ol>
+</li>
+</ol>
+<h2 id="google-cloud-sdk란">Google Cloud SDK란?</h2>
+<p><code>Google Cloud SDK</code>란 Google Cloud 제품 및 서비스와 상호작용하기 위한 도구 및 라이브러리이다. 여기에는 <code>gcloud</code>, <code>bq</code> 등의 커맨드라인 도구가 들어있다. 자세한 내용은 <a href="https://cloud.google.com/sdk/docs?hl=ko">이곳</a>에서 확인할 수 있다.</p>
+<p>이제 설치를 해보자. 설치는 <a href="https://cloud.google.com/sdk/docs/quickstart-macos?hl=ko">이곳</a>을 들어가면 각 OS에 맞는 SDK 설치 파일들이 있다. 내 컴퓨터는 맥북이기 때문에, 맥북 설명이 따른다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/02-create-instance/12.png" alt="12"></p>
+<p>이걸 다운 받고 적당한 위치에 푼다. 나 같은 경우 웹에서 다운 받으면 &ldquo;Downloads&rdquo; 디렉토리에 저장된다. 해당 디렉토리에서 터미널을 열어 다음 명령어를 친다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 현재 위치</span> 
+$ pwd
+/Users/gurumee/Downloads
+
+$ tar -zxvf google-cloud-sdk-305.0.0-darwin-x86_64.tar.gz
+</code></pre></div><p>그 다음 압축 해제된 디렉토리를 적절한 위치에 옮겨둔다. 나는 &ldquo;Settings&quot;라는 디렉토리에 저장했다. 그 후 그 디렉토리를 이동해서, <code>install.sh</code>를 실행한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 현재 위치</span> 
+$ pwd
+/Users/gurumee/Settings/google-cloud-sdk
+
+$ ./install.sh
+</code></pre></div><p>여기서 설정을 위해서, 입력하라는 문구가 나오는데, 그냥 추천하는대로 한다. 나는 n -&gt; Y -&gt; 엔터를 차례대로 입력했다.</p>
+<p>그 후 터미널을 다시 열어 다음 명령어를 쳤을 때, 다음이 출력된다면 잘 설치 된 것이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud --version
+Google Cloud SDK 305.0.0
+bq 2.0.58
+core 2020.08.07
+gsutil 4.52
+</code></pre></div><h2 id="glcoud로-인스턴스-접속">glcoud로 인스턴스 접속</h2>
+<p>이제 <code>gcloud</code>로 인스턴스 접속을 해보자. 공식 문서에 따르면 다음 명령어로 인스턴스 접속을 할 수 있다고 한다.</p>
+<pre><code>gcloud compute ssh &lt;instance name&gt;
+</code></pre><p>터미널에 자신이 만든 GCE 인스턴스 이름을 쳐보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># gcloud compute ssh &lt;자신 인스턴스&gt;</span>
+$ gcloud compute ssh geerio-instance-01
+WARNING: Could not open the configuration file: <span style="color:#f92672">[</span>/Users/gurumee/.config/gcloud/configurations/config_default<span style="color:#f92672">]</span>.
+ERROR: <span style="color:#f92672">(</span>gcloud.compute.ssh<span style="color:#f92672">)</span> You <span style="color:#66d9ef">do</span> not currently have an active account selected.
+Please run:
+
+  $ gcloud auth login
+
+to obtain new credentials.
+
+If you have already logged in with a different account:
+
+    $ gcloud config set account ACCOUNT
+
+to <span style="color:#66d9ef">select</span> an already authenticated account to use.
+</code></pre></div><p>아직 계정 연결이 안되어있어서 에러가 나타난다. 계정 설정을 하자. 터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud auth login
+</code></pre></div><p>그럼 웹 브라우저가 켜지면서 구글 로그인 페이지가 나타난다. <code>GCP</code>에 연결된 계정으로 로그인한다. 잘 되었는지 터미널에 다음을 입력해보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud projects list
+PROJECT_ID                     NAME                    PROJECT_NUMBER
+geerio                         geerio                  <span style="color:#ae81ff">299649664788</span>
+lucid-mariner-284810           devilog                 <span style="color:#ae81ff">88045153621</span>
+spring-boot-webservice-284810  spring-boot-webservice  <span style="color:#ae81ff">943681427891</span>
+zinc-forge-287503              My First Project        <span style="color:#ae81ff">91200101907</span>
+</code></pre></div><p>그 다음 자신이 접속할 인스턴스의 프로젝트를 세팅한다. 터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># gcloud config set project &lt;프로젝트 이름&gt;</span>
+$ gcloud config set project geerio
+</code></pre></div><p>이제 프로젝트 밑에 실행되는 인스턴스를 확인한다. 터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud compute instances list
+NAME                ZONE               MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP   STATUS
+geerio-instance-01  asia-northeast3-a  e2-medium                  10.178.0.2   34.64.244.48  RUNNING
+</code></pre></div><p>자 이제 다시 연결해보자. 터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># gcloud compute ssh &lt;instance name&gt;</span>
+$ gcloud compute ssh geerio-instance-01
+<span style="color:#75715e"># 출력 문구</span>
+No zone specified. Using zone <span style="color:#f92672">[</span>asia-northeast3-a<span style="color:#f92672">]</span> <span style="color:#66d9ef">for</span> instance: <span style="color:#f92672">[</span>geerio-instance-01<span style="color:#f92672">]</span>.
+Linux geerio-instance-01 4.9.0-13-amd64 <span style="color:#75715e">#1 SMP Debian 4.9.228-1 (2020-07-05) x86_64</span>
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms <span style="color:#66d9ef">for</span> each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Sep  <span style="color:#ae81ff">5</span> 07:14:55 <span style="color:#ae81ff">2020</span> from 59.7.201.51
+gurumee@geerio-instance-01:~$ 
+</code></pre></div><p>나는 한 번 접속했었기 때문에, ssh 키는 생성하지 않는다. 하지만 처음 접속 시엔, ssh 키를 생성하기 때문에 조금 더 걸릴 수 있다. 역시 접속을 끊으려면 &ldquo;exit&rdquo; 명령어를 입력하면 된다.</p>
+<p>요약하자면 다음과 같다.</p>
+<ol>
+<li>Google Cloud SDK 설치</li>
+<li><code>gcloud auth login</code> 명령어로 계정 연결</li>
+<li><code>gcloud config set project &lt;project name&gt;</code>으로 프로젝트 설정</li>
+<li><code>gcloud compute ssh &lt;instance name&gt;</code> 인스턴스 연결</li>
+</ol>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gcp/">gcp</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/cloud/">cloud</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/google-cloud-platform/">google cloud platform</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gce/">gce</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/google-compute-engine/">google compute engine</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/google-cloud-sdk/">google cloud sdk</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gcloud/">gcloud</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/09/gcp-%EA%B0%80%EC%9E%85%ED%95%98%EA%B8%B0/" data-tooltip="GCP 가입하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/09/gcp-%EA%B0%80%EC%9E%85%ED%95%98%EA%B8%B0/" data-tooltip="GCP 가입하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F09%2Fgce-%25EC%259D%25B8%25EC%258A%25A4%25ED%2584%25B4%25EC%258A%25A4-%25EC%2583%259D%25EC%2584%25B1-%25EB%25B0%258F-%25EC%2584%25A4%25EC%25A0%2595%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F09%2Fgce-%25EC%259D%25B8%25EC%258A%25A4%25ED%2584%25B4%25EC%258A%25A4-%25EC%2583%259D%25EC%2584%25B1-%25EB%25B0%258F-%25EC%2584%25A4%25EC%25A0%2595%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F09%2Fgce-%25EC%259D%25B8%25EC%258A%25A4%25ED%2584%25B4%25EC%258A%25A4-%25EC%2583%259D%25EC%2584%25B1-%25EB%25B0%258F-%25EC%2584%25A4%25EC%25A0%2595%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">Hi I&rsquo;m Gurumee~! Nice to meet you</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/09\/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0\/';
+          
+            this.page.identifier = '\/2020\/09\/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
