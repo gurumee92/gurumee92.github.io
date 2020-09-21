@@ -442,8 +442,9 @@ executorService<span style="color:#f92672">.</span><span style="color:#a6e22e">s
 <p>이는 <code>parallel</code>을 사용하여 병렬 스트림으로 스트림을 바꾸면 된다. 그럼 <code>Java</code>가 최적화하여 작업들을 고루게 <code>CPU</code>에 분배시켜준다.</p>
 <p>병렬성 코드의 실행 시간은 다음과 같다.</p>
 <pre><code>...
-전체 테스트 실행시간 : XXX초 
-</code></pre><p>병렬성과, 동시성은 비슷하면서도 다르다. 이를 주의하면서 사용하자.</p>
+전체 테스트 실행시간 : 22.451초
+</code></pre><p>병렬성이 보다 성능이 좋게 나왔다. 왜냐하면 JVM이 <code>Stream API</code> 병렬 연산 시, 적절한 코어 및 스레드 사용을 알아서 조절하기 때문일 것이다. 아마도 <code>Runnable</code>과 <code>CompletableFutre</code>를 조합하는 방법과 쓰레드 수를 조절하면 아마 병렬성보다 빠르게 나올 것으로 기대된다.</p>
+<p>병렬성과, 동시성은 비슷하면서도 다르다. 이를 주의하면서 사용하자.</p>
               
             </div>
           </div>
