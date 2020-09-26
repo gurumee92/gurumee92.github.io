@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCE 인스턴스에 개인 도커 레지스트리 구축하기">
+<meta name="twitter:title" content="GCE 인스턴스에 개인 도커 레지스트리 구축하기">
+<meta property="og:url" content="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-09-26T17:54:59">
+  
+  
+    <meta property="article:modified_time" content="2020-09-26T17:54:59">
+  
+  
+  
+    
+      <meta property="article:section" content="cloud">
+    
+      <meta property="article:section" content="gcp">
+    
+  
+  
+    
+      <meta property="article:tag" content="gcp">
+    
+      <meta property="article:tag" content="cloud">
+    
+      <meta property="article:tag" content="google cloud platform">
+    
+      <meta property="article:tag" content="gce">
+    
+      <meta property="article:tag" content="gcloud">
+    
+      <meta property="article:tag" content="docker">
+    
+      <meta property="article:tag" content="docker-compose">
+    
+      <meta property="article:tag" content="docker registry">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/cloud/gcp/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/cloud/gcp/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>GCE 인스턴스에 개인 도커 레지스트리 구축하기</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      GCE 인스턴스에 개인 도커 레지스트리 구축하기
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-09-26T17:54:59&#43;09:00">
+        
+  September 26, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/cloud">cloud</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/gcp">gcp</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/cloud/gcp/logo.png" alt="로고"></p>
+<blockquote>
+<p>실제 GCP를 이용하면서 정리한 내용입니다. 이 문서는 Google Compute Engine에 도커, docker-compose를 설치하고, 개인 레지스트리 서버를 구축합니다. 또한, 유저 접근을 허용하기 위해 gcloud로 인스턴스의 포트를 개방합니다.</p>
+</blockquote>
+<p>이 문서와 같은 방식으로 <code>GCE</code>에 <code>개인 도커 레지스트리</code>를 구축하려면 다음이 필요하다.</p>
+<ul>
+<li>GCE 인스턴스 1개</li>
+<li>인스턴스에 접근 가능한 gcloud 도구</li>
+</ul>
+<p>둘 중 하나라도 없다면, 다음 문서를 참고하라.</p>
+<ul>
+<li><a href="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">구르미의 GCE 인스턴스 생성 및 설정하기</a></li>
+</ul>
+<h2 id="도커-레지스트리란">도커 레지스트리란?</h2>
+<p>먼저 <code>도커 레지스트리</code>가 무엇인지 알아 볼 필요가 있다. <code>도커 레지스트리</code>란 <strong>도커 이미지들을 저장하는 저장소</strong>라 보면 된다. 쉽게 생각하면 <code>Docker Hub</code>이 있다. <code>Docker Hub</code>는 도커 팀에서 공식적으로 관리하는 <code>도커 레지스트리</code>이다. 사용자들을 자신의 도커 이미지를 이 곳에 올릴 수 있다. 마치 코드를 올리는 <code>Github</code>과 비슷하다.</p>
+<p>그렇다면, <code>Github</code>에서 가장 큰 문제가 무엇인가? <strong>API Key, 데이터베이스 비밀번호 같은 보안 관련된 코드가 외부에 공개적으로 유출된다는 것</strong>이다. 물론 이제 거의 모든 <code>Github</code>, <code>Bitbucket</code> 같은 SVN 서비스들은 개인 레포지토리를 제공하여 보안 코드를 유출하지 않게 할 수 있다.</p>
+<p><code>Dokcer Hub</code>도 이와 같은 이슈가 있다. 도커 이미지를 배포하면, 이미지를 풀한 유저가 해당 이미지의 모든 코드를 볼 수 가 있다. 즉, 보안이 필요한 코드가 공유된다는 것이다. 개인적인 도커 이미지 보관을 위해서 도커 팀은 <code>개인 도커 레지스트리</code>를 구축할 수 있게 이미지를 제공하고 있다.</p>
+<p>이제 <code>GCE 인스턴스</code>에 <code>개인 도커 레지스트리</code>를 구축해보자.</p>
+<h2 id="도커-도커-컴포즈-설치">도커, 도커 컴포즈 설치</h2>
+<blockquote>
+<p>이 절 부터는 gcloud 혹은 ssh 접근으로 인스턴스에 접속했다고 가정합니다. 여기서 제가 활용한 GCE 인스턴스는 데비안 OS 기반임을 밝힙니다.</p>
+</blockquote>
+<p><code>GCE 인스턴스</code>에 도커를 설치한다. 도커 공식 문서 중 &ldquo;<a href="https://docs.docker.com/engine/install/debian/">Install Docker Engine on Debian</a>&ldquo;를 참조한다.</p>
+<p>먼저, 도커를 설치하기 위한 컴포넌트들을 설치하기 위해 터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt-get update
+
+<span style="color:#75715e"># 필요 컴포넌트 설치</span>
+$ sudo apt-get install <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    apt-transport-https <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    ca-certificates <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    curl <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    gnupg-agent <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    software-properties-common
+</code></pre></div><p>이제 터미널에 다음 명령어들을 입력하여, 도커 패키지를 설치할 수 있는 <code>apt-get</code> 레포지토리를 추가한 후 업데이트한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># apt-key 획득</span>
+$ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+
+<span style="color:#75715e"># apt-get에 레포지토리 추가</span>
+$ sudo add-apt-repository <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>   <span style="color:#e6db74">&#34;deb [arch=amd64] https://download.docker.com/linux/debian \
+</span><span style="color:#e6db74">   </span><span style="color:#66d9ef">$(</span>lsb_release -cs<span style="color:#66d9ef">)</span><span style="color:#e6db74"> \
+</span><span style="color:#e6db74">   stable&#34;</span>
+
+<span style="color:#75715e"># apt-get 업데이트</span>
+$ sudo apt-get update
+</code></pre></div><p>이제 도커를 설치한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt-get install docker-ce docker-ce-cli containerd.io
+</code></pre></div><p>설치가 완료된 후, 제대로 설치가 되었는지 확인하기 위해 터미널에 다음 명령어를 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo docker version
+Client: Docker Engine - Community
+ Version:           19.03.13
+ API version:       1.40
+ Go version:        go1.13.15
+ Git commit:        4484c46d9d
+ Built:             Wed Sep <span style="color:#ae81ff">16</span> 17:03:03 <span style="color:#ae81ff">2020</span>
+ OS/Arch:           linux/amd64
+ Experimental:      false
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          19.03.13
+  API version:      1.40 <span style="color:#f92672">(</span>minimum version 1.12<span style="color:#f92672">)</span>
+  Go version:       go1.13.15
+  Git commit:       4484c46d9d
+  Built:            Wed Sep <span style="color:#ae81ff">16</span> 17:01:33 <span style="color:#ae81ff">2020</span>
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.3.7
+  GitCommit:        8fba4e9a7d01810a393d5d25a3621dc101981175
+ runc:
+  Version:          1.0.0-rc10
+  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
+ docker-init:
+  Version:          0.18.0
+  GitCommit:        fec3683
+</code></pre></div><p>도커 실행 시, 매번 <code>sudo</code>를 치는 것이 귀찮다면, 다음 명령어를 입력해주면 된다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 도커 그룹 생성</span>
+$ sudo groupadd docker
+<span style="color:#75715e"># 도커 그룹에 현재 유저 권한 획득</span>
+$ sudo usermod -aG docker $USER
+</code></pre></div><p>그 후 터미널을 접속을 해제한 후, 다시 접속해서 <code>docker version</code>이란 명령어를 입력하면, 위와 같은 결과를 얻을 수 있다. 여기서 바로, 레지스트리를 구축해도 좋지만, 더 쉬운 작업을 위해 <code>docker-compose</code>를 설치한다. 도커 공식 문서 중 &ldquo;<a href="https://docs.docker.com/compose/install/">Install Docker Compose</a>&ldquo;를 참조한다.</p>
+<p>터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># docker-compose 바이너리 파일 설치</span>
+$ sudo curl -L <span style="color:#e6db74">&#34;https://github.com/docker/compose/releases/download/1.27.4/docker-compose-</span><span style="color:#66d9ef">$(</span>uname -s<span style="color:#66d9ef">)</span><span style="color:#e6db74">-</span><span style="color:#66d9ef">$(</span>uname -m<span style="color:#66d9ef">)</span><span style="color:#e6db74">&#34;</span> -o /usr/local/bin/docker-compose
+
+<span style="color:#75715e"># 바이너리 파일 실행 가능하게 파일 권한 추가</span>
+$ sudo chmod +x /usr/local/bin/docker-compose
+</code></pre></div><p>끝이다. <code>docker-compose</code> 잘 설치가 되었는지 확인하려면 터미널에 다음 명령어를 입력하면 된다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose --version
+docker-compose version 1.27.4, build <span style="color:#ae81ff">40524192</span>
+</code></pre></div><h2 id="도커-레지스트리-구축">도커 레지스트리 구축</h2>
+<p>이제 <code>개인 도커 레지스트리</code>를 구축해보자. 두 개의 도커 컨테이너를 설치한다.</p>
+<ol>
+<li>registry:2</li>
+<li>hyper/docker-registry-web</li>
+</ol>
+<p>첫 번째 <code>registry:2</code>는 도커에서 제공하는 레지스트리 공식 이미지이다. 두 번째는 <code>hyper</code> 유저가 레지스트리를 웹 UI로 확인할 수 있게 만들어둔 컨테이너 이미지이다. 공식 이미지는 아니다. 원래 <code>harbor</code> 같은 것을 써보고 싶었는데 이는 나중에 업그레이드 하기로 하자. 이들을 연결하기 위한 나의 <code>docker-compose.yml</code> 파일은 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">registry</span>:
+    <span style="color:#66d9ef">container_name</span>: registry
+    <span style="color:#66d9ef">image</span>: registry:<span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">restart</span>: <span style="color:#e6db74">&#34;always&#34;</span>
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#34;5000:5000&#34;</span>
+  <span style="color:#66d9ef">registry-ui</span>:
+    <span style="color:#66d9ef">container_name</span>: registry-ui
+    <span style="color:#66d9ef">image</span>: hyper/docker-registry-web
+    <span style="color:#66d9ef">restart</span>: <span style="color:#e6db74">&#34;always&#34;</span>
+    <span style="color:#66d9ef">ports</span>:
+      - <span style="color:#e6db74">&#34;18080:8080&#34;</span>
+    <span style="color:#66d9ef">depends_on</span>: [registry]
+    <span style="color:#66d9ef">environment</span>:
+      - REGISTRY_URL=http://registry:<span style="color:#ae81ff">5000</span>/v2 
+      - REGISTRY_NAME=gurumee&#39;s registry server
+</code></pre></div><p>해당 파일이 존재하는 곳으로 이동 한 후, 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># &lt;레지스트리 docker-compomse.yml&gt; 위치로 이동</span>
+$ cd registry
+
+<span style="color:#75715e"># 도커 설치 및 실행</span>
+$ docker-compose up --build -d
+</code></pre></div><p>이제 설치 및 실행이 잘되었는지 확인한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker ps
+CONTAINER ID        IMAGE                       COMMAND                  CREATED             STATUS              PORTS                     NAMES
+c0731ef12c95        hyper/docker-registry-web   <span style="color:#e6db74">&#34;start.sh&#34;</span>               <span style="color:#ae81ff">39</span> seconds ago      Up <span style="color:#ae81ff">38</span> seconds       0.0.0.0:18080-&gt;8080/tcp   registry-ui
+cae28ce60b80        registry:2                  <span style="color:#e6db74">&#34;/entrypoint.sh /etc…&#34;</span>   <span style="color:#ae81ff">41</span> seconds ago      Up <span style="color:#ae81ff">39</span> seconds       0.0.0.0:5000-&gt;5000/tcp    registry
+</code></pre></div><p>실행은 되고 있다. 이제 <code>GCE</code> 인스턴스 주소와 포트로 접근해보자. 브라우저에서 <code>http://&lt;gce주소&gt;:18080</code> 입력한다. 아마 포트 개방 설정이 되어 있지 않다면, 접근이 불가할 것이다.</p>
+<h2 id="gce-방화벽-설정">GCE 방화벽 설정</h2>
+<blockquote>
+<p>이 절부터는 로컬 머신에서 작업을 진행합니다.</p>
+</blockquote>
+<p>포트를 개방하기 위해 방화벽을 설정해야 한다. <code>GCP</code>에서는 크게 3가지 방법이 있다.</p>
+<ol>
+<li>GCP 콘솔 이용 (웹 UI)</li>
+<li>gcloud 이용 (터미널)</li>
+<li>API 이용</li>
+</ol>
+<p>세가지 방식의 설명은 GCP 공식 문서 중 &ldquo;<a href="https://cloud.google.com/vpc/docs/using-firewalls?hl=ko">VPC 방화벽 규칙 사용</a>&ldquo;를 참고하자. 여기서는 2번, <code>gcloud</code>로 포트를 개방한다. 먼저 터미널에서, 자신의 방화벽 규칙을 확인해보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud compute firewall-rules list
+NAME                    NETWORK  DIRECTION  PRIORITY  ALLOW                         DENY  DISABLED
+default-allow-http      default  INGRESS    <span style="color:#ae81ff">1000</span>      tcp:80                              False
+default-allow-https     default  INGRESS    <span style="color:#ae81ff">1000</span>      tcp:443                             False
+default-allow-icmp      default  INGRESS    <span style="color:#ae81ff">65534</span>     icmp                                False
+default-allow-internal  default  INGRESS    <span style="color:#ae81ff">65534</span>     tcp:0-65535,udp:0-65535,icmp        False
+default-allow-rdp       default  INGRESS    <span style="color:#ae81ff">65534</span>     tcp:3389                            False
+default-allow-ssh       default  INGRESS    <span style="color:#ae81ff">65534</span>     tcp:22                              False
+</code></pre></div><p>이제 방화벽 규칙을 생성한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 방화벽 규칙 생성</span>
+<span style="color:#75715e"># gcloud compute firewall-rules create &lt;NAME&gt; --allow tcp:&lt;포트&gt; --source-tags=&#34;&lt;태그 원하는 인스턴스 리스트&gt;&#34; --source-ranges=0.0.0.0/0 --description=&#34;&lt;원하는 설명&gt;&#34;</span>
+$ gcloud compute firewall-rules create test-rule --allow tcp:18080 --source-tags<span style="color:#f92672">=</span>geerio-instance-01 --source-ranges<span style="color:#f92672">=</span>0.0.0.0/0 --description<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;지리오 포트 개방&#34;</span>
+</code></pre></div><p>다시 확인해본다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud compute firewall-rules list
+NAME                    NETWORK  DIRECTION  PRIORITY  ALLOW                         DENY  DISABLED
+default-allow-http      default  INGRESS    <span style="color:#ae81ff">1000</span>      tcp:80                              False
+default-allow-https     default  INGRESS    <span style="color:#ae81ff">1000</span>      tcp:443                             False
+default-allow-icmp      default  INGRESS    <span style="color:#ae81ff">65534</span>     icmp                                False
+default-allow-internal  default  INGRESS    <span style="color:#ae81ff">65534</span>     tcp:0-65535,udp:0-65535,icmp        False
+default-allow-rdp       default  INGRESS    <span style="color:#ae81ff">65534</span>     tcp:3389                            False
+default-allow-ssh       default  INGRESS    <span style="color:#ae81ff">65534</span>     tcp:22                              False
+test-rule               default  INGRESS    <span style="color:#ae81ff">1000</span>      tcp:18080                           False
+</code></pre></div><p>이제 웹 UI를 접근하기 위해 다시 브라우저에 <code>http://&lt;gce주소&gt;:18080</code> 접속해보자. 그럼 다음 화면이 뜰 것이다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/03-docker-registry-with-gce/01.png" alt="접속 성공"></p>
+<h2 id="도커-레지스트리-활용">도커 레지스트리 활용</h2>
+<p>이제 구축한 레지스트리에 실제 이미지를 올려보자. 로컬에서 간단한 이미지를 만들고 이를 레지스트리에 구축할 것이다. 로컬 머신의 도커 이미지 목록을 확인한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+</code></pre></div><p>필자는 이번 구축 테스트를 위해서, 가지고 있는 도커 이미지를 모두 삭제해 두었다. 원래는 자신의 이미지를 만들고 커밋, 태그, 푸쉬 과정을 거여챠 한다. 그러나 나는 귀찮으니까 남이 만든 이미지를 가져와서 태그 후 푸쉬를 할 것이다. 도커 허브에서 간단한 도커 이미지를 다운로드한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker pull hello-world
+</code></pre></div><p>이제 태그를 한다. 이때 규칙은 &ldquo;<code>registry 주소</code>/이름&quot;으로 해야 한다는 것이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># docker tag &lt;레지스트리 주소:포트&gt;/컨테이너 이름</span>
+$ docker tag geerio:5000/test
+</code></pre></div><p>그리고 이제 이미지를 푸쉬한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># docker push &lt;태그한 이미지&gt;</span>
+$ docker push geerio:5000/test
+The push refers to repository <span style="color:#f92672">[</span>geerio:5000/test<span style="color:#f92672">]</span>
+Get https://geerio:5000/v2/: net/http: request canceled <span style="color:#66d9ef">while</span> waiting <span style="color:#66d9ef">for</span> connection <span style="color:#f92672">(</span>Client.Timeout exceeded <span style="color:#66d9ef">while</span> awaiting headers<span style="color:#f92672">)</span>
+</code></pre></div><p>그러나 실패한다. 왜냐하면, 우리는 웹 UI의 포트 18080는 뚫었으나 실제 이미지가 저장되는 레지스트리의 포트 5000를 안뚫었기 때문이다. <code>gcloud</code>의 다음 명령어를 활용해서, 5000번도 같이 뚫어주자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ gcloud compute firewall-rules update test-rule --allow tcp:18080,tcp:5000
+</code></pre></div><p>그 후 다시 한 번 푸쉬 명령어를 날려보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker push geerio:5000/test
+The push refers to repository <span style="color:#f92672">[</span>geerio:5000/test<span style="color:#f92672">]</span>
+Get https://geerio:5000/v2/: net/http: request canceled <span style="color:#66d9ef">while</span> waiting <span style="color:#66d9ef">for</span> connection <span style="color:#f92672">(</span>Client.Timeout exceeded <span style="color:#66d9ef">while</span> awaiting headers<span style="color:#f92672">)</span>
+</code></pre></div><p>아쉽게도 아직 에러라는 결과가 나온다. 왜냐하면, <code>도커 레지스트리</code>는 기본적으로 <code>HTTP</code>만 제공한다. 그러나, <code>도커 클라이언트</code>는 기본적으로 <code>HTTPS</code>로 요청을 보내기 때문이다. 이를 해결하기 위한 2가지 방법이 있다.</p>
+<ol>
+<li>서버에 설치된 도커 레지스트리에 HTTPS를 적용한다.</li>
+<li>도커 클라이언트에서 해당 레지스트리 서버에 접근할 때 HTTP 요청을 하게 한다.</li>
+</ol>
+<p>필자는 더 쉬운 두 번째 방법을 사용할 것이다. 먼저 도커 환경 설정을 연다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/03-docker-registry-with-gce/02.png" alt="02"></p>
+<p>이제 &ldquo;Docker Engine&rdquo; 탭을 클릭한 후, 해당 JSON 파일에서 &ldquo;insecure-registries&rdquo; 프로퍼티에 자신의 &ldquo;레지스트리 서버:포트&quot;를 추가한다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/03-docker-registry-with-gce/03.png" alt="03"></p>
+<p>위 사진을 자세히 보면 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+  <span style="color:#f92672">&#34;debug&#34;</span>: <span style="color:#66d9ef">true</span>,
+  <span style="color:#f92672">&#34;experimental&#34;</span>: <span style="color:#66d9ef">false</span>,
+  <span style="color:#f92672">&#34;insecure-registries&#34;</span>: [
+    <span style="color:#e6db74">&#34;geerio:5000&#34;</span>
+  ]
+}
+</code></pre></div><p>이제 &ldquo;Apply &amp; Restart&rdquo; 버튼을 누른다. 그러면 도커가 재시작되는데, 해당 레지스트리에 이미지를 푸쉬/풀 할 때, HTTP로 접근하게 된다. 이제 다음 명령어를 이용해 푸쉬한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker push geerio:5000/test
+The push refers to repository <span style="color:#f92672">[</span>geerio:5000/test<span style="color:#f92672">]</span>
+9c27e219663c: Pushed
+latest: digest: sha256:90659bf80b44ce6be8234e6ff90a1ac34acbeb826903b02cfa0da11c82cbc042 size: <span style="color:#ae81ff">525</span>
+</code></pre></div><p>이제 레지스트리 웹 UI로 이동하면, 내가 푸쉬한 이미지가 존재하는 것을 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/cloud/gcp/03-docker-registry-with-gce/04.png" alt="04"></p>
+<p>이제 이 이미지를 다운로드 해보자. 먼저 테스트를 위해 로컬에 있는 이미지들을 제거한다. 캐시된 이미지까지 모두 제거해버린다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker rmi -f <span style="color:#66d9ef">$(</span>docker images -q<span style="color:#66d9ef">)</span>
+$ docker stop <span style="color:#66d9ef">$(</span>docker ps -a -q<span style="color:#66d9ef">)</span>
+$ docker rm <span style="color:#66d9ef">$(</span>docker ps -a -q<span style="color:#66d9ef">)</span>
+</code></pre></div><p>이제 레지스트리 서버에 있는 이미지를 풀한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker pull geerio:5000/test
+Using default tag: latest
+latest: Pulling from test
+0e03bdcc26d7: Pull complete
+Digest: sha256:90659bf80b44ce6be8234e6ff90a1ac34acbeb826903b02cfa0da11c82cbc042
+Status: Downloaded newer image <span style="color:#66d9ef">for</span> geerio:5000/test:latest
+</code></pre></div><p>풀한 이미지를 확인해보고 실행해본다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 도커 이미지 목록 확인</span>
+$ docker images
+REPOSITORY               TAG                 IMAGE ID            CREATED             SIZE
+geerio:5000/test         latest              bf756fb1ae65        <span style="color:#ae81ff">8</span> months ago        13.3kB
+
+<span style="color:#75715e"># 도커 이미지 실행</span>
+$ docker run geerio:5000/test
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the <span style="color:#e6db74">&#34;hello-world&#34;</span> image from the Docker Hub.
+    <span style="color:#f92672">(</span>amd64<span style="color:#f92672">)</span>
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+</code></pre></div><p>끝났다. 도커 레지스트리 서버를 구축함으로써 나의 CI/CD 환경 구축의 첫 번째 작업을 끝마쳤다 하하.</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gcp/">gcp</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/cloud/">cloud</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/google-cloud-platform/">google cloud platform</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gce/">gce</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gcloud/">gcloud</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/docker/">docker</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/docker-compose/">docker-compose</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/docker-registry/">docker registry</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/09/%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C%EC%9D%98-%EB%8F%99%EC%8B%9C%EC%84%B1%EA%B3%BC-%EB%B3%91%EB%A0%AC%EC%84%B1/" data-tooltip="자바에서의 동시성과 병렬성">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/09/%EC%9E%90%EB%B0%94%EC%97%90%EC%84%9C%EC%9D%98-%EB%8F%99%EC%8B%9C%EC%84%B1%EA%B3%BC-%EB%B3%91%EB%A0%AC%EC%84%B1/" data-tooltip="자바에서의 동시성과 병렬성">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F09%2Fgce-%25EC%259D%25B8%25EC%258A%25A4%25ED%2584%25B4%25EC%258A%25A4%25EC%2597%2590-%25EA%25B0%259C%25EC%259D%25B8-%25EB%258F%2584%25EC%25BB%25A4-%25EB%25A0%2588%25EC%25A7%2580%25EC%258A%25A4%25ED%258A%25B8%25EB%25A6%25AC-%25EA%25B5%25AC%25EC%25B6%2595%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F09%2Fgce-%25EC%259D%25B8%25EC%258A%25A4%25ED%2584%25B4%25EC%258A%25A4%25EC%2597%2590-%25EA%25B0%259C%25EC%259D%25B8-%25EB%258F%2584%25EC%25BB%25A4-%25EB%25A0%2588%25EC%25A7%2580%25EC%258A%25A4%25ED%258A%25B8%25EB%25A6%25AC-%25EA%25B5%25AC%25EC%25B6%2595%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F09%2Fgce-%25EC%259D%25B8%25EC%258A%25A4%25ED%2584%25B4%25EC%258A%25A4%25EC%2597%2590-%25EA%25B0%259C%25EC%259D%25B8-%25EB%258F%2584%25EC%25BB%25A4-%25EB%25A0%2588%25EC%25A7%2580%25EC%258A%25A4%25ED%258A%25B8%25EB%25A6%25AC-%25EA%25B5%25AC%25EC%25B6%2595%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/09\/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0\/';
+          
+            this.page.identifier = '\/2020\/09\/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
