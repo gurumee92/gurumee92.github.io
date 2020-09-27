@@ -6,10 +6,19 @@
     <description>Recent content on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Sep 2020 17:54:59 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 27 Sep 2020 22:04:40 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>블로그 구축기 (2) 검색 엔진에 노출하기</title>
+      <link>https://gurumee92.github.io/2020/09/%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%EA%B8%B0-2-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%85%B8%EC%B6%9C%ED%95%98%EA%B8%B0/</link>
+      <pubDate>Sun, 27 Sep 2020 22:04:40 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/2020/09/%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%EA%B8%B0-2-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%85%B8%EC%B6%9C%ED%95%98%EA%B8%B0/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>GCE 인스턴스에 개인 도커 레지스트리 구축하기</title>
@@ -57,11 +66,11 @@
     </item>
     
     <item>
-      <title>Hugo &#43; Github Pages로 개발 블로그 만들기</title>
-      <link>https://gurumee92.github.io/2020/08/hugo-github-pages%EB%A1%9C-%EA%B0%9C%EB%B0%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/</link>
+      <title>블로그 구축기 (1) Hugo &#43; Github으로 개인 블로그 만들기</title>
+      <link>https://gurumee92.github.io/2020/08/%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-hugo-github%EC%9C%BC%EB%A1%9C-%EA%B0%9C%EC%9D%B8-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/</link>
       <pubDate>Fri, 28 Aug 2020 22:02:19 +0900</pubDate>
       
-      <guid>https://gurumee92.github.io/2020/08/hugo-github-pages%EB%A1%9C-%EA%B0%9C%EB%B0%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/</guid>
+      <guid>https://gurumee92.github.io/2020/08/%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-hugo-github%EC%9C%BC%EB%A1%9C-%EA%B0%9C%EC%9D%B8-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/</guid>
       <description></description>
     </item>
     

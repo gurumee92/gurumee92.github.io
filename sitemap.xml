@@ -4,7 +4,62 @@
   
   <url>
     <loc>https://gurumee92.github.io/categories/</loc>
-    <lastmod>2020-09-26T17:54:59+09:00</lastmod>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/categories/etc/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/github-pages/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/hugo/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/post/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/%EA%B0%9C%EC%9D%B8-%EB%B8%94%EB%A1%9C%EA%B7%B8/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/%EA%B5%AC%EA%B8%80-%EA%B2%80%EC%83%89-%EB%85%B8%EC%B6%9C/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/%EB%84%A4%EC%9D%B4%EB%B2%84-%EA%B2%80%EC%83%89-%EB%85%B8%EC%B6%9C/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/%EB%8B%A4%EC%9D%8C-%EA%B2%80%EC%83%89-%EB%85%B8%EC%B6%9C/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/2020/09/%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%EA%B8%B0-2-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%85%B8%EC%B6%9C%ED%95%98%EA%B8%B0/</loc>
+    <lastmod>2020-09-27T22:04:40+09:00</lastmod>
   </url>
   
   <url>
@@ -59,21 +114,6 @@
   
   <url>
     <loc>https://gurumee92.github.io/tags/google-cloud-platform/</loc>
-    <lastmod>2020-09-26T17:54:59+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/</loc>
-    <lastmod>2020-09-26T17:54:59+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/post/</loc>
-    <lastmod>2020-09-26T17:54:59+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/</loc>
     <lastmod>2020-09-26T17:54:59+09:00</lastmod>
   </url>
   
@@ -188,27 +228,7 @@
   </url>
   
   <url>
-    <loc>https://gurumee92.github.io/categories/etc/</loc>
-    <lastmod>2020-08-28T22:02:19+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/github-pages/</loc>
-    <lastmod>2020-08-28T22:02:19+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/hugo/</loc>
-    <lastmod>2020-08-28T22:02:19+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/2020/08/hugo-github-pages%EB%A1%9C-%EA%B0%9C%EB%B0%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/</loc>
-    <lastmod>2020-08-28T22:02:19+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/%EA%B0%9C%EC%9D%B8-%EB%B8%94%EB%A1%9C%EA%B7%B8/</loc>
+    <loc>https://gurumee92.github.io/2020/08/%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-hugo-github%EC%9C%BC%EB%A1%9C-%EA%B0%9C%EC%9D%B8-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EB%A7%8C%EB%93%A4%EA%B8%B0/</loc>
     <lastmod>2020-08-28T22:02:19+09:00</lastmod>
   </url>
   
