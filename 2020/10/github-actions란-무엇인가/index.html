@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Actions란 무엇인가?">
+<meta name="twitter:title" content="Github Actions란 무엇인가?">
+<meta property="og:url" content="https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-10-01T17:32:13">
+  
+  
+    <meta property="article:modified_time" content="2020-10-01T17:32:13">
+  
+  
+  
+    
+      <meta property="article:section" content="ci-cd">
+    
+      <meta property="article:section" content="github-actions">
+    
+  
+  
+    
+      <meta property="article:tag" content="ci">
+    
+      <meta property="article:tag" content="cd">
+    
+      <meta property="article:tag" content="github actions">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/ci-cd/github-actions/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/ci-cd/github-actions/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>Github Actions란 무엇인가?</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Github Actions란 무엇인가?
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-10-01T17:32:13&#43;09:00">
+        
+  October 1, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/ci-cd">ci-cd</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/github-actions">github-actions</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/logo.png" alt="logo"></p>
+<blockquote>
+<p>Github Actions 공식 문서를 공부하고 정리한 문서입니다.</p>
+</blockquote>
+<h2 id="cicd란">CI/CD란?</h2>
+<p><code>Github Actions</code>를 알아보기 전에 먼저 <code>CI/CD</code>를 알아보자. 아래 내용은 <code>RedHat</code>의 공식 문서를 읽고 요약한 것이다. <code>RedHat</code>의 공식 문서는 <a href="https://www.redhat.com/ko/topics/devops/what-is-ci-cd">이 곳</a>에서 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/01-what-is-github-actions/01.png" alt="01"></p>
+<p><strong>CI = Continuous Integration</strong></p>
+<p><code>CI</code>는 &ldquo;지속적인 통합&quot;이라는 말로 직역된다. 정확하게는 <strong>개발자를 위한 자동화 프로세스</strong>를 의미한다. 그렇다면, 개발자를 위한 자동화 프로세스에는 어떤 것이 있을까?</p>
+<ol>
+<li>빌드</li>
+<li>테스트</li>
+<li>병합</li>
+</ol>
+<p>개발자는, 개발을 위해서 코드를 변경하거나 추가하는 작업을 한다. 이 때 추가/변경된 코드를 빌드하고 테스트한 후 그 코드들을 병합하는 과정을 거친다. 이 과정을 자동화하는 것이다.</p>
+<p>요약하자면, <code>CI/CD</code>의 첫 번째 단계로써, <code>코드 변경</code>, <code>코드 빌드</code>, <code>유닛 테스트</code>, <code>통합 테스트</code>, <code>코드 병합</code>이 이루어진다.</p>
+<p><strong>CD = Continuous Delivery</strong></p>
+<p><code>CD</code>는 크게 2가지 의미로 많이 사용된다. 먼저 &ldquo;지속적인 전달&quot;로 직역되는 <code>Continuous Delivery</code>이다. 이 과정은, 개발자들이 애플리케이션에 적용한 변경 사항이, 버그 테스트를 거쳐 레포지토리 혹은 컨테이너 레지스트리에 자동으로 업로드 되는 것을 의미한다.</p>
+<p>요약하자면, <code>CI/CD</code>의 두 번째 단계로써 <code>지속적인 통합</code> 단계가 먼저 이루어져 있어야 하며, 변경, 빌드, 테스트, 병합을 거친 유효한 코드를 레포지토리/컨테이너 레지스트리에 자동으로 릴리즈한다.</p>
+<p><strong>CD = Continuous Deployment</strong></p>
+<p>두 번째 <code>CD</code>는 <code>Continuous Deployment</code>의 약자로 &ldquo;지속적인 배포&quot;로 직역된다. 이 과정은 <code>Continuous Delivery</code> 작업을 거쳐서 레포지토리 혹은 컨테이너 레지스트리의 릴리즈된 코드를, 클라이언트가 사용 가능한 프로덕션 환경. 이를테면 사내 클라우드나 <code>GCP</code> 같은 클라우드 환경으로 배포되는 과정을 의미한다.</p>
+<p>요약하자면, <code>CI/CD</code>의 마지막 단계로써 <code>지속적인 전달</code> 단계가 먼저 이루어져 있어야 하며, 레포지토리/컨테이너 레지스트리에 릴리즈된 코드를 프로덕션 환경에 배포한다.</p>
+<p><strong>대표 도구</strong></p>
+<p><code>CI/CD</code>를 지원하는 대표적인 도구는 다음과 같다.</p>
+<ul>
+<li>Circle CI</li>
+<li>Travis CI</li>
+<li>Jenkins CI</li>
+<li>Teamcity</li>
+<li>Github Actions</li>
+</ul>
+<h2 id="github-actions란">Github Actions란?</h2>
+<p><code>CI/CD</code> 도구 중, <code>Github Actions</code>를 알아보도록 하겠다. 필자가 이 녀석을 선택한 이유는 다음과 같다.</p>
+<ol>
+<li><code>Github</code>과 연동이 쉽다.</li>
+<li>무료로 제공하는 기능들이 꽤 많다.</li>
+<li>배우기 쉽다.</li>
+</ol>
+<p><code>Github Actions</code>라는 이름에서 알 수 있듯이, 먼저 개발자라면 대부분 사용하는 <code>Github</code>에서 제공하는 <code>CI/CD</code> 도구이다. 따라서 어떤 도구보다도 <code>Github</code>과 연동이 잘 된다.</p>
+<p>개인적인 의견이지만, 이미 <code>Circle CI</code>, <code>Travis CI</code> 등 여러 <code>CI/CD</code> 도구들을 지원하기 위한 기능들이 탑재되었었기 때문에, 어쩌면 당연한 수순이었을 것이다.</p>
+<p>두 번째로는 무료로 제공하는 기능들이 꽤 많다. 대표적으로 빌드/배포 파이프라인에 도커 컨테이너를 사용할 수 있다. 공식 문서에 따르면, 무료 사용자는 다음만큼의 기능을 공짜로 사용할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/01-what-is-github-actions/02.png" alt="02"></p>
+<p>짧은 영어로 해석하자면, public 레포지토리의 경우, 무제한으로 사용할 수 있다. private 레포지토리의 경우는, 분당 2000개의 <code>Github Ations</code>를 사용할 수 있다고 한다. 이 정도면, 개인적인 용도에서는 앵간하면 무료이지 않을까 싶다. 이에 대한 내용은 Github 공식 문서인 <a href="https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/githubs-products">이 곳</a>에서 확인하길 바란다.</p>
+<p>세 번째로는 &ldquo;배우기 쉽다&quot;인데 의례적으로 그냥 써본 것이다. 사실 필자는 <code>Jenkins CI</code>만 간단하게 써 본 경험만 있고, <code>CI/CD</code> 도구를 제대로 사용한 경험이 전무하기 때문에 <code>Github Actions</code>가 배우기가 쉽다라고 말 할 수는 없을 것 같다.</p>
+<p>다만 필자 개인적인 의견으로 공식 문서가 잘 정리되어 있다는 느낌을 받았다. 또한, <code>roadmap.sh</code>란 곳에서 가장 추천하는 <code>CI/CD</code> 도구 중 하나로 선택 받았다. 해당 내용은 <a href="https://roadmap.sh/devops">이 곳</a>에서 찾아볼 수 있다.</p>
+<p>이 시리즈는 공식 문서에서 제공하는 다음 내용들에 대해서 주로 정리할 예정이다.</p>
+<ul>
+<li>LEARN GITHUB ACTIONS</li>
+<li>GUIDES</li>
+</ul>
+<p>그 외 내용들은 필요하면 정리할 예정이다.</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/ci/">ci</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/cd/">cd</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/github-actions/">github actions</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/09/%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%EA%B8%B0-2-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%85%B8%EC%B6%9C%ED%95%98%EA%B8%B0/" data-tooltip="블로그 구축기 (2) 검색 엔진에 노출하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/09/%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%EA%B8%B0-2-%EA%B2%80%EC%83%89-%EC%97%94%EC%A7%84%EC%97%90-%EB%85%B8%EC%B6%9C%ED%95%98%EA%B8%B0/" data-tooltip="블로그 구축기 (2) 검색 엔진에 노출하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2Fgithub-actions%25EB%259E%2580-%25EB%25AC%25B4%25EC%2597%2587%25EC%259D%25B8%25EA%25B0%2580%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2Fgithub-actions%25EB%259E%2580-%25EB%25AC%25B4%25EC%2597%2587%25EC%259D%25B8%25EA%25B0%2580%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2Fgithub-actions%25EB%259E%2580-%25EB%25AC%25B4%25EC%2597%2587%25EC%259D%25B8%25EA%25B0%2580%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/10\/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80\/';
+          
+            this.page.identifier = '\/2020\/10\/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
