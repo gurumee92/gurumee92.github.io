@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="지리오 서비스 구축기 (1) 0차 배포">
+<meta name="twitter:title" content="지리오 서비스 구축기 (1) 0차 배포">
+<meta property="og:url" content="https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-10-04T18:30:22">
+  
+  
+    <meta property="article:modified_time" content="2020-10-04T18:30:22">
+  
+  
+  
+    
+      <meta property="article:section" content="experience">
+    
+      <meta property="article:section" content="geerio">
+    
+  
+  
+    
+      <meta property="article:tag" content="spring boot">
+    
+      <meta property="article:tag" content="docker">
+    
+      <meta property="article:tag" content="gcp">
+    
+      <meta property="article:tag" content="gce">
+    
+      <meta property="article:tag" content="private docker registry">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/experience/geerio/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/experience/geerio/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>지리오 서비스 구축기 (1) 0차 배포</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      지리오 서비스 구축기 (1) 0차 배포
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-10-04T18:30:22&#43;09:00">
+        
+  October 4, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/experience">experience</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/geerio">geerio</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/experience/geerio/logo.png" alt="지리오 로고"></p>
+<blockquote>
+<p>실제 개인 서비스 &ldquo;지리오&quot;를 만들면서 한 일을 기록한 문서입니다. 이 문서는 스프링 부트 앱을 도커 컨테이너로 만들어서 GCE에 배포하는 내용을 담고 있습니다.</p>
+</blockquote>
+<h2 id="요구-사항">요구 사항</h2>
+<p>먼저, 필자는 이 문서를 읽는 여러분이 <code>스프링 부트</code>를 이용해 간단하게 웹 서비스를 만들 수 있다고 가정한다. 또한, <code>Docker</code>와 <code>docker-compose</code>에 대한 내용을 알고 있다고 가정한다. 이 문서의 큰 순서는 다음과 같다.</p>
+<ol>
+<li>스프링 부트 앱 도커 이미지 만들기</li>
+<li>도커 이미지 개인 도커 레지스트리에 Push</li>
+<li>실제 GCE 인스턴스에 스프링 부트 앱 배포</li>
+</ol>
+<p>따라서, 이 문서를 기반으로 따라하기 위해서는 다음이 필요하다.</p>
+<ol>
+<li><code>Gradle</code> 기반의 스프링 부트 앱</li>
+<li>개인 도커 레지스트리</li>
+<li>GCP의 GCE, AWS의 EC2 같은 클라우드 서버 인스턴스 1개</li>
+</ol>
+<p><strong>참고</strong></p>
+<ul>
+<li><a href="https://spring.io/quickstart">Spring Boot Quick Start</a></li>
+<li><a href="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4-%EC%83%9D%EC%84%B1-%EB%B0%8F-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0/">GCE 인스턴스 생성 및 설정하기</a></li>
+<li><a href="https://gurumee92.github.io/2020/09/gce-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%EA%B0%9C%EC%9D%B8-%EB%8F%84%EC%BB%A4-%EB%A0%88%EC%A7%80%EC%8A%A4%ED%8A%B8%EB%A6%AC-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/">GCE 인스턴스에 개인 도커 레지스트리 구축하기</a></li>
+</ul>
+<h2 id="스프링-부트-앱-도커-이미지-만들기">스프링 부트 앱 도커 이미지 만들기</h2>
+<p>스프링 부트 앱을 도커 이미지로 만든다. 내가 알아본 바로는 2가지 방법이 있다.</p>
+<ol>
+<li><code>Dockerfile</code>로 이미지 생성</li>
+<li><code>jib</code> + 빌드 툴 플러그인을 이용하여 이미지 생성</li>
+</ol>
+<p>일단 나는 첫 번째 방식을 선택했다. 왜냐하면 내가 아는 지식으로, 빠르게 진행할 수 있기 때문이었다. 프로젝트 루트에 <code>Dockerfile</code>을 다음과 같이 작성하였다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="color:#75715e"># Docker Hub에서 java 8 기반의 도커 이미지를 pull</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> openjdk:8-jdk-alpine</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 현재 프로젝트 루트 디렉토리를, 도커 이미지 &#34;/app&#34;에 복사</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . /app<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 도커 이미지에서, 해당 명령어 실행</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># /app 이동 후, gradlew 실행 권한 생성 그 후 &#34;gradlew build&#34; 실행</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 컨테이너에서 프로젝트 빌드가 일어남.</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> cd /app <span style="color:#f92672">&amp;&amp;</span> chmod +x gradlew <span style="color:#f92672">&amp;&amp;</span> ./gradlew build<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 빌드된 실행 가능한 jar를, 컨테이너 &#34;/&#34;에 &#34;application.jar&#34;라는 이름으로 복사</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> cp /app/build/libs/*.jar /application.jar<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 포트 노출</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 8080</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 컨테이너 실행 시, &#34;java -jar /application.jar&#34;로 실행</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;java&#34;</span>, <span style="color:#e6db74">&#34;-jar&#34;</span>, <span style="color:#e6db74">&#34;/application.jar&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>그리고 로컬에서, 이미지가 잘 작동하는지 테스트하기 위해서, <code>docker-compose.yml</code>을 작성했다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
+<span style="color:#66d9ef">services</span>:
+  <span style="color:#66d9ef">geerio-app</span>:
+    <span style="color:#75715e"># 빌드할 Dockerfile 경로</span>
+    <span style="color:#66d9ef">build</span>: ./
+    <span style="color:#75715e"># 포트 매핑 로컬 포트:컨테이너 포트</span>
+    <span style="color:#66d9ef">ports</span>:
+        - <span style="color:#e6db74">&#34;8080:8080&#34;</span>
+</code></pre></div><p>따라서 프로젝트 루트 디렉토리의 구조는 다음과 같아진다.</p>
+<pre><code>├── Dockerfile
+├── README.md
+├── build
+├── build.gradle
+├── docker-compose.yml
+├── gradle
+├── gradlew
+├── gradlew.bat
+├── settings.gradle
+└── src
+</code></pre><p>이제 로컬 환경에서, 도커 이미지가 잘 동작하는지 확인해보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pwd
+<span style="color:#75715e"># 프로젝트 루트 디렉토리</span>
+/Users/gurumee/Workspaces/geerio
+
+<span style="color:#75715e"># 이미지 빌드 및 컨테이너 실행</span>
+$ docker-compose up --build
+...
+</code></pre></div><p>이후 다른 터미널을 열어 다음을 입력해본다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -XGET http://localhost:8080
+&lt;!DOCTYPE html&gt;
+&lt;html lang<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;en&#34;</span>&gt;
+&lt;head&gt;
+    &lt;meta charset<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+    &lt;title&gt;지리는 당신의 이야기! Geerio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;%
+</code></pre></div><p>잘 동작한다. 이 방법은 내가 아는 한 가장 손쉽게 <code>Gradle</code> 환경에서의 자바 애플리케이션을 도커 이미지를 만드는 방법이었다.</p>
+<p>두 번째 방법인 <code>jib</code>은 <code>Dockerfile</code> 작성을 하지 않아도 됨은 물론, 터미널 명령어로 레지스트리에 이미지를 푸시할 수도 있다. 이는 나중에 기회가 되면, 따로 포스팅을 작성해볼까 한다. <code>jib</code>에 대한 자세한 내용은 <a href="https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin#quickstart">여기</a>를 참고하라.</p>
+<h2 id="도커-이미지-개인-도커-레지스트리에-push">도커 이미지 개인 도커 레지스트리에 Push</h2>
+<p>이제 터미널에 다음을 입력해보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+geerio_geerio-app   latest              cf5734ae3bdf        <span style="color:#ae81ff">32</span> seconds ago      717MB
+openjdk             8-jdk-alpine        a3562aa0b991        <span style="color:#ae81ff">17</span> months ago       105MB
+</code></pre></div><p>자, 이제 개인 레지스트리에 이미지를 올려보자. 먼저 도커 레지스트리에 이미지를 푸쉬하기 위해선 태그 작업이 필요하다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># docker tag &lt;로컬이미지:태그&gt; &lt;레지스트리/이미지이름:태그&gt;</span>
+$ docker tag geerio_geerio-app:latest geerio-registry.io/geerio-app:0.1
+</code></pre></div><p>다시 이미지 목록을 확인해보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker images
+REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE
+geerio_geerio-app                latest              cf5734ae3bdf        <span style="color:#ae81ff">4</span> minutes ago       717MB
+geerio-registry.io/geerio-app    0.1                 cf5734ae3bdf        <span style="color:#ae81ff">4</span> minutes ago       717MB
+openjdk                          8-jdk-alpine        a3562aa0b991        <span style="color:#ae81ff">17</span> months ago       105MB
+</code></pre></div><p>자 이제 이미지를 Push 한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker push geerio-registry.io/geerio-app:0.1 
+</code></pre></div><p>이제 이미지가 레지스트리에 잘 저장되었는지 확인하기 위해서 로컬의 도커 이미지를 모두 삭제한 뒤, 해당 레지스트리의 이미지를 기반으로 컨테이너를 실행해보겠다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 로컬 도컬 이미지 모두 삭제</span>
+$ docker rmi -f <span style="color:#66d9ef">$(</span>docker images -q<span style="color:#66d9ef">)</span>
+
+<span style="color:#75715e"># 레지스트리에서 이미지 pull한 후 컨테이너 실행</span>
+$ docker run -p 8080:8080 geerio-registry.io/geerio-app:0.1
+</code></pre></div><p>마지막으로 <code>레지스트리 웹 UI</code>에서 그 결과를 확인해보자.</p>
+<blockquote>
+<p>웹 UI를 함께 구축하신 분들만 확인할 수 있습니다.</p>
+</blockquote>
+<p><img src="https://gurumee92.github.io/images/experience/geerio/01-zero-deploy/01.png" alt="01"></p>
+<h2 id="gce에-docker-compose-구성-및-서버-배포">GCE에 docker-compose 구성 및 서버 배포</h2>
+<p>자 이제 <code>GCE</code> 인스턴스에 접속해서 스프링 부트 앱을 배포해보자.</p>
+<blockquote>
+<p>GCE가 아닌 분들, gcloud 도구를 설치 안 한 분들은 ssh 접속을 사용하시길 바랍니다.</p>
+</blockquote>
+<p>먼저 서버에 접속해보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># gcloud compute ssh &lt;앱을 배포할 인스턴스 이름&gt;</span>
+$ gcloud compute ssh geerio-instance-01
+</code></pre></div><p>그 후, 서버에서, 다음 명령어를 실행해보도록 한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># docker run -p &lt;개방된 포트:컨테이너 포트&gt; &lt;레지스트리/이미지:태그&gt;</span>
+$ docker run -p 80:8080 geerio-registry.io/geerio-app:0.1
+</code></pre></div><p>일단, 내 <code>GCE</code> 인스턴스는 &ldquo;80&quot;번 포트가 열려있다. 따라서, 80번 포트에 아까 만든 이미지 안에서 EXPOSE 한 &ldquo;8080&quot;번 포트를 매핑시켰다. 실제 <code>geerio-instance-01</code>의 공개 DNS인 &ldquo;<a href="http://www.geerio.p-e.kr/%22">http://www.geerio.p-e.kr/&quot;</a>를 접속해보면 다음 화면이 뜨는 것을 알 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/experience/geerio/01-zero-deploy/02.png" alt="02"></p>
+<p>실제 앱은 URL &ldquo;/&ldquo;에 접속하면, &ldquo;Hello&quot;라는 문자열이 있는 html 문서를 매핑하고 있다. 여기서 끝내도 되지만, 조금 더 해보자. 이제 <code>docker-compose</code>를 이용해서, <code>nginx</code>와 스프링 부트 앱 2개를 연결해서 띄어놓을 것이다.</p>
+<p>먼저, <code>GCE</code> 내에서, <code>docker-compose.yml</code>을 작성할 디렉토리를 만든다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pwd
+<span style="color:#75715e"># 실제 인스턴스에 user에게 할당된 디렉토리</span>
+<span style="color:#75715e"># 보통 팀 환경에서는 su 혹은 다른 권한을 줘서 하는게 좋음.</span>
+/home/gurumee
+
+<span style="color:#75715e"># 디렉토리 생성 및, 이동</span>
+$ mkdir geerio-app <span style="color:#f92672">&amp;&amp;</span> cd geerio-app
+</code></pre></div><p>그 후, <code>nginx</code> 디렉토리를 만들고 해당 디렉토리에 <code>nginx.conf</code>를 다음과 같이 만든다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir nginx
+
+$ cat &gt;&gt; nginx/nginx.conf <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39; 
+</span><span style="color:#e6db74">user  nginx;
+</span><span style="color:#e6db74">worker_processes  5;
+</span><span style="color:#e6db74">error_log  /var/log/nginx/error.log warn;
+</span><span style="color:#e6db74">pid        /var/run/nginx.pid;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">events {                     
+</span><span style="color:#e6db74">    worker_connections  1024;
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">http {
+</span><span style="color:#e6db74">    ##
+</span><span style="color:#e6db74">    upstream geerio-app {
+</span><span style="color:#e6db74">        # least_conn, ip_hash;
+</span><span style="color:#e6db74">        ip_hash;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        # 서버 주소 나열
+</span><span style="color:#e6db74">        server app-01:8080;
+</span><span style="color:#e6db74">        server app-02:8080;
+</span><span style="color:#e6db74">    }
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">     server {
+</span><span style="color:#e6db74">        listen 80;
+</span><span style="color:#e6db74">        location / {
+</span><span style="color:#e6db74">            proxy_pass http://geerio-app;
+</span><span style="color:#e6db74">        }
+</span><span style="color:#e6db74">    }
+</span><span style="color:#e6db74">}
+</span><span style="color:#e6db74">EOF</span>
+</code></pre></div><p>간단하게 내용을 살펴보자면, <code>nginx</code>를 app 2개의 부하를 분산시켜줄 로드 밴런서로 설정한 파일이다. <code>upstream</code>에 작성된 규칙에 따라, 클라이언트가 &ldquo;/&rdquo; 이하의 경로를 접속할 때마다 2개의 <code>app</code>이 번갈아가면서 그 요청을 응답한다.</p>
+<p>이때 <code>app-01</code>, <code>app-02</code>는 각각의 도커 컨테이너 이름이며, <code>docker-compose.yml</code>에 묶인 컨테이너들은 네트워크를 공유하기 때문에, 해당 포트로 바로 접근할 수 있다.</p>
+<p>이제, <code>docker-compose.yml</code>을 다음과 같이 작성한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
+<span style="color:#66d9ef">services</span>:
+    <span style="color:#66d9ef">nginx</span>: 
+        <span style="color:#66d9ef">container_name</span>: nginx
+        <span style="color:#66d9ef">volumes</span>: 
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+        <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#34;nginx:alpine&#34;</span> 
+        <span style="color:#66d9ef">ports</span>: 
+            - <span style="color:#ae81ff">80</span>:<span style="color:#ae81ff">80</span>
+            - <span style="color:#ae81ff">443</span>:<span style="color:#ae81ff">443</span>
+    <span style="color:#66d9ef">app-01</span>: 
+        <span style="color:#66d9ef">container_name</span>: app<span style="color:#ae81ff">-01</span>
+        <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#34;geerio-registry.io/geerio-app:0.1&#34;</span> 
+        <span style="color:#66d9ef">ports</span>: 
+            - <span style="color:#ae81ff">8080</span>:<span style="color:#ae81ff">8080</span>
+    <span style="color:#66d9ef">app-02</span>: 
+        <span style="color:#66d9ef">container_name</span>: app<span style="color:#ae81ff">-02</span>
+        <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#34;geerio-registry.io/geerio-app:0.1&#34;</span> 
+        <span style="color:#66d9ef">ports</span>: 
+            - <span style="color:#ae81ff">8081</span>:<span style="color:#ae81ff">8080</span>
+</code></pre></div><p>그 후 터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 이미지 빌드 후 컨테이너 백그라운드로 실행</span>
+$ docker-compose up --build -d
+
+$ docker ps
+CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                                      NAMES
+dcae59158cff        geerio-registry.io/geerio-app:0.1   <span style="color:#e6db74">&#34;java -jar /applicat…&#34;</span>   <span style="color:#ae81ff">11</span> minutes ago      Up <span style="color:#ae81ff">11</span> minutes       0.0.0.0:8081-&gt;8080/tcp                     app-02
+9a06053fbc48        geerio-registry.io/geerio-app:0.1   <span style="color:#e6db74">&#34;java -jar /applicat…&#34;</span>   <span style="color:#ae81ff">11</span> minutes ago      Up <span style="color:#ae81ff">11</span> minutes       0.0.0.0:8080-&gt;8080/tcp                     app-01
+b284d25dc935        nginx:alpine                        <span style="color:#e6db74">&#34;/docker-entrypoint.…&#34;</span>   <span style="color:#ae81ff">11</span> minutes ago      Up <span style="color:#ae81ff">11</span> minutes       0.0.0.0:80-&gt;80/tcp, 0.0.0.0:443-&gt;443/tcp   nginx
+</code></pre></div><p>자 이제 다시 &ldquo;<a href="http://www.geerio.p-e.kr/%22">http://www.geerio.p-e.kr/&quot;</a>로 접속해보자. 역시 다음 화면이 뜬다.</p>
+<p><img src="https://gurumee92.github.io/images/experience/geerio/01-zero-deploy/02.png" alt="02"></p>
+<p>이제 로드 밸런서가 잘 동작하는지 확인해보자. 앱 이미지를 만들었을 때 접속 시마다 로그를 출력시켰으면 좋았겠지만.. 그 작업은 안했다. 따라서 직접 컨테이너를 내려서 확인해본다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose stop app-01
+</code></pre></div><p>몇 초 후 실행해본다. 아직 접속이 가능하다. 이제 다음 명령어를 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose stop app-02
+</code></pre></div><p>이제 다음 화면처럼 접속이 되지 않는다.</p>
+<p><img src="https://gurumee92.github.io/images/experience/geerio/01-zero-deploy/03.png" alt="03"></p>
+<p><code>nginx</code>가 연결시켜줄 컨테이너를 찾지 못하기 때문이다. 이제 다시 컨테이너를 실행한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker-compose start app-01 app-02
+</code></pre></div><p>몇 초 후 다시 브라우저로 접속하면, 다시 &ldquo;Hello&quot;가 우리를 반겨준다.</p>
+<p><img src="https://gurumee92.github.io/images/experience/geerio/01-zero-deploy/02.png" alt="02"></p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/spring-boot/">spring boot</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/docker/">docker</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gcp/">gcp</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gce/">gce</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/private-docker-registry/">private docker registry</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" data-tooltip="Github Actions란 무엇인가?">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+            
+              
+                <div id="disqus_thread">
+  <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/github-actions%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80/" data-tooltip="Github Actions란 무엇인가?">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+        <li class="post-action hide-lg hide-md hide-sm">
+          <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions">
+            <i class="fa fa-share-alt"></i>
+          </a>
+        </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+              <i class="fa fa-facebook-official"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </li>
+        
+          <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC/">
+              <i class="fa fa-google-plus"></i>
+            </a>
+          </li>
+        
+      
+      
+        <li class="post-action">
+          <a class="post-action-btn btn btn--default" href="#disqus_thread">
+            <i class="fa fa-comment-o"></i>
+          </a>
+        </li>
+      
+      <li class="post-action">
+        
+          <a class="post-action-btn btn btn--default" href="#">
+        
+          <i class="fa fa-list"></i>
+        </a>
+      </li>
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%25A7%2580%25EB%25A6%25AC%25EC%2598%25A4-%25EC%2584%259C%25EB%25B9%2584%25EC%258A%25A4-%25EA%25B5%25AC%25EC%25B6%2595%25EA%25B8%25B0-1-0%25EC%25B0%25A8-%25EB%25B0%25B0%25ED%258F%25AC%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%25A7%2580%25EB%25A6%25AC%25EC%2598%25A4-%25EC%2584%259C%25EB%25B9%2584%25EC%258A%25A4-%25EA%25B5%25AC%25EC%25B6%2595%25EA%25B8%25B0-1-0%25EC%25B0%25A8-%25EB%25B0%25B0%25ED%258F%25AC%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%25A7%2580%25EB%25A6%25AC%25EC%2598%25A4-%25EC%2584%259C%25EB%25B9%2584%25EC%258A%25A4-%25EA%25B5%25AC%25EC%25B6%2595%25EA%25B8%25B0-1-0%25EC%25B0%25A8-%25EB%25B0%25B0%25ED%258F%25AC%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/10\/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC\/';
+          
+            this.page.identifier = '\/2020\/10\/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-1-0%EC%B0%A8-%EB%B0%B0%ED%8F%AC\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
