@@ -271,8 +271,8 @@
 <p>따라서, 이 문서를 기반으로 따라하기 위해서는 다음이 필요하다.</p>
 <ol>
 <li><code>Gradle</code> 기반의 스프링 부트 앱</li>
-<li>개인 도커 레지스트리</li>
-<li>GCP의 GCE, AWS의 EC2 같은 클라우드 서버 인스턴스 1개</li>
+<li><code>Google Container Registry</code> 등의 개인 도커 레지스트리</li>
+<li><code>GCP</code>의 <code>GCE</code> 같은 클라우드 서버 인스턴스 1개</li>
 </ol>
 <p><strong>참고</strong></p>
 <ul>
@@ -305,34 +305,14 @@
 </span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># 컨테이너 실행 시, &#34;java -jar /application.jar&#34;로 실행</span><span style="color:#960050;background-color:#1e0010">
 </span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENTRYPOINT</span> [<span style="color:#e6db74">&#34;java&#34;</span>, <span style="color:#e6db74">&#34;-jar&#34;</span>, <span style="color:#e6db74">&#34;/application.jar&#34;</span>]<span style="color:#960050;background-color:#1e0010">
-</span></code></pre></div><p>그리고 로컬에서, 이미지가 잘 작동하는지 테스트하기 위해서, <code>docker-compose.yml</code>을 작성했다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">version</span>: <span style="color:#e6db74">&#39;3.1&#39;</span>
-<span style="color:#66d9ef">services</span>:
-  <span style="color:#66d9ef">geerio-app</span>:
-    <span style="color:#75715e"># 빌드할 Dockerfile 경로</span>
-    <span style="color:#66d9ef">build</span>: ./
-    <span style="color:#75715e"># 포트 매핑 로컬 포트:컨테이너 포트</span>
-    <span style="color:#66d9ef">ports</span>:
-        - <span style="color:#e6db74">&#34;8080:8080&#34;</span>
-</code></pre></div><p>따라서 프로젝트 루트 디렉토리의 구조는 다음과 같아진다.</p>
-<pre><code>├── Dockerfile
-├── README.md
-├── build
-├── build.gradle
-├── docker-compose.yml
-├── gradle
-├── gradlew
-├── gradlew.bat
-├── settings.gradle
-└── src
-</code></pre><p>이제 로컬 환경에서, 도커 이미지가 잘 동작하는지 확인해보자.</p>
+</span></code></pre></div><p>터미널에 다음을 입력하여, 도커 이미지를 생성한다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ pwd
 <span style="color:#75715e"># 프로젝트 루트 디렉토리</span>
 /Users/gurumee/Workspaces/geerio
 
-<span style="color:#75715e"># 이미지 빌드 및 컨테이너 실행</span>
-$ docker-compose up --build
-...
+$ docker build --tag geerio-app:0.1 .
+</code></pre></div><p>이제 로컬 환경에서, 도커 이미지가 잘 동작하는지 확인해보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker run -p 8080:8080 geerio-app:0.1
 </code></pre></div><p>이후 다른 터미널을 열어 다음을 입력해본다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -XGET http://localhost:8080
 &lt;!DOCTYPE html&gt;
@@ -350,30 +330,30 @@ $ docker-compose up --build
 <h2 id="도커-이미지-개인-도커-레지스트리에-push">도커 이미지 개인 도커 레지스트리에 Push</h2>
 <p>이제 터미널에 다음을 입력해보자.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-geerio_geerio-app   latest              cf5734ae3bdf        <span style="color:#ae81ff">32</span> seconds ago      717MB
-openjdk             8-jdk-alpine        a3562aa0b991        <span style="color:#ae81ff">17</span> months ago       105MB
+REPOSITORY   TAG                 IMAGE ID            CREATED             SIZE
+geerio-app   0.1                 cf5734ae3bdf        <span style="color:#ae81ff">32</span> seconds ago      717MB
+openjdk      8-jdk-alpine        a3562aa0b991        <span style="color:#ae81ff">17</span> months ago       105MB
 </code></pre></div><p>자, 이제 개인 레지스트리에 이미지를 올려보자. 먼저 도커 레지스트리에 이미지를 푸쉬하기 위해선 태그 작업이 필요하다.</p>
+<blockquote>
+<p>제 개인 도커 레지스트리 주소는 &ldquo;gcr.io/geerio/&ldquo;입니다. 그러나, 오로지 저만 접근할 수 있게 설정해두었기 때문에, 여러분은 접속할 수 없습니다. 개인 도커 레지스트리를 이용하셔야 합니다.</p>
+</blockquote>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># docker tag &lt;로컬이미지:태그&gt; &lt;레지스트리/이미지이름:태그&gt;</span>
-$ docker tag geerio_geerio-app:latest geerio-registry.io/geerio-app:0.1
+$ docker tag geerio-app:0.1 gcr.io/geerio/geerio-app:0.1
 </code></pre></div><p>다시 이미지 목록을 확인해보자.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker images
-REPOSITORY                       TAG                 IMAGE ID            CREATED             SIZE
-geerio_geerio-app                latest              cf5734ae3bdf        <span style="color:#ae81ff">4</span> minutes ago       717MB
-geerio-registry.io/geerio-app    0.1                 cf5734ae3bdf        <span style="color:#ae81ff">4</span> minutes ago       717MB
-openjdk                          8-jdk-alpine        a3562aa0b991        <span style="color:#ae81ff">17</span> months ago       105MB
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+geerio-app                 0.1                 b50b51cb46c5        <span style="color:#ae81ff">7</span> minutes ago       717MB
+gcr.io/geerio/geerio-app   0.1                 b50b51cb46c5        <span style="color:#ae81ff">7</span> minutes ago       717MB
+openjdk                    8-jdk-alpine        a3562aa0b991        <span style="color:#ae81ff">17</span> months ago       105MB
 </code></pre></div><p>자 이제 이미지를 Push 한다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker push geerio-registry.io/geerio-app:0.1 
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ docker push gcr.io/geerio/geerio-app:0.1 
 </code></pre></div><p>이제 이미지가 레지스트리에 잘 저장되었는지 확인하기 위해서 로컬의 도커 이미지를 모두 삭제한 뒤, 해당 레지스트리의 이미지를 기반으로 컨테이너를 실행해보겠다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 로컬 도컬 이미지 모두 삭제</span>
 $ docker rmi -f <span style="color:#66d9ef">$(</span>docker images -q<span style="color:#66d9ef">)</span>
 
 <span style="color:#75715e"># 레지스트리에서 이미지 pull한 후 컨테이너 실행</span>
-$ docker run -p 8080:8080 geerio-registry.io/geerio-app:0.1
-</code></pre></div><p>마지막으로 <code>레지스트리 웹 UI</code>에서 그 결과를 확인해보자.</p>
-<blockquote>
-<p>웹 UI를 함께 구축하신 분들만 확인할 수 있습니다.</p>
-</blockquote>
+$ docker run -p 8080:8080 gcr.io/geerio/geerio-app:0.1
+</code></pre></div><p><code>Google Container Registry</code>를 이용한다면, <code>GCR</code> 메인 페이지에서 이미지가 올라간 것을 확인할 수 있다.</p>
 <p><img src="https://gurumee92.github.io/images/experience/geerio/01-zero-deploy/01.png" alt="01"></p>
 <h2 id="gce에-docker-compose-구성-및-서버-배포">GCE에 docker-compose 구성 및 서버 배포</h2>
 <p>자 이제 <code>GCE</code> 인스턴스에 접속해서 스프링 부트 앱을 배포해보자.</p>
@@ -385,7 +365,7 @@ $ docker run -p 8080:8080 geerio-registry.io/geerio-app:0.1
 $ gcloud compute ssh geerio-instance-01
 </code></pre></div><p>그 후, 서버에서, 다음 명령어를 실행해보도록 한다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># docker run -p &lt;개방된 포트:컨테이너 포트&gt; &lt;레지스트리/이미지:태그&gt;</span>
-$ docker run -p 80:8080 geerio-registry.io/geerio-app:0.1
+$ docker run -p 80:8080 gcr.io/geerio/geerio-app:0.1
 </code></pre></div><p>일단, 내 <code>GCE</code> 인스턴스는 &ldquo;80&quot;번 포트가 열려있다. 따라서, 80번 포트에 아까 만든 이미지 안에서 EXPOSE 한 &ldquo;8080&quot;번 포트를 매핑시켰다. 실제 <code>geerio-instance-01</code>의 공개 DNS인 &ldquo;<a href="http://www.geerio.p-e.kr/%22">http://www.geerio.p-e.kr/&quot;</a>를 접속해보면 다음 화면이 뜨는 것을 알 수 있다.</p>
 <p><img src="https://gurumee92.github.io/images/experience/geerio/01-zero-deploy/02.png" alt="02"></p>
 <p>실제 앱은 URL &ldquo;/&ldquo;에 접속하면, &ldquo;Hello&quot;라는 문자열이 있는 html 문서를 매핑하고 있다. 여기서 끝내도 되지만, 조금 더 해보자. 이제 <code>docker-compose</code>를 이용해서, <code>nginx</code>와 스프링 부트 앱 2개를 연결해서 띄어놓을 것이다.</p>
@@ -444,12 +424,12 @@ $ cat &gt;&gt; nginx/nginx.conf <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39
             - <span style="color:#ae81ff">443</span>:<span style="color:#ae81ff">443</span>
     <span style="color:#66d9ef">app-01</span>: 
         <span style="color:#66d9ef">container_name</span>: app<span style="color:#ae81ff">-01</span>
-        <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#34;geerio-registry.io/geerio-app:0.1&#34;</span> 
+        <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#34;gcr.io/geerio/geerio-app:0.1&#34;</span> 
         <span style="color:#66d9ef">ports</span>: 
             - <span style="color:#ae81ff">8080</span>:<span style="color:#ae81ff">8080</span>
     <span style="color:#66d9ef">app-02</span>: 
         <span style="color:#66d9ef">container_name</span>: app<span style="color:#ae81ff">-02</span>
-        <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#34;geerio-registry.io/geerio-app:0.1&#34;</span> 
+        <span style="color:#66d9ef">image</span>: <span style="color:#e6db74">&#34;gcr.io/geerio/geerio-app:0.1&#34;</span> 
         <span style="color:#66d9ef">ports</span>: 
             - <span style="color:#ae81ff">8081</span>:<span style="color:#ae81ff">8080</span>
 </code></pre></div><p>그 후 터미널에 다음을 입력한다.</p>
@@ -457,10 +437,10 @@ $ cat &gt;&gt; nginx/nginx.conf <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39
 $ docker-compose up --build -d
 
 $ docker ps
-CONTAINER ID        IMAGE                               COMMAND                  CREATED             STATUS              PORTS                                      NAMES
-dcae59158cff        geerio-registry.io/geerio-app:0.1   <span style="color:#e6db74">&#34;java -jar /applicat…&#34;</span>   <span style="color:#ae81ff">11</span> minutes ago      Up <span style="color:#ae81ff">11</span> minutes       0.0.0.0:8081-&gt;8080/tcp                     app-02
-9a06053fbc48        geerio-registry.io/geerio-app:0.1   <span style="color:#e6db74">&#34;java -jar /applicat…&#34;</span>   <span style="color:#ae81ff">11</span> minutes ago      Up <span style="color:#ae81ff">11</span> minutes       0.0.0.0:8080-&gt;8080/tcp                     app-01
-b284d25dc935        nginx:alpine                        <span style="color:#e6db74">&#34;/docker-entrypoint.…&#34;</span>   <span style="color:#ae81ff">11</span> minutes ago      Up <span style="color:#ae81ff">11</span> minutes       0.0.0.0:80-&gt;80/tcp, 0.0.0.0:443-&gt;443/tcp   nginx
+CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS              PORTS                                      NAMES
+5ba5e7643600        gcr.io/geerio/geerio-app:0.1   <span style="color:#e6db74">&#34;java -jar /applicat…&#34;</span>   <span style="color:#ae81ff">4</span> seconds ago       Up <span style="color:#ae81ff">2</span> seconds        0.0.0.0:8081-&gt;8080/tcp                     app-02
+bb149fe3a117        gcr.io/geerio/geerio-app:0.1   <span style="color:#e6db74">&#34;java -jar /applicat…&#34;</span>   <span style="color:#ae81ff">4</span> seconds ago       Up <span style="color:#ae81ff">2</span> seconds        0.0.0.0:8080-&gt;8080/tcp                     app-01
+8df0359dc92c        nginx:alpine                   <span style="color:#e6db74">&#34;/docker-entrypoint.…&#34;</span>   <span style="color:#ae81ff">4</span> seconds ago       Up <span style="color:#ae81ff">2</span> seconds        0.0.0.0:80-&gt;80/tcp, 0.0.0.0:443-&gt;443/tcp   nginx
 </code></pre></div><p>자 이제 다시 &ldquo;<a href="http://www.geerio.p-e.kr/%22">http://www.geerio.p-e.kr/&quot;</a>로 접속해보자. 역시 다음 화면이 뜬다.</p>
 <p><img src="https://gurumee92.github.io/images/experience/geerio/01-zero-deploy/02.png" alt="02"></p>
 <p>이제 로드 밸런서가 잘 동작하는지 확인해보자. 앱 이미지를 만들었을 때 접속 시마다 로그를 출력시켰으면 좋았겠지만.. 그 작업은 안했다. 따라서 직접 컨테이너를 내려서 확인해본다.</p>
