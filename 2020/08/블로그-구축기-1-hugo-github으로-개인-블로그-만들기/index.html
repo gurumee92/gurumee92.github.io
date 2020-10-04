@@ -31,7 +31,9 @@
   
   
     
-      <meta property="article:section" content="etc">
+      <meta property="article:section" content="experience">
+    
+      <meta property="article:section" content="hugo&#43;github.io=blog">
     
   
   
@@ -238,7 +240,9 @@
   
     <span>in</span>
     
-      <a class="category-link" href="https://gurumee92.github.io/categories/etc">etc</a>
+      <a class="category-link" href="https://gurumee92.github.io/categories/experience">experience</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/hugo&#43;github.ioblog">hugo&#43;github.io=blog</a>
     
   
 
@@ -274,7 +278,7 @@ Hugo Static Site Generator v0.74.3/extended darwin/amd64 BuildDate: unknown
 <li><code>&lt;USERNAME&gt;.github.io</code></li>
 </ul>
 <p>다음과 같이 말이다.</p>
-<p><img src="https://gurumee92.github.io/images/etc/01-create-blog-with-hugo/01.png" alt="깃 헙 레포지토리"></p>
+<p><img src="https://gurumee92.github.io/images/experience/blog/01-create-blog-with-hugo/01.png" alt="깃 헙 레포지토리"></p>
 <h2 id="hugo로-프로젝트-만들기">Hugo로 프로젝트 만들기</h2>
 <p>먼저, 프로젝트를 만들어야 한다. 적당한 위치에서 다음을 입력한다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 현재 위치 확인</span>
@@ -395,7 +399,7 @@ Running in Fast Render Mode. For full rebuilds on change: hugo server --disableF
 Web Server is available at http://localhost:1313/ <span style="color:#f92672">(</span>bind address 127.0.0.1<span style="color:#f92672">)</span>
 Press Ctrl+C to stop
 </code></pre></div><p>그 후, &ldquo;localhost:1313&quot;에 들어가면 다음과 같은 화면이 뜰 것이다.</p>
-<p><img src="https://gurumee92.github.io/images/etc/01-create-blog-with-hugo/02.png" alt="로컬 띄어놓은 화면"></p>
+<p><img src="https://gurumee92.github.io/images/experience/blog/01-create-blog-with-hugo/02.png" alt="로컬 띄어놓은 화면"></p>
 <h2 id="git-레포지토리-연결-및-쉘-스크립트-작성">Git 레포지토리 연결 및 쉘 스크립트 작성</h2>
 <p>터미널에 다음을 입력한다. <code>blog</code>에 <code>Github Repository blog</code>, <code>blog/public</code>에 <code>Github Repositroy &lt;username&gt;.github.io</code>를 연결한다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 현재 위치 확인</span>
@@ -482,14 +486,14 @@ keywords:
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 로컬 서버 실행</span>
 $ hugo server -D
 </code></pre></div><p>그럼 <code>http://localhost:1313</code> 에 접속하면 다음 화면이 출력된다.</p>
-<p><img src="https://gurumee92.github.io/images/etc/create-blog-with-hugo/03.png" alt="포스트 화면"></p>
+<p><img src="https://gurumee92.github.io/images/experience/blog/01-create-blog-with-hugo/03.png" alt="포스트 화면"></p>
 <p>컨텐츠 작성이 완료되면, 다시 터미널에 다음을 입력해서 배포하면 된다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ./deploy.sh
 </code></pre></div><h2 id="utterences-github-댓글-위젯-추가하기">Utterences (Github 댓글 위젯) 추가하기</h2>
 <p>이제 블로그에 댓글을 달아보자. 이 때, 레포지토리가 하나 더 필요하다. 나는 <code>blog-comments</code>로 지었다. 그 후 <a href="https://utteranc.es/">이 곳</a>으로 이동하자. 그리고 <code>configuration</code> 절로 이동해서 &ldquo;repo&rdquo; 입력 창에, 자신에 레포지토리를 입력하자. 나의 경우는 <code>gurumee92/blog-comments</code>이다.</p>
-<p><img src="https://gurumee92.github.io/images/etc/01-create-blog-with-hugo/04.png" alt="Utterences 1"></p>
+<p><img src="https://gurumee92.github.io/images/experience/blog/01-create-blog-with-hugo/04.png" alt="Utterences 1"></p>
 <p>그리고 <code>Blog Post ↔️ Issue Mapping</code> 절로 이동해서 다음 6개 중 하나를 고른다. 나는 3번째 것을 선택했다.</p>
-<p><img src="https://gurumee92.github.io/images/etc/01-create-blog-with-hugo/05.png" alt="Utterences 2"></p>
+<p><img src="https://gurumee92.github.io/images/experience/blog/01-create-blog-with-hugo/05.png" alt="Utterences 2"></p>
 <p>그러면 밑에 다음 스크립트가 생성된다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://utteranc.es/client.js&#34;</span>
         <span style="color:#a6e22e">repo</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;gurumee92/blog-comments&#34;</span>
@@ -516,7 +520,7 @@ $ hugo server -D
         <span style="color:#a6e22e">async</span>&gt;
 &lt;/<span style="color:#f92672">script</span>&gt;
 </code></pre></div><p>실제 내 블로그의 포스트는 다음과 같이 댓글이 연결되어 있다.</p>
-<p><img src="https://gurumee92.github.io/images/etc/01-create-blog-with-hugo/06.png" alt="Utterences 3"></p>
+<p><img src="https://gurumee92.github.io/images/experience/blog/01-create-blog-with-hugo/06.png" alt="Utterences 3"></p>
 <blockquote>
 <p>참고!
 댓글 달 때, <code>Utterences</code>앱을 설치하지 않으면, 설치하라는 문구가 뜬다 <code>blog-comments</code>에만 설치하도록 하자. 자신이 블로그를 개설할 때, 댓글을 먼저 달아보도록 하자.</p>

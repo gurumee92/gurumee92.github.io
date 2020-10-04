@@ -30,11 +30,20 @@
     </item>
     
     <item>
-      <title>etc</title>
-      <link>https://gurumee92.github.io/categories/etc/</link>
+      <title>experience</title>
+      <link>https://gurumee92.github.io/categories/experience/</link>
       <pubDate>Sun, 27 Sep 2020 22:04:40 +0900</pubDate>
       
-      <guid>https://gurumee92.github.io/categories/etc/</guid>
+      <guid>https://gurumee92.github.io/categories/experience/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hugo&#43;github.io=blog</title>
+      <link>https://gurumee92.github.io/categories/hugo&#43;github.ioblog/</link>
+      <pubDate>Sun, 27 Sep 2020 22:04:40 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/hugo&#43;github.ioblog/</guid>
       <description></description>
     </item>
     
