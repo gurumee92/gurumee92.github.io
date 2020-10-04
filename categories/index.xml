@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2020 18:30:22 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2020 22:16:28 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cloud</title>
+      <link>https://gurumee92.github.io/categories/cloud/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gcp</title>
+      <link>https://gurumee92.github.io/categories/gcp/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/gcp/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>experience</title>
@@ -53,24 +71,6 @@
       <pubDate>Sun, 27 Sep 2020 22:04:40 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/categories/hugo&#43;github.ioblog/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cloud</title>
-      <link>https://gurumee92.github.io/categories/cloud/</link>
-      <pubDate>Sat, 26 Sep 2020 17:54:59 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/cloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gcp</title>
-      <link>https://gurumee92.github.io/categories/gcp/</link>
-      <pubDate>Sat, 26 Sep 2020 17:54:59 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/gcp/</guid>
       <description></description>
     </item>
     

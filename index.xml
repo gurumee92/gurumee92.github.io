@@ -6,10 +6,19 @@
     <description>Recent content on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2020 18:30:22 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2020 22:16:28 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GCR 사용하기</title>
+      <link>https://gurumee92.github.io/2020/10/gcr-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/2020/10/gcr-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>지리오 서비스 구축기 (1) 0차 배포</title>

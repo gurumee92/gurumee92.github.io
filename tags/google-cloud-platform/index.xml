@@ -6,10 +6,19 @@
     <description>Recent content in google cloud platform on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Sep 2020 17:54:59 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2020 22:16:28 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/tags/google-cloud-platform/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GCR 사용하기</title>
+      <link>https://gurumee92.github.io/2020/10/gcr-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/2020/10/gcr-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>GCE 인스턴스에 개인 도커 레지스트리 구축하기</title>

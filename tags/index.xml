@@ -6,35 +6,80 @@
     <description>Recent content in Tags on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2020 18:30:22 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2020 22:16:28 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>cloud</title>
+      <link>https://gurumee92.github.io/tags/cloud/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>docker</title>
       <link>https://gurumee92.github.io/tags/docker/</link>
-      <pubDate>Sun, 04 Oct 2020 18:30:22 +0900</pubDate>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>docker registry</title>
+      <link>https://gurumee92.github.io/tags/docker-registry/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/docker-registry/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>gce</title>
       <link>https://gurumee92.github.io/tags/gce/</link>
-      <pubDate>Sun, 04 Oct 2020 18:30:22 +0900</pubDate>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/gce/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>gcloud</title>
+      <link>https://gurumee92.github.io/tags/gcloud/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/gcloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>gcp</title>
       <link>https://gurumee92.github.io/tags/gcp/</link>
-      <pubDate>Sun, 04 Oct 2020 18:30:22 +0900</pubDate>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/gcp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gcr</title>
+      <link>https://gurumee92.github.io/tags/gcr/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/gcr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>google cloud platform</title>
+      <link>https://gurumee92.github.io/tags/google-cloud-platform/</link>
+      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/google-cloud-platform/</guid>
       <description></description>
     </item>
     
@@ -138,47 +183,11 @@
     </item>
     
     <item>
-      <title>cloud</title>
-      <link>https://gurumee92.github.io/tags/cloud/</link>
-      <pubDate>Sat, 26 Sep 2020 17:54:59 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/cloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>docker registry</title>
-      <link>https://gurumee92.github.io/tags/docker-registry/</link>
-      <pubDate>Sat, 26 Sep 2020 17:54:59 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/docker-registry/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>docker-compose</title>
       <link>https://gurumee92.github.io/tags/docker-compose/</link>
       <pubDate>Sat, 26 Sep 2020 17:54:59 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/docker-compose/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gcloud</title>
-      <link>https://gurumee92.github.io/tags/gcloud/</link>
-      <pubDate>Sat, 26 Sep 2020 17:54:59 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/gcloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>google cloud platform</title>
-      <link>https://gurumee92.github.io/tags/google-cloud-platform/</link>
-      <pubDate>Sat, 26 Sep 2020 17:54:59 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/google-cloud-platform/</guid>
       <description></description>
     </item>
     
