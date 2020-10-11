@@ -6,10 +6,55 @@
     <description>Recent content in Tags on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Oct 2020 22:16:28 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 11 Oct 2020 13:34:38 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>automated</title>
+      <link>https://gurumee92.github.io/tags/automated/</link>
+      <pubDate>Sun, 11 Oct 2020 13:34:38 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/automated/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bash</title>
+      <link>https://gurumee92.github.io/tags/bash/</link>
+      <pubDate>Sun, 11 Oct 2020 13:34:38 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/bash/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>deploy</title>
+      <link>https://gurumee92.github.io/tags/deploy/</link>
+      <pubDate>Sun, 11 Oct 2020 13:34:38 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/deploy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>gce</title>
+      <link>https://gurumee92.github.io/tags/gce/</link>
+      <pubDate>Sun, 11 Oct 2020 13:34:38 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/gce/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>private docker registry</title>
+      <link>https://gurumee92.github.io/tags/private-docker-registry/</link>
+      <pubDate>Sun, 11 Oct 2020 13:34:38 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/private-docker-registry/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cloud</title>
@@ -35,15 +80,6 @@
       <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/docker-registry/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>gce</title>
-      <link>https://gurumee92.github.io/tags/gce/</link>
-      <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/gce/</guid>
       <description></description>
     </item>
     
@@ -80,15 +116,6 @@
       <pubDate>Sun, 04 Oct 2020 22:16:28 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/google-cloud-platform/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>private docker registry</title>
-      <link>https://gurumee92.github.io/tags/private-docker-registry/</link>
-      <pubDate>Sun, 04 Oct 2020 18:30:22 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/private-docker-registry/</guid>
       <description></description>
     </item>
     
