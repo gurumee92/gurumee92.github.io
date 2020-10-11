@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="알고리즘 문제 풀이: 완주하지 못한 선수">
+<meta name="twitter:title" content="알고리즘 문제 풀이: 완주하지 못한 선수">
+<meta property="og:url" content="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%99%84%EC%A3%BC%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EC%84%A0%EC%88%98/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%99%84%EC%A3%BC%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EC%84%A0%EC%88%98/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-10-11T16:26:36">
+  
+  
+    <meta property="article:modified_time" content="2020-10-11T16:26:36">
+  
+  
+  
+    
+      <meta property="article:section" content="algorithm">
+    
+      <meta property="article:section" content="programmers">
+    
+      <meta property="article:section" content="high_score_kit">
+    
+  
+  
+    
+      <meta property="article:tag" content="알고리즘">
+    
+      <meta property="article:tag" content="프로그래머스 문제 풀이">
+    
+      <meta property="article:tag" content="코딩테스트 고득점 kit">
+    
+      <meta property="article:tag" content="해시">
+    
+      <meta property="article:tag" content="hash">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/algorithm/programmers/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/algorithm/programmers/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>알고리즘 문제 풀이: 완주하지 못한 선수</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%99%84%EC%A3%BC%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EC%84%A0%EC%88%98/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      알고리즘 문제 풀이: 완주하지 못한 선수
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-10-11T16:26:36&#43;09:00">
+        
+  October 11, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/algorithm">algorithm</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/programmers">programmers</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/high_score_kit">high_score_kit</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/algorithm/programmers/logo.png" alt="logo"></p>
+<blockquote>
+<p>프로그래머스 &gt; 코딩테스트 연습 &gt; 코딩테스트 고득점 Kit &gt; 해시 &gt; &ldquo;완주하지 못한 선수&rdquo; 문제에 대한 풀이입니다.</p>
+<p>문제 링크는 <a href="https://programmers.co.kr/learn/courses/30/lessons/42576?language=java">이 곳</a>에서 확인할 수 있습니다.</p>
+</blockquote>
+<h2 id="문제-조건과-입력을-분석하기">문제 조건과 입력을 분석하기</h2>
+<p>문제 조건은 다음과 같다.</p>
+<ul>
+<li>마라톤 경기에 참여한 선수의 수는 1명 이상 100,000명 이하입니다.</li>
+<li>단 한명의 선수를 제외하고 모든 선수가 마라톤을 완주 하였습니다</li>
+<li>completion의 길이는 participant의 길이보다 1 작습니다.</li>
+<li>참가자의 이름은 1개 이상 20개 이하의 알파벳 소문자로 이루어져 있습니다.</li>
+<li>참가자 중에는 동명이인이 있을 수 있습니다.</li>
+</ul>
+<p>여기서 중요한 것은 모든 입력은 <code>participant는 completion을 포함</code>하며, <code>participant의 길이 - completion의 길이 = 1</code>를 만족한다는 것이다. 또한, 선수 이름 중 <code>중복된 이름</code>이 있을 수 있다는 것이다.</p>
+<p>그럼 2가지 경우의 수가 나온다.</p>
+<ol>
+<li>중복된 이름이 없는 경우</li>
+<li>중복된 이름이 있는 경우</li>
+</ol>
+<p>각 경우의 수를 살펴보자.</p>
+<h4 id="중복된-이름이-없는-경우">중복된 이름이 없는 경우</h4>
+<p>문제의 첫 번째 입력이 이 경우의 수에 해당한다.</p>
+<p>문제 입력</p>
+<pre><code>participant = [leo, kiki, eden]
+completion = [eden, kiki]
+</code></pre><p>이 때, <code>participant</code>에 따르면, 등록한 선수는 3명이다. 문제 조건에서 &ldquo;중복된 이름&quot;이 있을 수 있다고 했으니까, &ldquo;선수 이름 : 등록한 선수 숫자&rdquo; 를 표로 나타내보자.</p>
+<table>
+<thead>
+<tr>
+<th align="left">등록 선수 이름</th>
+<th align="left">선수 숫자</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">leo</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">kiki</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">eden</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<p>이제 <code>completion</code>에 따라, 완주한 선수가 있으면, 표에서 이름과 쌍을 이루는 선수 숫자 1씩 빼주자. 그럼 완주 못한 단 하나의 선수가 나올 것이다.</p>
+<table>
+<thead>
+<tr>
+<th align="left">등록 선수 이름</th>
+<th align="left">선수 숫자</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">leo</td>
+<td align="left">1</td>
+<td align="left">애를 반환하면 된다.</td>
+</tr>
+<tr>
+<td align="left">kiki</td>
+<td align="left">0</td>
+<td align="left">1 -&gt; 0 (completion에 이름이 존재한다.)</td>
+</tr>
+<tr>
+<td align="left">eden</td>
+<td align="left">0</td>
+<td align="left">1 -&gt; 0 (completion에 이름이 존재한다.)</td>
+</tr>
+</tbody>
+</table>
+<p>표에 따르면 &ldquo;leo&quot;를 반환하면 된다.</p>
+<h4 id="중복된-이름이-있는-경우">중복된 이름이 있는 경우</h4>
+<p>문제의 세 번째 입력이 이 경우에 속한다.</p>
+<p>문제 입력</p>
+<pre><code>participant = [mislav, stanko, mislav, ana] # mislav 중복된다.
+completion = [stanko, ana, mislav]
+</code></pre><p>이 경우에도, <code>participant</code>에 따라 등록 선수 이름 별로 선수 숫자를 나타내는 표를 만들어보자.</p>
+<table>
+<thead>
+<tr>
+<th align="left">등록 선수 이름</th>
+<th align="left">선수 숫자</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">mislav</td>
+<td align="left">2</td>
+</tr>
+<tr>
+<td align="left">stanko</td>
+<td align="left">1</td>
+</tr>
+<tr>
+<td align="left">ana</td>
+<td align="left">1</td>
+</tr>
+</tbody>
+</table>
+<p>이제 <code>completion</code>에 따라서, 완주한 선수면, 표에서 이름과 쌍을 이루는 선수 숫자 1씩 빼주자. 그럼 완주 못한 단 하나의 선수가 나올 것이다.</p>
+<table>
+<thead>
+<tr>
+<th align="left">등록 선수 이름</th>
+<th align="left">선수 숫자</th>
+<th align="left">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">mislav</td>
+<td align="left">1</td>
+<td align="left">2 -&gt; 1애를 반환하면 된다.</td>
+</tr>
+<tr>
+<td align="left">stanko</td>
+<td align="left">0</td>
+<td align="left">1 -&gt; 0</td>
+</tr>
+<tr>
+<td align="left">ana</td>
+<td align="left">0</td>
+<td align="left">1 -&gt; 0</td>
+</tr>
+</tbody>
+</table>
+<p>표에 따르면, &ldquo;mislav&quot;를 반환하면 된다.</p>
+<h4 id="어떻게-풀까">어떻게 풀까?</h4>
+<p>이제 어떻게 푸는지 보이는가? 여기서 중요한 것은 <strong>등록 선수 이름과 그 쌍으로 저장된 선수 숫자</strong>이다. &ldquo;자료구조&quot;를 공부한 사람이라면, 이러한 데이터를 저장하는데 좋은 자료구조를 알 것이다.</p>
+<p>잘 모르겠다면 이 문제의 파트의 이름을 기억해보자. <code>해시</code>! <code>해시</code>는 개념이다. 이를 구현하는 구현체는 여러 개 있다. 해시 테이블, 해시 맵 등등.. 각 언어에서도 사용하는 것이 여러 개 있다. 대표적으로 C++의 map, Python의 딕셔너리, Java의 HashMap이 있다.</p>
+<p>여기서는 이러한 자료구조체를 그냥 묶어서 <code>해시 테이블</code>이라 칭하겠다.</p>
+<blockquote>
+<p>참고!</p>
+<p>엄밀히 말하면 &ldquo;해시&quot;는 자료구조는 아닙니다. 임의의 길이의 데이터를 고정된 길이의 데이터로 매핑하는 개념을 나타냅니다. 위의 자료 구조들은 이러한 개념을 사용하여 데이터를 저장 및 반환하는 구현체입니다.</p>
+<p>자세한 내용은 <a href="https://ko.wikipedia.org/wiki/%ED%95%B4%EC%8B%9C_%ED%95%A8%EC%88%98">이 곳</a>을 참고하세요.</p>
+</blockquote>
+<p>즉, 등록할 선수 이름과 동명 이인의 수 쌍을 갖는 <code>해시 테이블</code>을 이용하면, 이 문제를 쉽게 풀 수 있다.</p>
+<h2 id="문제-풀이">문제 풀이</h2>
+<p>먼저 <code>해시 테이블</code>을 생성한다. 이 때, { 등록한 선수 이름 : 동명 이인의 수 } 쌍을 저장해야 한다. 즉, 문자열을 키로, 정수형을 값의 쌍을 저장해야 한다.</p>
+<p>이 때 키 타입을 K, 값 타입을 V라고 할때 <code>new hash_table[K, V]</code>이 K를 키 타입, V를 값 타입 쌍으로 저장하는 <code>hash_table</code>을 생성하는 함수라고 하자.</p>
+<pre><code>hash_table = new hash_table[string, int]
+</code></pre><p>그 다음 등록한 선수 이름의 목록이 있는 <code>participant</code>를 순회한다. 여기서 <code>p</code>를 <code>participant</code>의 각 요소라고 생각하자.</p>
+<pre><code>...
+
+for p in participant: # participant 순회
+    ...
+</code></pre><p>이제 선수 이름 <code>p</code>와 동명이인의 수를 <code>해시 테이블</code>에 저장한다. 어떻게 저장할까? 간단하다.</p>
+<p>먼저, 해시 테이블에 해당 선수의 이름의 키가 있는지 확인한다. 없으면, { 선수 이름 : 0 } 쌍을 갖게 만들어준다. 여기서, 그리고 <code>hash_table</code>의 키를 접근하는 것은 <code>[]</code>라고 하자.</p>
+<pre><code>for p in participant:
+    if p not in hash_table: # 해시 테이블에 선수 이름이 있나 확인
+        hash_table[p]=0     # 없으면, { 선수 이름 : 0 } 쌍을 저장
+    ...
+
+...
+</code></pre><p>그리고 이제 <code>p</code>로 <code>hash_table</code>을 접근하여 숫자 1을 증가시켜준다.</p>
+<pre><code>for p in participant:
+    if p not in hash_table: 
+        hash_table[p]=0     
+    
+    count = hash_table[p]       # 해당 키로 접근하여 값을 받아온다.
+    hash_table[p] = count + 1 , # 그 값을 1 증가시킨 후 키 p에 저장한다.
+
+...
+</code></pre><p>그럼 등록 선수 목록을 기준으로 { 선수 이름 : 동명 이인의 수 } 쌍을 갖는 <code>해시 테이블</code>이 만들어진다.</p>
+<p>그럼 완주한 선수 목록 <code>completion</code>을 토대로 <code>해시 테이블</code>에서 동명 이인의 수를 어떻게 뺄 수 있을까? 굉장히 쉽다. <code>completion</code> 순회하면서 각 요소를 키로 <code>해시 테이블</code>을 접근하고 값을 1씩 빼주면 된다.</p>
+<pre><code>...
+
+for c in completion:
+    count = hash_table[c] 
+    count -= 1
+    ...
+</code></pre><p>이 때, 그 값이 0 이하라면, <code>해시 테이블에서</code> 키를 제거하면 된다. 여기서 키를 제거하는 동작이 <code>delete_key</code>이라고 표기하자. 값이 0보다 크다면, 다시 <code>해시 테이블</code>에 <code>c</code>를 키로, <code>count</code>를 값으로 저장해야 한다.</p>
+<pre><code>...
+
+for c in completion:
+    count = hash_table[c] 
+    count -= 1
+    
+    if count &lt;= 0:
+        hash_table.delete_key(c)
+    else:
+        hash_table[c] = count
+</code></pre><p>문제 입력에 따르면, <code>해시 테이블</code>에 남아 있는 키는 딱 1개, 그 키와 싸으로 저장된 값도 1이 된다. 그럼 그 키를 반환하면 된다. 여기서 <code>해시 테이블</code>에서 키 목록을 반환하는 함수를 <code>key_set</code>이라고 하자. 즉 답은 이렇게 된다.</p>
+<pre><code>...
+answer = hash_table.key_set()[0]
+return answer
+</code></pre><p>정리해보자. 알고리즘은 단계별로 이렇게 정리할 수 있겠다.</p>
+<ol>
+<li>{ 등록한 선수 이름: 동명이인의 수 } 쌍을 저장하는 해시 테이블을 생성한다.</li>
+<li>등록 선수 목록 <code>participant</code> 기준으로 해시 테이블을 초기화한다.
+<ol>
+<li>맵에 선수 이름의 키가 없으면 { 선수 이름: 0 } 쌍으로 저장한다.</li>
+<li>맵에서 선수 이름의 키를 가진 값을 가져와 1 더한다.</li>
+</ol>
+</li>
+<li>완주 선수 목록 <code>completion</code> 기준으로 해시 테이블을 동기화한다.
+<ol>
+<li>맵에서 선수 이름을 키로 등록한 동명이인의 수를 가져온다.</li>
+<li>그 수에서 1을 뺀다.</li>
+<li>만약 뺀 수가 0이라면, 맵에서 선수 이름의 키를 제거한다.</li>
+<li>아니라면, 뺀 수를 선수 이름과 함께 저장한다.</li>
+</ol>
+</li>
+<li>맵에서 저장하는 키, 즉 선수 이름 중 첫 요소를 가져와서 반환한다. (<code>participant의 길이-completion의 길이=1</code>이니까 딱 1개의 키만 남는다.)</li>
+</ol>
+<p>이를 나타낸 전체 수도코드는 다음과 같다.</p>
+<pre><code># 1. 해시 테이블 생성
+hash_table = new hash_table[string, int]
+
+# 2. 등록 선수 목록 기준으로 해시 테이블 초기화
+for p in participant:
+    if p not in hash_table: 
+        hash_table[p]=0     
+    
+    hash_table[p] += 1
+
+# 3. 완주 선수 목록 기준으로 해시 테이블 동기화
+for c in completion:
+    count = hash_table[c] 
+    count -= 1
+    
+    if count &lt;= 0:
+        hash_table.delete_key(c)
+    else:
+        hash_table[c] = count
+
+
+# 4. 완주하지 못한 선수 반환
+answer = hash_table.key_set()[0]
+return answer
+</code></pre><p>이를 자바 코드로 나타내면 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">solution</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> participant<span style="color:#f92672">,</span> String<span style="color:#f92672">[]</span> completion<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> map <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String p <span style="color:#f92672">:</span> participant<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            map<span style="color:#f92672">.</span><span style="color:#a6e22e">putIfAbsent</span><span style="color:#f92672">(</span>p<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
+            map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>p<span style="color:#f92672">,</span> map<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>p<span style="color:#f92672">)</span> <span style="color:#f92672">+</span> 1<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String c <span style="color:#f92672">:</span> completion<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            Integer count <span style="color:#f92672">=</span> map<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+            count <span style="color:#f92672">-=</span> 1<span style="color:#f92672">;</span>
+
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>count <span style="color:#f92672">&lt;=</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                map<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>c<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+                map<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>c<span style="color:#f92672">,</span> count<span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+
+        String answer <span style="color:#f92672">=</span> map<span style="color:#f92672">.</span><span style="color:#a6e22e">keySet</span><span style="color:#f92672">().</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">findFirst</span><span style="color:#f92672">().</span><span style="color:#a6e22e">get</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">return</span> answer<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>프로그래머스 사이트에서 코드를 채점하면 통과함을 알 수 있다.</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4/">프로그래머스 문제 풀이</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B3%A0%EB%93%9D%EC%A0%90-kit/">코딩테스트 고득점 kit</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%95%B4%EC%8B%9C/">해시</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/hash/">hash</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-2-%EC%89%98-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%A1%9C-ci/cd-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/" data-tooltip="지리오 서비스 구축기 (2) 쉘 스크립트로 CI/CD 구축하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+            
+              
+                
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-2-%EC%89%98-%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8%EB%A1%9C-ci/cd-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/" data-tooltip="지리오 서비스 구축기 (2) 쉘 스크립트로 CI/CD 구축하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%2599%2584%25EC%25A3%25BC%25ED%2595%2598%25EC%25A7%2580-%25EB%25AA%25BB%25ED%2595%259C-%25EC%2584%25A0%25EC%2588%2598%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%2599%2584%25EC%25A3%25BC%25ED%2595%2598%25EC%25A7%2580-%25EB%25AA%25BB%25ED%2595%259C-%25EC%2584%25A0%25EC%2588%2598%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%2599%2584%25EC%25A3%25BC%25ED%2595%2598%25EC%25A7%2580-%25EB%25AA%25BB%25ED%2595%259C-%25EC%2584%25A0%25EC%2588%2598%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script data-ad-client="ca-pub-7631742708971063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/10\/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%99%84%EC%A3%BC%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EC%84%A0%EC%88%98\/';
+          
+            this.page.identifier = '\/2020\/10\/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%99%84%EC%A3%BC%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EC%84%A0%EC%88%98\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
