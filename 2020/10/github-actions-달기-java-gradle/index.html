@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Github Actions 달기 (Java &#43; Gradle)">
+<meta name="twitter:title" content="Github Actions 달기 (Java &#43; Gradle)">
+<meta property="og:url" content="https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-java-gradle/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-java-gradle/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-10-14T22:05:08">
+  
+  
+    <meta property="article:modified_time" content="2020-10-14T22:05:08">
+  
+  
+  
+    
+      <meta property="article:section" content="ci-cd">
+    
+      <meta property="article:section" content="github-actions">
+    
+  
+  
+    
+      <meta property="article:tag" content="ci">
+    
+      <meta property="article:tag" content="github actions">
+    
+      <meta property="article:tag" content="java">
+    
+      <meta property="article:tag" content="gradle">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/ci-cd/github-actions/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/ci-cd/github-actions/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>Github Actions 달기 (Java &#43; Gradle)</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-java-gradle/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      Github Actions 달기 (Java &#43; Gradle)
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-10-14T22:05:08&#43;09:00">
+        
+  October 14, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/ci-cd">ci-cd</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/github-actions">github-actions</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/logo.png" alt="logo"></p>
+<blockquote>
+<p>Github Actions 공식 문서를 공부하고 정리한 문서입니다. 이 문서는 Gradle 기반에 Java 프로젝트의 Github Actions를 추가하는 방법에 대하여 다루고 있습니다.</p>
+</blockquote>
+<h2 id="요구-사항">요구 사항</h2>
+<p>먼저, <code>Gradle</code>기반의 자바 프로젝트가 존재해야 한다. 나의 환경은 다음과 같다.</p>
+<ul>
+<li>Java 1.8</li>
+<li>Gradle</li>
+</ul>
+<p>이거면 충분하다. 이제 프로젝트에 <code>Github Actions</code>를 달아서 <code>CI</code>를 구축해보자.</p>
+<h2 id="github-actions-달기">Github Actions 달기</h2>
+<p>먼저 <code>Github</code> 레포지토리에서, <code>Actions</code> 탭을 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/01.png" alt="01"></p>
+<p><code>Github Ations</code>를 달지 않았다면, 다음 화면이 뜬다. <code>Java with Gradle &gt; Set up this workflow</code>를 클릭하자.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/02.png" alt="02"></p>
+<p>그럼 다음 화면이 뜬다. 일단은 건드릴 것 없이 <code>Start Commit</code>을 누른다. <code>yml</code> 파일은 추후에 설명한다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/03.png" alt="03"></p>
+<blockquote>
+<p>참고!</p>
+<p>현재 제 프로젝트에는 &ldquo;Hello World&rdquo; 수준의 스프링 부트 앱이기 때문에 수정이 필요 없습니다.</p>
+<p>만약, 데이터베이스 연결이 필요하거나 jib 같이 도커 이미지 빌드 같은 작업이 필요하다면, 수정이 필요합니다.</p>
+</blockquote>
+<p>그럼 커밋 제목과 내용을 추가하라는 UI가 나온다. 적절히 입력하고 다시 <code>Actions</code> 탭을 누른다. 그럼 다음 화면이 나온다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/04.png" alt="04"></p>
+<p>아마 빌드를 눌러야 할 것이다. 빌드를 누르면, <code>./github/workflows/gradle.yml</code>에 작성된 스크립트에 따라 단계별로 진행이 된다.</p>
+<p>이쯤에서, <code>gradle.yml</code>을 살펴보자.</p>
+<p>project/./github/workflows/gradle.yml</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#75715e"># This workflow will build a Java project with Gradle</span>
+<span style="color:#75715e"># For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle</span>
+
+<span style="color:#66d9ef">name</span>: Java CI with Gradle
+
+<span style="color:#66d9ef">on</span>:
+  <span style="color:#66d9ef">push</span>:
+    <span style="color:#66d9ef">branches</span>: [ master ]
+  <span style="color:#66d9ef">pull_request</span>:
+    <span style="color:#66d9ef">branches</span>: [ master ]
+
+<span style="color:#66d9ef">jobs</span>:
+  <span style="color:#66d9ef">build</span>:
+
+    <span style="color:#66d9ef">runs-on</span>: ubuntu-latest
+
+    <span style="color:#66d9ef">steps</span>:
+    - <span style="color:#66d9ef">uses</span>: actions/checkout@v2
+    - <span style="color:#66d9ef">name</span>: Set up JDK <span style="color:#ae81ff">1.8</span>
+      <span style="color:#66d9ef">uses</span>: actions/setup-java@v1
+      <span style="color:#66d9ef">with</span>:
+        <span style="color:#66d9ef">java-version</span>: <span style="color:#ae81ff">1.8</span>
+    - <span style="color:#66d9ef">name</span>: Grant execute permission for gradlew
+      <span style="color:#66d9ef">run</span>: chmod +x gradlew
+    - <span style="color:#66d9ef">name</span>: Build with Gradle
+      <span style="color:#66d9ef">run</span>: ./gradlew build
+</code></pre></div><p>하나 하나 뜯어보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">name</span>: Java CI with Gradle
+</code></pre></div><p>이것은 <code>Action</code>의 이름이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">on</span>:
+  <span style="color:#66d9ef">push</span>:
+    <span style="color:#66d9ef">branches</span>: [ master ]
+  <span style="color:#66d9ef">pull_request</span>:
+    <span style="color:#66d9ef">branches</span>: [ master ]
+</code></pre></div><p>이 코드는 <code>master</code> 브랜치에, &ldquo;push&quot;가 일어나거나, &ldquo;pull request&quot;가 일어나면, <code>Action</code>을 실행시키라는 것이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml"><span style="color:#66d9ef">jobs</span>:
+  <span style="color:#66d9ef">build</span>:
+
+    <span style="color:#66d9ef">runs-on</span>: ubuntu-latest
+
+    <span style="color:#66d9ef">steps</span>:
+    - <span style="color:#66d9ef">uses</span>: actions/checkout@v2
+
+    - <span style="color:#66d9ef">name</span>: Set up JDK <span style="color:#ae81ff">1.8</span>
+      <span style="color:#66d9ef">uses</span>: actions/setup-java@v1
+      <span style="color:#66d9ef">with</span>:
+        <span style="color:#66d9ef">java-version</span>: <span style="color:#ae81ff">1.8</span>
+
+    - <span style="color:#66d9ef">name</span>: Grant execute permission for gradlew
+      <span style="color:#66d9ef">run</span>: chmod +x gradlew
+
+    - <span style="color:#66d9ef">name</span>: Build with Gradle
+      <span style="color:#66d9ef">run</span>: ./gradlew build
+</code></pre></div><p><code>jobs</code>는 <code>Actions</code>에 잡을 의미한다. <code>runs-on</code>은 Actions가 실행될 환경을 뜻한다. 여기서 빌드는 <code>ubuntu-latest</code> 컨테이너 내에서 실행이 된다.</p>
+<p><code>steps</code>는 잡의 단계 단계를 나타낸다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">    <span style="color:#66d9ef">steps</span>:
+    - <span style="color:#66d9ef">uses</span>: actions/checkout@v2
+</code></pre></div><p>이것은 기본적으로 설정된다. 기본 브랜치로 checkout 하는 것 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">    - <span style="color:#66d9ef">name</span>: Set up JDK <span style="color:#ae81ff">1.8</span>
+      <span style="color:#66d9ef">uses</span>: actions/setup-java@v1
+      <span style="color:#66d9ef">with</span>:
+        <span style="color:#66d9ef">java-version</span>: <span style="color:#ae81ff">1.8</span>
+</code></pre></div><p>이것은 <code>java</code> 버전을 설정한다. market place에 있는 플러그인인데, <code>ubuntu-latest</code> 컨테이너에 자바 설치를 하는 것 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">    - <span style="color:#66d9ef">name</span>: Grant execute permission for gradlew
+      <span style="color:#66d9ef">run</span>: chmod +x gradlew
+</code></pre></div><p>이것은 쉘 스크립트 구문이다. 레포지토리 내의 <code>gradlew</code> 실행 파일에 실행 권한을 주는 것이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">    - <span style="color:#66d9ef">name</span>: Build with Gradle
+      <span style="color:#66d9ef">run</span>: ./gradlew build
+</code></pre></div><p>역시 쉘 스크립트 구문이다. <code>gradlew</code>에 <code>build</code> 명령을 실행한다.</p>
+<blockquote>
+<p>참고!</p>
+<p>graldew는 Gradle의 실행 파일 버전이며, build 명령을 실행하면, 테스트 &gt; 빌드 작업이 일어나서 후에는 build/libs/${project_name}-0.0.1-SNAPSHOT.jar 파일이 만들어집니다.</p>
+</blockquote>
+<h2 id="ci-구축해보기">CI 구축해보기</h2>
+<p>이제 <code>CI</code>를 구축해보자. 먼저 프로젝트에서 무조건 실패하는 테스트 코드를 작성한다. 그리고 <code>master</code> 브랜치에 푸쉬를 한다. 그 후, <code>Actions</code> 탭을 누르면 다음 화면이 뜬다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/05.png" alt="05"></p>
+<p>빌드 작업이 일어나고 있다는 뜻이다. 클릭해서 들어가보자. 어느 정도 시간을 기다리면 다음 화면이 뜬다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/06.png" alt="06"></p>
+<p>테스트가 실패해서 설정한 <code>Github Actions</code>가 깨진 것이다. 이제 다시 <code>Actions</code> 탭을 눌러보자. 액션이 실패한 것을 UI로 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/07.png" alt="07"></p>
+<p>이제 다시 테스트를 정상화해서 다시 마스터 브랜치에 푸쉬한다. 그럼 역시 다음 화면을 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/08.png" alt="08"></p>
+<p>클릭해서 들어가본다. 역시 조금 시간을 기다리면, 통과하는 것을 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/09.png" alt="09"></p>
+<p>이제 다시 <code>Actions</code> 탭을 눌러보면, UI에서 통과함을 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/ci-cd/github-actions/02-add-java-gradle-actions/10.png" alt="10"></p>
+<p>이 과정이 <code>CI</code> 작업이다. 코드의 병합 과정이 일어나면, 해당 코드가 잘 동작하는지 테스트하는 것까지. 이렇게 해서 <code>Gradle</code> 기반의 자바 프로젝트를 <code>Github Actions</code>를 이용해서 <code>CI</code>를 구축해보았다.</p>
+<p>프로젝트에 써먹을 생각하니 기분이 좋다. 하하.</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/ci/">ci</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/github-actions/">github actions</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/java/">java</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/gradle/">gradle</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%99%84%EC%A3%BC%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EC%84%A0%EC%88%98/" data-tooltip="알고리즘 문제 풀이: 완주하지 못한 선수">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+            
+              
+                
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%99%84%EC%A3%BC%ED%95%98%EC%A7%80-%EB%AA%BB%ED%95%9C-%EC%84%A0%EC%88%98/" data-tooltip="알고리즘 문제 풀이: 완주하지 못한 선수">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2Fgithub-actions-%25EB%258B%25AC%25EA%25B8%25B0-java-gradle%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2Fgithub-actions-%25EB%258B%25AC%25EA%25B8%25B0-java-gradle%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2Fgithub-actions-%25EB%258B%25AC%25EA%25B8%25B0-java-gradle%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script data-ad-client="ca-pub-7631742708971063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/10\/github-actions-%EB%8B%AC%EA%B8%B0-java-gradle\/';
+          
+            this.page.identifier = '\/2020\/10\/github-actions-%EB%8B%AC%EA%B8%B0-java-gradle\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

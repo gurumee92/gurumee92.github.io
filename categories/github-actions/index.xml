@@ -6,10 +6,19 @@
     <description>Recent content in github-actions on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 01 Oct 2020 17:32:13 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 14 Oct 2020 22:05:08 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/categories/github-actions/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Github Actions 달기 (Java &#43; Gradle)</title>
+      <link>https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-java-gradle/</link>
+      <pubDate>Wed, 14 Oct 2020 22:05:08 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-java-gradle/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Github Actions란 무엇인가?</title>
