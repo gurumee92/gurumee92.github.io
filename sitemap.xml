@@ -4,7 +4,77 @@
   
   <url>
     <loc>https://gurumee92.github.io/categories/</loc>
-    <lastmod>2020-10-14T22:05:08+09:00</lastmod>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/cloud/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/categories/cloud/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/docker/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/docker-registry/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/gce/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/gcloud/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/gcp/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/categories/gcp/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/2020/10/gcp-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-iam-%ED%82%A4-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/gcr/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/google-cloud-platform/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/post/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/</loc>
+    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
   </url>
   
   <url>
@@ -38,22 +108,7 @@
   </url>
   
   <url>
-    <loc>https://gurumee92.github.io/</loc>
-    <lastmod>2020-10-14T22:05:08+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gurumee92.github.io/tags/java/</loc>
-    <lastmod>2020-10-14T22:05:08+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/post/</loc>
-    <lastmod>2020-10-14T22:05:08+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/</loc>
     <lastmod>2020-10-14T22:05:08+09:00</lastmod>
   </url>
   
@@ -123,11 +178,6 @@
   </url>
   
   <url>
-    <loc>https://gurumee92.github.io/tags/gce/</loc>
-    <lastmod>2020-10-11T13:34:38+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gurumee92.github.io/categories/geerio/</loc>
     <lastmod>2020-10-11T13:34:38+09:00</lastmod>
   </url>
@@ -143,52 +193,7 @@
   </url>
   
   <url>
-    <loc>https://gurumee92.github.io/tags/cloud/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/categories/cloud/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/docker/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/docker-registry/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/gcloud/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/gcp/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/categories/gcp/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/gcr/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gurumee92.github.io/2020/10/gcr-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/</loc>
-    <lastmod>2020-10-04T22:16:28+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/google-cloud-platform/</loc>
     <lastmod>2020-10-04T22:16:28+09:00</lastmod>
   </url>
   
