@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="알고리즘 문제 풀이: 전화번호 목록">
+<meta name="twitter:title" content="알고리즘 문제 풀이: 전화번호 목록">
+<meta property="og:url" content="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-10-17T17:36:51">
+  
+  
+    <meta property="article:modified_time" content="2020-10-17T17:36:51">
+  
+  
+  
+    
+      <meta property="article:section" content="algorithm">
+    
+      <meta property="article:section" content="programmers">
+    
+      <meta property="article:section" content="high_score_kit">
+    
+  
+  
+    
+      <meta property="article:tag" content="알고리즘">
+    
+      <meta property="article:tag" content="프로그래머스 문제 풀이">
+    
+      <meta property="article:tag" content="코딩테스트 고득점 kit">
+    
+      <meta property="article:tag" content="해시">
+    
+      <meta property="article:tag" content="hash">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/algorithm/programmers/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/algorithm/programmers/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>알고리즘 문제 풀이: 전화번호 목록</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      알고리즘 문제 풀이: 전화번호 목록
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-10-17T17:36:51&#43;09:00">
+        
+  October 17, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/algorithm">algorithm</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/programmers">programmers</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/high_score_kit">high_score_kit</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/algorithm/programmers/logo.png" alt="logo"></p>
+<blockquote>
+<p>프로그래머스 &gt; 코딩테스트 연습 &gt; 코딩테스트 고득점 Kit &gt; 해시 &gt; &ldquo;전화번호 목록&rdquo; 문제에 대한 풀이입니다.</p>
+<p>문제 링크는 <a href="https://programmers.co.kr/learn/courses/30/lessons/42577?language=java">이 곳</a>에서 확인할 수 있습니다.</p>
+</blockquote>
+<h2 id="문제-분석">문제 분석</h2>
+<p>먼저 문제의 조건을 살펴보자.</p>
+<ol>
+<li>phone_book의 길이는 1 이상 1,000,000 이하입니다.</li>
+<li>각 전화번호의 길이는 1 이상 20 이하입니다.</li>
+</ol>
+<p>그리고, &ldquo;한 번호가 다른 번호의 접두어인지 확인한다&quot;라는 지문을 보았을 때, <strong>입력으로 중복된 번호가 들어오지 않을 것</strong>이다. 이를 유의해서 생각해보자. 해당 문제의 경우 나올 수 있는 경우의 수는 딱 두 가지 뿐이다.</p>
+<ol>
+<li>입력에 다른 번호가 접두어인 번호가 있는 경우</li>
+<li>입력에 다른 번호가 접두어인 번호가 없는 경우</li>
+</ol>
+<h3 id="입력에-다른-번호가-접두어인-번호가-있는-경우">입력에 다른 번호가 접두어인 번호가 있는 경우</h3>
+<p>먼저 다른 번호가 접두어인 번호가 있는 경우를 살펴보자. 문제에서 주어진 첫 번째, 세 번째 입력이 이에 해당한다. 첫 번째 입력을 살펴보자.</p>
+<p>문제 입력</p>
+<pre><code>phone_book = [&quot;119&quot;, &quot;97674223&quot;, &quot;1195524421&quot;]
+</code></pre><p>먼저 &ldquo;119&quot;를 나머지 번호와 비교해보자.</p>
+<pre><code>119 vs 97674223
+</code></pre><p>이 경우 2 번호 모두 각각 접두어가 아닌다. 이제 그 다음 전화 번호 &ldquo;1195524421&quot;와 비교해보자.</p>
+<pre><code>119 vs 1195524421
+</code></pre><p>이 경우 &ldquo;1195524421&quot;는 &ldquo;119&quot;의 접두어는 아니지만, &ldquo;119&quot;는 &ldquo;<code>119</code>5524421&quot;의 접두어이다. 따라서 이 경우 정답은 <code>false</code>이다. (세 번째 입력도 마찬가지이다.)</p>
+<h3 id="입력에-다른-번호가-접두어인-번호가-없는-경우">입력에 다른 번호가 접두어인 번호가 없는 경우</h3>
+<p>이번엔 입력에 다른 번호가 접두어인 번호가 없는 경우를 살펴보자. 문제에서 주어진 두 번째 입력이 이에 해당한다.</p>
+<pre><code>phone_book = [&quot;123&quot;, &quot;456&quot;, &quot;789&quot;]
+</code></pre><p>첫 전화번호인 &ldquo;123&quot;부터 비교해보자. 먼저 &ldquo;123&quot;을 제외한 나머지 번호 중 &ldquo;456&quot;과 비교한다.</p>
+<pre><code>123 vs 456
+</code></pre><p>&ldquo;123&rdquo;, &ldquo;456&rdquo; 모두 서로의 접두어가 아니다. 이제 &ldquo;789&quot;와 비교한다.</p>
+<pre><code>123 vs 789
+</code></pre><p>역시 &ldquo;123&rdquo;, &ldquo;789&rdquo; 모두 서로의 접두어가 아니다. 이제, &ldquo;123&quot;과 비교할 수 있는 전화 번호는 없다. 이제 &ldquo;456&quot;을 기준으로 비교해보자. 이미 &ldquo;123&quot;과 비교했으므로 &ldquo;789&quot;와 비교하자.</p>
+<pre><code>456 vs 789
+</code></pre><p>&ldquo;456&rdquo;, &ldquo;789&quot;는 서로의 접두어가 아니다. 이제 &ldquo;456&quot;과 비교하지 않은 전화 번호는 없다. 또한, &ldquo;789&quot;와 비교하지 않은 전화 번호도 없다. 즉, <code>phone_book</code>의 모든 전화번호는 서로의 접두어가 아니다. 이 경우, <code>true</code>를 반환하면 된다.</p>
+<h3 id="어떻게-풀까">어떻게 풀까?</h3>
+<p>프로그래머스에는 보통 정확도 테스트와 효율성 테스트가 주어진다. 어떤 문제들은 정확도 테스트만 체크하는 경우도 더러 있다. 개인적으로 알고리즘 시험을 치를 때, 가장 중요한 것은 정확도 테스트를 얼마나 빨리 풀 수 있는가이다. 효율성 테스트는 그 다음으로 생각해도 좋다.</p>
+<p>뭐 &ldquo;해시 파트에 속해 있으니까 무조건 해시로 풀자.&ldquo;라고 생각할 수 있지만, 위의 경우의 수를 살펴 봐서 알 수 있듯이 해시를 쓸 필요는 없다. 명확히 풀 수 있는 방법이 있다면, 그걸 쓰는 것이 제일 좋다. 만약 그 알고리즘이 효율성 테스트에서 통과하지 못할 때, 요구하는 자료구조 및 알고리즘을 있는가를 생각하는 것이 옳다고 생각한다.</p>
+<p>물론 처음부터 그것을 쓸 수 있다면 써라. 이 문제의 경우, 이중 for문이면 충분하다.</p>
+<h2 id="문제-풀이">문제 풀이</h2>
+<p>이 문제는 매우 쉽다. <code>phone_book</code>을 반복하며 순회하면서, 해당 번호와 다른 번호가 서로 접두어인지 판별하면 된다. 어떤 배열의 각 원소를 다른 원소들과 어떻게 비교할 수 있을까? 제일 쉽게는 이런 방식이 있다.</p>
+<pre><code>n = len(arr) # arr 길이
+
+for i in 0 .. n:
+    for j in 0 .. n:
+        if (i == j):
+            continue
+
+        if (arr[i] vs arr[j]):
+            do
+</code></pre><p>이렇게 하면, 모든 원소를 순회하면서, 서로 다른 원소끼리 비교할 수 있다. 그러나, 같은 비교가 최소 2번은 일어나게 된다. (i vs j, j vs i) 비교횟수를 줄이고 싶다면 이런 식으로 코드를 짤 수 있다.</p>
+<pre><code>n = len(arr) # arr 길이
+
+for i in 0 .. n-1:
+    for j in i+1 .. n:
+        if (arr[i] vs arr[j]):
+            do
+</code></pre><p>i, j가 같은지 비교할 필요도 없고, 다른 원소끼리의 비교는 딱 한 번 일어나게 된다. 이를 이용해서 문제를 풀어보자. 문제의 알고리즘은 다음과 같이 간단하게 정리할 수 있다.</p>
+<ol>
+<li><code>i</code>를 <code>0 ~ phone_book 길이 - 1</code>만큼 순회한다.
+<ol>
+<li><code>phone_book[i]</code>는 <code>a</code>이다.</li>
+<li><code>j</code>를 <code>i+1 ~ phone_book 길이</code>만큼 순회한다.
+<ol>
+<li><code>phone_book[j]</code>는 <code>b</code>이다.</li>
+<li><code>a</code>가 <code>b</code>의 접두어 혹은 <code>b</code>가 <code>a</code>의 접두어라면 false를 반환한다.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>true를 반환한다.</li>
+</ol>
+<p>이를 자바 코드로 나타내면 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">solution</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> phone_book<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>phone_book<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">-</span>1<span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            String a <span style="color:#f92672">=</span> phone_book<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+            
+            <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i<span style="color:#f92672">+</span>1<span style="color:#f92672">;</span> j<span style="color:#f92672">&lt;</span>phone_book<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> j<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+                String b <span style="color:#f92672">=</span> phone_book<span style="color:#f92672">[</span>j<span style="color:#f92672">];</span>
+                
+                <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">.</span><span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">||</span> b<span style="color:#f92672">.</span><span style="color:#a6e22e">startsWith</span><span style="color:#f92672">(</span>a<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span><span style="color:#f92672">;</span>
+                <span style="color:#f92672">}</span>
+            <span style="color:#f92672">}</span>     
+        <span style="color:#f92672">}</span>
+        
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>코드를 제출하면, 통과하는 것을 확인할 수 있다.</p>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4/">프로그래머스 문제 풀이</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B3%A0%EB%93%9D%EC%A0%90-kit/">코딩테스트 고득점 kit</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%95%B4%EC%8B%9C/">해시</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/hash/">hash</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/gcp-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-iam-%ED%82%A4-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0/" data-tooltip="GCP 프로젝트에 IAM 키 생성하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+            
+              
+                
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/gcp-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-iam-%ED%82%A4-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0/" data-tooltip="GCP 프로젝트에 IAM 키 생성하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%25A0%2584%25ED%2599%2594%25EB%25B2%2588%25ED%2598%25B8-%25EB%25AA%25A9%25EB%25A1%259D%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%25A0%2584%25ED%2599%2594%25EB%25B2%2588%25ED%2598%25B8-%25EB%25AA%25A9%25EB%25A1%259D%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%25A0%2584%25ED%2599%2594%25EB%25B2%2588%25ED%2598%25B8-%25EB%25AA%25A9%25EB%25A1%259D%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script data-ad-client="ca-pub-7631742708971063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/10\/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D\/';
+          
+            this.page.identifier = '\/2020\/10\/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%A0%84%ED%99%94%EB%B2%88%ED%98%B8-%EB%AA%A9%EB%A1%9D\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
