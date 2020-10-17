@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 17 Oct 2020 22:37:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2020 23:27:16 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ci-cd</title>
+      <link>https://gurumee92.github.io/categories/ci-cd/</link>
+      <pubDate>Sat, 17 Oct 2020 23:27:16 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/ci-cd/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github-actions</title>
+      <link>https://gurumee92.github.io/categories/github-actions/</link>
+      <pubDate>Sat, 17 Oct 2020 23:27:16 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/github-actions/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cloud</title>
@@ -53,24 +71,6 @@
       <pubDate>Sat, 17 Oct 2020 17:36:51 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/categories/programmers/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>ci-cd</title>
-      <link>https://gurumee92.github.io/categories/ci-cd/</link>
-      <pubDate>Wed, 14 Oct 2020 22:05:08 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/ci-cd/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>github-actions</title>
-      <link>https://gurumee92.github.io/categories/github-actions/</link>
-      <pubDate>Wed, 14 Oct 2020 22:05:08 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/github-actions/</guid>
       <description></description>
     </item>
     

@@ -6,10 +6,19 @@
     <description>Recent content in gcp on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 17 Oct 2020 22:37:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2020 23:27:16 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/tags/gcp/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Github Actions 달기 (Google Compute Engine)</title>
+      <link>https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-google-compute-engine/</link>
+      <pubDate>Sat, 17 Oct 2020 23:27:16 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-google-compute-engine/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>GCP 프로젝트에 서비스 계정 생성하기</title>
