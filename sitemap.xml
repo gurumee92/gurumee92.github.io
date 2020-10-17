@@ -3,17 +3,72 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://gurumee92.github.io/categories/algorithm/</loc>
-    <lastmod>2020-10-17T17:36:51+09:00</lastmod>
+    <loc>https://gurumee92.github.io/categories/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://gurumee92.github.io/categories/</loc>
-    <lastmod>2020-10-17T17:36:51+09:00</lastmod>
+    <loc>https://gurumee92.github.io/tags/cloud/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/categories/cloud/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/gce/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/gcp/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/categories/gcp/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/2020/10/gcp-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B3%84%EC%A0%95-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/google-cloud-platform/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/iam/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/post/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/service-account/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/</loc>
+    <lastmod>2020-10-17T22:37:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/categories/algorithm/</loc>
     <lastmod>2020-10-17T17:36:51+09:00</lastmod>
   </url>
   
@@ -28,17 +83,7 @@
   </url>
   
   <url>
-    <loc>https://gurumee92.github.io/post/</loc>
-    <lastmod>2020-10-17T17:36:51+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gurumee92.github.io/categories/programmers/</loc>
-    <lastmod>2020-10-17T17:36:51+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/</loc>
     <lastmod>2020-10-17T17:36:51+09:00</lastmod>
   </url>
   
@@ -68,47 +113,7 @@
   </url>
   
   <url>
-    <loc>https://gurumee92.github.io/tags/cloud/</loc>
-    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/categories/cloud/</loc>
-    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/gce/</loc>
-    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/gcp/</loc>
-    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/categories/gcp/</loc>
-    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://gurumee92.github.io/2020/10/gcp-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-service-account-key-%EC%83%9D%EC%84%B1%ED%95%98%EA%B8%B0/</loc>
-    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/google-cloud-platform/</loc>
-    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/iam/</loc>
-    <lastmod>2020-10-16T21:21:41+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/tags/service-account/</loc>
     <lastmod>2020-10-16T21:21:41+09:00</lastmod>
   </url>
   
