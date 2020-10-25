@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="알고리즘 문제 풀이: 위장">
+<meta name="twitter:title" content="알고리즘 문제 풀이: 위장">
+<meta property="og:url" content="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%9C%84%EC%9E%A5/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%9C%84%EC%9E%A5/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-10-25T13:54:18">
+  
+  
+    <meta property="article:modified_time" content="2020-10-25T13:54:18">
+  
+  
+  
+    
+      <meta property="article:section" content="algorithm">
+    
+      <meta property="article:section" content="programmers">
+    
+      <meta property="article:section" content="high_score_kit">
+    
+  
+  
+    
+      <meta property="article:tag" content="알고리즘">
+    
+      <meta property="article:tag" content="프로그래머스 문제 풀이">
+    
+      <meta property="article:tag" content="코딩테스트 고득점 kit">
+    
+      <meta property="article:tag" content="해시">
+    
+      <meta property="article:tag" content="hash">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/algorithm/programmers/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/algorithm/programmers/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>알고리즘 문제 풀이: 위장</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%9C%84%EC%9E%A5/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      알고리즘 문제 풀이: 위장
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-10-25T13:54:18&#43;09:00">
+        
+  October 25, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/algorithm">algorithm</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/programmers">programmers</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/high_score_kit">high_score_kit</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/algorithm/programmers/logo.png" alt="logo"></p>
+<blockquote>
+<p>프로그래머스 &gt; 코딩테스트 연습 &gt; 코딩테스트 고득점 Kit &gt; 해시 &gt; &ldquo;위장&rdquo; 문제에 대한 풀이입니다.</p>
+<p>문제 링크는 <a href="https://programmers.co.kr/learn/courses/30/lessons/42578?language=java">이 곳</a>에서 확인할 수 있습니다.</p>
+</blockquote>
+<h2 id="문제-분석">문제 분석</h2>
+<p>음 이 문제야말로, <code>해시</code>라는 것을 이용하기에 최적화된 문제라고 볼 수 있다. 먼저 이 문제를 풀기 위해서는 간단한 수학적 지식이 필요하다. 먼저 <code>A</code>그룹과 <code>B</code>그룹이 있다고 하자. <code>A</code> 그룹에는 <code>a</code>, <code>b</code>, <code>c</code>가 있으며 <code>B</code> 그룹에는 <code>d</code>, <code>e</code>가 있다. 그룹은 최소 1가지는 선택해야 하며, 각 그룹 당 1개씩 선택하는 경우의 수는 어떻게 구할 수 있을까?</p>
+<p>먼저 일일이 세어보자. 먼저 한 그룹만 선택하고 한 원소만 선택하는 경우의 수이다.</p>
+<pre><code>경우의 수 : a, b, c, d, e
+</code></pre><p>그리고 두 그룹에서 각각 1개씩 뽑아 조합하는 경우의 수이다.</p>
+<pre><code>경우의 수 : {a, d}, {a, e}, {b, d}, {b, e}, {c, d}, {c, e}
+</code></pre><p>총 11개의 경우의 수를 구할 수 있다. 이런 경우 경우의 수를 구하는 최적의 방식이 있다. <code>A</code>그룹의 원소의 개수를 <code>CNTa</code> <code>B</code>그룹의 원소의 개수를 <code>CNTb</code>를 할 때, 다음 공식이 성립된다.</p>
+<pre><code>cnt = (CNTa + 1) x (CNTb + 1) -1
+</code></pre><p>이를 일반화하면, 각 그룹을 Xn으로 표현할 때, 최소 한 그룹은 선택하며, 선택한 그룹에서 원소 1개씩 뽑아 만든 조합의 경우의 수는 다음과 같다.</p>
+<pre><code>cnt = (CNTx1 + 1) X * (CNTx2 + 1) X ... X (CNTxN + 1) - 1
+</code></pre><p>이제 문제에 적용해보자. 다음은 문제의 첫번째 입력이다.</p>
+<p>문제 입력</p>
+<pre><code>clothes = [[yellow_hat, headgear], [blue_sunglasses, eyewear], [green_turban, headgear]]
+</code></pre><p>문제 입력에서는 2차원 배열로, 그 안에 저장된 각 배열은 또, {옷 이름, 옷 종류}가 저장되어 있다. 우리가 관심있는 것은 &ldquo;옷 종류&quot;에 따른 그 갯수이다. 입력에 따르면, 옷 종류는 <code>headgear</code>, <code>eyewear</code> 총 2가지이다. 이들을 그룹으로, 개수를 세어주면 된다. 이렇게 말이다.</p>
+<pre><code>m = {
+    &quot;headgear&quot;: 2, // yellow_hat, green_turban
+    &quot;eyewear&quot;: 1,  // blue_sunglasses
+}
+</code></pre><p>이렇게 그루핑된 데이터를 다음 공식에 제공하면 된다.</p>
+<pre><code>answer = ( CNTheadgear + 1 ) X (CNTeyewear + 1) - 1
+       = (2 + 1) X (1 + 1) - 1
+       = 3 X 2 - 1
+       = 5
+</code></pre><p>따라서 답은 5가 된다.</p>
+<h2 id="문제-풀이">문제 풀이</h2>
+<p>이 문제의 핵심은 크게 2가지이다.</p>
+<ol>
+<li><code>clothes</code>를 <code>{ 옷의 종류 : 옷의 개수 }</code> 쌍으로 저장하는 해시 구조로 변경하는 것</li>
+<li>해시에서, 경우의 수 알고리즘을 적용하는 것.</li>
+</ol>
+<p>먼저 주어진 입력 <code>clothes</code>를 해시로 변경해보자. 해시 구조를 <code>m</code>이라 하고 해시 구조 생성을 <code>make(map[K]V)</code> 라고 하자. 여기서 K, V는 키의 타입, 값의 타입이다.</p>
+<pre><code>m = make(map[string]int)
+</code></pre><p>옷의 종류는 문자열, 이에 개수는 숫자이기 때문에, {문자열 : 정수} 쌍을 저장하는 해시를 만든다. 그 후 <code>clothes</code>를 순회한다. <code>clothes</code>는 2차원 배열인데, 그 안에는 길이가 2개인 1차원 배열이 들어있다. 첫 값은 옷의 이름, 두 번째 값은 옷의 종류이다. 우리가 관심있는 것은 옷의 종류이다.</p>
+<pre><code>...
+
+for cloth in clothes:
+    name = cloth[0]
+    kind = cloth[1]
+    ...
+
+...
+</code></pre><p>여기서, <code>kind</code>를 키로, <code>m</code>에 값을 불러온다. 이를 <code>cnt</code>라 하자. 가져오고 1을 더해준 후 다시 키 <code>kind</code>에 1을 더한 <code>cnt</code>를 값으로 <code>m</code>에 저장하면 된다. 이 때 키가 <code>m</code>에 존재하지 않을 수 있으므로 기본 값 설정을 해주어야 한다.</p>
+<pre><code>...
+
+for cloth in clothes:
+    name = cloth[0]
+    kind = cloth[1]
+    # 기본 값 0 설정
+    cnt = 0 
+    
+    # 키 존재하면 해당 갯수로
+    if m.isExists(kind):
+        cnt = m[kind]
+    
+    # 1 증가
+    cnt += 1
+
+    # 해시에 키: 업데이트된 값 저장.
+    m[kind] = cnt      
+...
+</code></pre><p>이제 이렇게 구조가 변경된 해시를 이용해서 경우의 수 알고리즘을 구하면 된다. 각 값 + 1 을 곱해줘야 하므로, 값들을 순회하면서, 1을 더해준 후 누적시키면 된다. 각 키에 저장된 값을 가져오는 함수를 <code>values</code>라고 하면 코드는 다음과 같이 쓸 수 있다.</p>
+<pre><code>...
+
+answer = 1
+
+# 각 그룹에서 1개씩 뽑아 조합하는 경우의 수를 나타낸다.
+for v in m.values():
+    answer = answer * (v + 1)
+
+# 1을 뺴주어야 함을 잊지 말자
+answer -= 1
+</code></pre><p>이제 모든 코드 조각을 다 모았다. 전체적으로 보면 다음과 같다.</p>
+<pre><code># 해시를 생성한다.
+m = make(map[string]int)
+
+# 이차원 배열 -&gt; 해시로 구조 변경
+for cloth in clothes:
+    // name = cloth[0]
+    kind = cloth[1]
+    cnt = 0 
+    
+    if m.isExists(kind):
+        cnt = m[kind]
+    
+    cnt += 1
+    m[kind] = cnt  
+
+# 경우의 수 알고리즘 적용
+answer = 1
+
+for v in m.values():
+    answer = answer * (v + 1)
+
+answer -= 1
+</code></pre><p>이를 간략하게 정리하면 다음과 같다.</p>
+<ol>
+<li><code>{ 옷의 종류 : 옷의 개수 }</code> 쌍을 저장하는 해시를 만든다. 이를 <code>m</code>이라 한다.</li>
+<li><code>clothes</code>를 순회한다. 순회하는 원소는 <code>cloth</code>라고 한다.
+<ol>
+<li><code>cloth[1]</code>은 옷의 종류를 나타낸다. 이를 <code>kind</code>라 한다.</li>
+<li><code>kind</code>를 키로 <code>m</code>에 저장된 값을 가져온다. 해당 키가 없다면 0을 반환한다. 이를 <code>cnt</code>라 한다.</li>
+<li><code>cnt</code>를 1 증가시킨다.</li>
+<li>다시 <code>kind</code>를 키로 <code>cnt</code>를 값으로 <code>m</code>에 저장한다.</li>
+</ol>
+</li>
+<li><code>answer</code>는 1로 초기화한다.</li>
+<li><code>m</code>의 값들만 순회한다. 이 떄 순회하는 원소를 <code>v</code>라 한다.
+<ol>
+<li><code>(v + 1)</code>을 <code>answer</code>에 곱해준다.</li>
+</ol>
+</li>
+<li><code>answer</code>를 1 빼주고 반환한다.</li>
+</ol>
+<p>이를 자바 코드로 옮기면 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">solution</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[][]</span> clothes<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Integer<span style="color:#f92672">&gt;</span> m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>String <span style="color:#f92672">[]</span> cloth <span style="color:#f92672">:</span> clothes<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            String kind <span style="color:#f92672">=</span> cloth<span style="color:#f92672">[</span>1<span style="color:#f92672">];</span>
+            <span style="color:#66d9ef">int</span> cnt <span style="color:#f92672">=</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">getOrDefault</span><span style="color:#f92672">(</span>kind<span style="color:#f92672">,</span> 0<span style="color:#f92672">);</span>
+            cnt <span style="color:#f92672">+=</span> 1<span style="color:#f92672">;</span>
+            m<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>kind<span style="color:#f92672">,</span> cnt<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">int</span> answer <span style="color:#f92672">=</span> 1<span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> v <span style="color:#f92672">:</span> m<span style="color:#f92672">.</span><span style="color:#a6e22e">values</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            answer <span style="color:#f92672">*=</span> <span style="color:#f92672">(</span>v <span style="color:#f92672">+</span> 1<span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+
+        answer <span style="color:#f92672">-=</span> 1<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">return</span> answer<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4/">프로그래머스 문제 풀이</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B3%A0%EB%93%9D%EC%A0%90-kit/">코딩테스트 고득점 kit</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%95%B4%EC%8B%9C/">해시</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/hash/">hash</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-google-compute-engine/" data-tooltip="Github Actions 달기 (Google Compute Engine)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+            
+              
+                
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/10/github-actions-%EB%8B%AC%EA%B8%B0-google-compute-engine/" data-tooltip="Github Actions 달기 (Google Compute Engine)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%259C%2584%25EC%259E%25A5%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%259C%2584%25EC%259E%25A5%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F10%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EC%259C%2584%25EC%259E%25A5%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script data-ad-client="ca-pub-7631742708971063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/10\/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%9C%84%EC%9E%A5\/';
+          
+            this.page.identifier = '\/2020\/10\/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%9C%84%EC%9E%A5\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

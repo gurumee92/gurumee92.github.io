@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 17 Oct 2020 23:27:16 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 25 Oct 2020 13:54:18 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>알고리즘 문제 풀이: 위장</title>
+      <link>https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%9C%84%EC%9E%A5/</link>
+      <pubDate>Sun, 25 Oct 2020 13:54:18 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/2020/10/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EC%9C%84%EC%9E%A5/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Github Actions 달기 (Google Compute Engine)</title>
