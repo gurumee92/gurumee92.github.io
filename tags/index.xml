@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 25 Oct 2020 13:54:18 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 31 Oct 2020 19:33:29 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ci</title>
+      <link>https://gurumee92.github.io/tags/ci/</link>
+      <pubDate>Sat, 31 Oct 2020 19:33:29 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/ci/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>github actions</title>
+      <link>https://gurumee92.github.io/tags/github-actions/</link>
+      <pubDate>Sat, 31 Oct 2020 19:33:29 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/github-actions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>slack</title>
+      <link>https://gurumee92.github.io/tags/slack/</link>
+      <pubDate>Sat, 31 Oct 2020 19:33:29 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/slack/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>hash</title>
@@ -57,15 +84,6 @@
     </item>
     
     <item>
-      <title>ci</title>
-      <link>https://gurumee92.github.io/tags/ci/</link>
-      <pubDate>Sat, 17 Oct 2020 23:27:16 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/ci/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>gce</title>
       <link>https://gurumee92.github.io/tags/gce/</link>
       <pubDate>Sat, 17 Oct 2020 23:27:16 +0900</pubDate>
@@ -80,15 +98,6 @@
       <pubDate>Sat, 17 Oct 2020 23:27:16 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/gcp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>github actions</title>
-      <link>https://gurumee92.github.io/tags/github-actions/</link>
-      <pubDate>Sat, 17 Oct 2020 23:27:16 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/tags/github-actions/</guid>
       <description></description>
     </item>
     
