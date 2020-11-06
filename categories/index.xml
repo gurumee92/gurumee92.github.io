@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 31 Oct 2020 19:33:29 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 06 Nov 2020 23:24:40 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>experience</title>
+      <link>https://gurumee92.github.io/categories/experience/</link>
+      <pubDate>Fri, 06 Nov 2020 23:24:40 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/experience/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>geerio</title>
+      <link>https://gurumee92.github.io/categories/geerio/</link>
+      <pubDate>Fri, 06 Nov 2020 23:24:40 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/geerio/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ci-cd</title>
@@ -71,24 +89,6 @@
       <pubDate>Sat, 17 Oct 2020 22:37:00 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/categories/gcp/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>experience</title>
-      <link>https://gurumee92.github.io/categories/experience/</link>
-      <pubDate>Sun, 11 Oct 2020 13:34:38 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/experience/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>geerio</title>
-      <link>https://gurumee92.github.io/categories/geerio/</link>
-      <pubDate>Sun, 11 Oct 2020 13:34:38 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/geerio/</guid>
       <description></description>
     </item>
     
