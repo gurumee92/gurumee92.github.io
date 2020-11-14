@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>studies on Gurumee92&#39;s Devlog</title>
+    <link>https://gurumee92.github.io/categories/studies/</link>
+    <description>Recent content in studies on Gurumee92&#39;s Devlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 14 Nov 2020 18:39:05 +0900</lastBuildDate>
+    
+	<atom:link href="https://gurumee92.github.io/categories/studies/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>1장 오브젝트와 의존관계 (1)</title>
+      <link>https://gurumee92.github.io/2020/11/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-1/</link>
+      <pubDate>Sat, 14 Nov 2020 18:39:05 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/2020/11/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-1/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

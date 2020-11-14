@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1장 오브젝트와 의존관계 (1)">
+<meta name="twitter:title" content="1장 오브젝트와 의존관계 (1)">
+<meta property="og:url" content="https://gurumee92.github.io/2020/11/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-1/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/11/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-1/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-11-14T18:39:05">
+  
+  
+    <meta property="article:modified_time" content="2020-11-14T18:39:05">
+  
+  
+  
+    
+      <meta property="article:section" content="studies">
+    
+      <meta property="article:section" content="tobby-spring">
+    
+  
+  
+    
+      <meta property="article:tag" content="java">
+    
+      <meta property="article:tag" content="spring">
+    
+      <meta property="article:tag" content="토비의 스프링">
+    
+      <meta property="article:tag" content="object">
+    
+      <meta property="article:tag" content="dependencies">
+    
+      <meta property="article:tag" content="IoC Container">
+    
+      <meta property="article:tag" content="Spring Core">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/studies/tobby-spring/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/studies/tobby-spring/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>1장 오브젝트와 의존관계 (1)</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/11/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-1/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      1장 오브젝트와 의존관계 (1)
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-14T18:39:05&#43;09:00">
+        
+  November 14, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/studies">studies</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/tobby-spring">tobby-spring</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/studies/tobby-spring/logo.png" alt="logo"></p>
+<pre><code>책장속 먼지털기 스터디 1차
+스터디 날짜 : 2020.11.09
+작성 날짜 : 2020.11.08 ~ 09
+페이지 : 53 ~ 102
+</code></pre>
+<h2 id="초-간단하지만-초-난감한-dao를-만들어보자">초 간단!하지만, 초 난감한 DAO를 만들어보자</h2>
+<p>책에 나온대로, id, name, password 세 개의 프로퍼티를 가진 <code>User</code>클래스를 만든다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@NoArgsConstructor</span> <span style="color:#a6e22e">@AllArgsConstructor</span> 
+<span style="color:#a6e22e">@Getter</span> <span style="color:#a6e22e">@Setter</span> <span style="color:#a6e22e">@ToString</span> <span style="color:#a6e22e">@EqualsAndHashCode</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> String id<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">private</span> String password<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><blockquote>
+<p>참고! 자바 빈이란</p>
+<p>위의 User 클래스는 자바빈이라고 부를 수 있습니다. 간단하게, 다음의 조건이 충족되면 자바빈이라고 말합니다.</p>
+<ol>
+<li>디폴트 생성자를 갖고 있어야 한다.</li>
+<li>빈이 노출하는 이름을 가진 속성, 즉 프로퍼티를 get-set으로 제공해주어야 한다.</li>
+</ol>
+</blockquote>
+<p>위 엔티티를 <code>RDB</code>의 테이블로 표현하면 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Filed Name</th>
+<th align="left">Type</th>
+<th align="left">Setting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">id</td>
+<td align="left">VARCHAR(10)</td>
+<td align="left">Primary Key</td>
+</tr>
+<tr>
+<td align="left">name</td>
+<td align="left">VARCHAR(20)</td>
+<td align="left">Not Null</td>
+</tr>
+<tr>
+<td align="left">password</td>
+<td align="left">VARCHAR(20)</td>
+<td align="left">Not Null</td>
+</tr>
+</tbody>
+</table>
+<p>만약 데이터베이스에 테이블을 만들어야 한다면 다음의 <code>SQL</code>을 이용하면 된다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">create</span> <span style="color:#66d9ef">table</span> users (
+    id varchar(<span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">primary</span> <span style="color:#66d9ef">key</span>,
+    name varchar(<span style="color:#ae81ff">20</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>,
+    password varchar(<span style="color:#ae81ff">20</span>) <span style="color:#66d9ef">not</span> <span style="color:#66d9ef">null</span>
+);
+</code></pre></div><p>이제 이를 데이터베이스에 저장하거나 읽어올 수 있는 DAO를 만들어보자.</p>
+<blockquote>
+<p>참고! DAO란?</p>
+<p>Data Access Object의 약자로써, DB를 사용해 데이터를 조회하거나 조작하는 기능을 전담하는 오브젝트를 말합니다.</p>
+</blockquote>
+<p>코드는 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.sql.*<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDao</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">);</span>
+        Connection c <span style="color:#f92672">=</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>
+                <span style="color:#e6db74">&#34;jdbc:mysql://localhost/springbook&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;book&#34;</span><span style="color:#f92672">);</span>
+
+        PreparedStatement ps <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span><span style="color:#a6e22e">prepareStatement</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;insert into users(id, name, password) values(?, ?, ?)&#34;</span><span style="color:#f92672">);</span>
+        ps<span style="color:#f92672">.</span><span style="color:#a6e22e">setString</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">());</span>
+        ps<span style="color:#f92672">.</span><span style="color:#a6e22e">setString</span><span style="color:#f92672">(</span>2<span style="color:#f92672">,</span> user<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">());</span>
+        ps<span style="color:#f92672">.</span><span style="color:#a6e22e">setString</span><span style="color:#f92672">(</span>3<span style="color:#f92672">,</span> user<span style="color:#f92672">.</span><span style="color:#a6e22e">getPassword</span><span style="color:#f92672">());</span>
+        ps<span style="color:#f92672">.</span><span style="color:#a6e22e">executeUpdate</span><span style="color:#f92672">();</span>
+
+        ps<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        c<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>String id<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">);</span>
+        Connection c <span style="color:#f92672">=</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>
+                <span style="color:#e6db74">&#34;jdbc:mysql://localhost/springbook&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;book&#34;</span><span style="color:#f92672">);</span>
+
+        PreparedStatement ps <span style="color:#f92672">=</span> c<span style="color:#f92672">.</span><span style="color:#a6e22e">prepareStatement</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select * from users where id = ?&#34;</span><span style="color:#f92672">);</span>
+        ps<span style="color:#f92672">.</span><span style="color:#a6e22e">setString</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> id<span style="color:#f92672">);</span>
+
+        ResultSet rs <span style="color:#f92672">=</span> ps<span style="color:#f92672">.</span><span style="color:#a6e22e">executeQuery</span><span style="color:#f92672">();</span>
+        rs<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">();</span>
+        User user <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> User<span style="color:#f92672">();</span>
+        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setId</span><span style="color:#f92672">(</span>rs<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">));</span>
+        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setName</span><span style="color:#f92672">(</span>rs<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;name&#34;</span><span style="color:#f92672">));</span>
+        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setPassword</span><span style="color:#f92672">(</span>rs<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;password&#34;</span><span style="color:#f92672">));</span>
+
+        rs<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        ps<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+        c<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+
+        <span style="color:#66d9ef">return</span> user<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>위 코드에서, JDBC를 이용한 작업의 일반적인 순서를 알 수 있다.</p>
+<ol>
+<li>메서드 시그니처에, 예외를 적어준다.(혹은 코드 블럭을 try-catch로 묶어준다)</li>
+<li>DB 연결을 위한 Connection을 가져온다.</li>
+<li>SQL을 담은 Statement/PreparedStatement를 만든다.</li>
+<li>만들어진 Statement를 실행한다.</li>
+<li>Get의 경우, ResultSet을 받아서 정보를 저장할 오브젝트로 옮긴다.</li>
+<li>작업을 마친 후, 리소스를(ResultSet, Statement, Connection 등) 해제한다.</li>
+</ol>
+<p>이제, 작성한 코드를 테스트해보자. 제일 간단하게는 역시 <code>main</code>코드를 클래스 내부에 작성하여, 실행시키는 것이다. <code>UserDao</code> 클래스에 다음을 작성하자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDao</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException<span style="color:#f92672">,</span> ClassNotFoundException <span style="color:#f92672">{</span>
+        UserDao dao <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> UserDao<span style="color:#f92672">();</span>
+
+        User user <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> User<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;gurumee&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;hyunwoo&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;ilovespring&#34;</span><span style="color:#f92672">);</span>
+        dao<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; register success&#34;</span><span style="color:#f92672">);</span>
+
+        User user2 <span style="color:#f92672">=</span> dao<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;gurumee&#34;</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getPassword</span><span style="color:#f92672">());</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; query success&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>그 후, 코드를 실행해보면, 다음의 결과를 얻을 수 있다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gurumee register success
+hyunwoo ilovespring
+gurumee query success
+</code></pre></div><p>책의 코드는 <code>MySQL</code>과, <code>MySQL</code>의 <code>JDBC</code> 라이브러리인 <code>mysql:mysql-connector-java</code>을  사용한다. 로컬/도커를 활용해서 <code>MySQL</code>을 설치하고, 아까 살펴봤던 <code>SQL</code>을 통해 User 테이블을 만들고 실행을 해야 옳은 결과를 얻을 수 있을 것이다.</p>
+<p>그러나 이 코드는 문제점이 많다. 이를 &ldquo;객체 지향&quot;적으로 리팩토링해보자.</p>
+<h2 id="dao의-분리feat-상속">DAO의 분리(feat. 상속)</h2>
+<p>프로그래밍 기초 개념 중 &ldquo;관심사의 분리&quot;라는 것이 있다. 프로그래밍적으로 말하자면, 관심이 같은 것끼리 모이게 하고, 따로 떨어져 있는 관심끼리는 영향을 주지 않고 분리하는 것을 말한다.</p>
+<p>위 <code>초난감 DAO</code>에서 세 가지 관심 사항을 발견할 수 있다.</p>
+<ol>
+<li>DB와 연결을 위한 커넥션을 어떻게 가져오는가</li>
+<li>DB에 SQL문장을 어떻게 만들고 실행하는가</li>
+<li>작업이 끝나면 리소스들을 어떻게 해제할 것인가</li>
+</ol>
+<p>이 중 1번에 해당하는 관심사를 분리해보자.</p>
+<h3 id="중복-코드를-메서드로-분리하자">중복 코드를 메서드로 분리하자.</h3>
+<p>먼저, 연결을 가져오는 중복 코드를 다음과 같이 메서드로 분리한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDao</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Connection c <span style="color:#f92672">=</span> getConnection<span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>String id<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Connection c <span style="color:#f92672">=</span> getConnection<span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">private</span> Connection <span style="color:#a6e22e">getConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>
+                <span style="color:#e6db74">&#34;jdbc:mysql://localhost/springbook&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;book&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><p>위에서 말했듯이 <code>add</code>와 <code>get</code>에서 중복되는 코드이자, 공통 관심사는 &ldquo;DB 커넥션을 어떻게 가져오는가&rdquo; 이다. 그래서 그 공통 코드를 메서드로 분리했다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">private</span> Connection <span style="color:#a6e22e">getConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+    Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">return</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>
+            <span style="color:#e6db74">&#34;jdbc:mysql://localhost/springbook&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;book&#34;</span><span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><blockquote>
+<p>참고!</p>
+<p>인텔리J 기준, cmd + control + m을 누르면 코드를 메서드로 추출할 수 습니다. 아니면, cmd + shift + a를 누른 후 extract method 로 해당 기능을 검색할 수 있습니다.</p>
+</blockquote>
+<p><code>UserDao</code>는 2개의 메소드 밖에 없기 때문에, 티는 안나지만 메서드가 많이 있다고 가정해보자. 이 때, DB 커넥션의 방법을 수정해야 하는 상황이 벌어졌을 때, 메서드를 추출하지 않았다면 어떤 일이 벌어졌겠는가?</p>
+<p>메서드를 추출한 지금, 해당 관심사를 담당하는 메서드인 <code>getConnection</code>만 수정하면 된다. 하지만 메서드 추출 전이라면, 많은 메서드를 찾아 다니면서 변경을 해야 한다. 이러한 불편함을 제거한 것이다.</p>
+<p>여기에 한 가지 더 리팩토링을 했으면, 반드시 테스트를 통해서 코드가 동작하는지 검증해야 한다. 작성한 main 코드를 돌려보자. 잘 동작하면 다음으로 넘어가자. (돌려보기 전에 DB에 있는 데이터는 삭제하길 바란다.)</p>
+<h3 id="팩토리-메서드-패턴을-이용해서-userdao의-getconnection을-분리해보자">팩토리 메서드 패턴을 이용해서 UserDao의 getConnection을 분리해보자.</h3>
+<p>먼저 <code>UserDao</code>를 다음과 같이 추상 클래스로 변경한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDao</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>String id<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> Connection <span style="color:#a6e22e">getConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException<span style="color:#f92672">;</span>
+
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><p><code>getConnection</code>을 추상 메서드로 만들어 <code>UserDao</code> 클래스를 상속하는 클래스에게 구현을 위임하게 만든다. 책에서처럼 <code>NUserDao</code>, <code>DUserDao</code>처럼 나눈다고 했을 때, 클래스 구조는 다음과 같이 변한다.</p>
+<p><img src="https://gurumee92.github.io/images/studies/tobby-spring/01-object-and-dependency-relation/01.png" alt="01"></p>
+<p>이를 상속하는 <code>GeneralUserDao</code>를 만들어보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">GeneralUserDao</span> <span style="color:#66d9ef">extends</span> UserDao <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> Connection <span style="color:#a6e22e">getConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>
+                <span style="color:#e6db74">&#34;jdbc:mysql://localhost/springbook&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;book&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>만약, 여러 <code>UserDao</code>를 만들어야 한다고 할 때, <code>GeneralUserDao</code>처럼, <code>getConnection</code> 메서드를 구현하기만 하면 된다.</p>
+<p>이제 다시 테스트다. main 메서드를 다음과 같이 수정한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDao</span> <span style="color:#f92672">{</span>
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">abstract</span> Connection <span style="color:#a6e22e">getConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException<span style="color:#f92672">;</span>
+
+     <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException<span style="color:#f92672">,</span> ClassNotFoundException <span style="color:#f92672">{</span>
+        UserDao dao <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> GeneralUserDao<span style="color:#f92672">();</span>
+
+        User user <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> User<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;gurumee&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;hyunwoo&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;ilovespring&#34;</span><span style="color:#f92672">);</span>
+        dao<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; register success&#34;</span><span style="color:#f92672">);</span>
+
+        User user2 <span style="color:#f92672">=</span> dao<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;gurumee&#34;</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getPassword</span><span style="color:#f92672">());</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; query success&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>이처럼, <code>UserDao</code> 수정 없이 새로운 커넥션을 만드는 서브 클래스들을 만들 수 있다. 조금 더 유연한 코드가 되었다.</p>
+<p>이렇게 슈퍼클래스의 기본적인 로직의 흐름을 만들고, 기능의 일부를 추상 메소드나 오버라이딩 가능한 protected 레벨의 메서드를 만든 뒤 서브 클래스의 위임하는 방식을 <strong>템플릿 메서드 패턴</strong>이라고 한다.</p>
+<p>또는, 서브 클래스에서 구체적인 오브젝트 생성하게 하는 방식인 <strong>팩토리 메서트 패턴</strong>으로도 볼 수 있다. 팩토리 메서드 패턴의 관점으로 봤을 때, 클래스 다이어그램은 이렇게 구성할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/studies/tobby-spring/01-object-and-dependency-relation/02.png" alt="02"></p>
+<p>내 코드로는 <code>GeneralUserDao</code>는 <code>Connection G</code>를 만든다고 볼 수 있다. 위에 나온 디자인 패턴의 설명은 다음을 참고하라.</p>
+<ul>
+<li><a href="https://gmlwjd9405.github.io/2018/07/13/template-method-pattern.html">템플릿 메서드 패턴</a></li>
+<li><a href="https://gmlwjd9405.github.io/2018/08/07/factory-method-pattern.html">팩토리 메서드 패턴</a></li>
+</ul>
+<h2 id="dao의-확장feat-컴포지션">DAO의 확장(feat. 컴포지션)</h2>
+<p>상속을 통한 확장은 쉬우나, 좋지 않다. 책 &ldquo;Effective Java&quot;에서는 상속보다, 컴포지션을 활용해서 클래스를 확장하는 것을 추천하고 있다. 조금 더 유연한 코드를 작성할 수 있기 때문이다. 이번엔 이렇게 분리해보자.</p>
+<p><img src="https://gurumee92.github.io/images/studies/tobby-spring/01-object-and-dependency-relation/03.png" alt="03"></p>
+<p>먼저 <code>SimpleConnectionMaker</code>를 다음과 같이 만든다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleConnectionMaker</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> Connection <span style="color:#a6e22e">makeNewConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>
+                <span style="color:#e6db74">&#34;jdbc:mysql://localhost/springbook&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;book&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>그 다음 <code>UserDao</code>를 다음과 같이 수정하자. 다시 추상 클래스에서, 구체 클래스로 변경한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDao</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> SimpleConnectionMaker simpleConnectionMaker<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">UserDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        simpleConnectionMaker <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Connection c <span style="color:#f92672">=</span> simpleConnectionMaker<span style="color:#f92672">.</span><span style="color:#a6e22e">makeNewConnection</span><span style="color:#f92672">();</span>
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>String id<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Connection c <span style="color:#f92672">=</span> simpleConnectionMaker<span style="color:#f92672">.</span><span style="color:#a6e22e">makeNewConnection</span><span style="color:#f92672">();</span>
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException<span style="color:#f92672">,</span> ClassNotFoundException <span style="color:#f92672">{</span>
+        UserDao dao <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> UserDao<span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>이제 main 메서드를 실행하여, 다시 정확히 동작하는지 확인해보자. 잘 동작한다. 그러나 코드에는 문제점이 크게 2가지가 있다.</p>
+<ol>
+<li>SimpleConnectionMaker의 메서드, 만약 타사 커넥션은 <code>openConnection</code>으로 연결한다면?</li>
+<li>UserDao가 커넥션을 제공하는 클래스가 구체적으로 알아야 한다. (강하게 결합되어 있다.)</li>
+</ol>
+<p>이를 해결하는 것은 <code>인터페이스</code>를 도입하는 것이다.</p>
+<h3 id="인터페이스로-관심사의-진입점을-만들자">인터페이스로 관심사의 진입점을 만들자.</h3>
+<p><img src="https://gurumee92.github.io/images/studies/tobby-spring/01-object-and-dependency-relation/04.png" alt="04"></p>
+<p>먼저 인터페이스인 <code>ConnectionMaker</code>를 만든다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ConnectionMaker</span> <span style="color:#f92672">{</span>
+    Connection <span style="color:#a6e22e">makeConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>그리고 이를 구현하게끔 <code>SimpleConnectionMaker</code>를 다음과 같이 수정한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SimpleConnectionMaker</span> <span style="color:#66d9ef">implements</span> ConnectionMaker<span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> Connection <span style="color:#a6e22e">makeConnection</span><span style="color:#f92672">()</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Class<span style="color:#f92672">.</span><span style="color:#a6e22e">forName</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;com.mysql.jdbc.Driver&#34;</span><span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> DriverManager<span style="color:#f92672">.</span><span style="color:#a6e22e">getConnection</span><span style="color:#f92672">(</span>
+                <span style="color:#e6db74">&#34;jdbc:mysql://localhost/springbook&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;book&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>그 다음 <code>UserDao</code>의 코드를 다음과 같이 변경한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDao</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> ConnectionMaker connectionMaker<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">UserDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        connectionMaker <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Connection c <span style="color:#f92672">=</span> connectionMaker<span style="color:#f92672">.</span><span style="color:#a6e22e">makeConnection</span><span style="color:#f92672">();</span>
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>String id<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> ClassNotFoundException<span style="color:#f92672">,</span> SQLException <span style="color:#f92672">{</span>
+        Connection c <span style="color:#f92672">=</span> connectionMaker<span style="color:#f92672">.</span><span style="color:#a6e22e">makeConnection</span><span style="color:#f92672">();</span>
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><p>이제 리팩토링을 했으니 다시 main을 돌려 수정된 코드를 테스트한다. 정상적으로 동작한다면 다음으로 넘어간다. 위 코드는 <code>ConnectionMaker</code>라는 인터페이스를 도입함으로써 각 구현 클래스가, <code>Connection</code>을 만드는 동일한 이름의 메서드를 호출하게 만든다.</p>
+<h3 id="인터페이스를-생성자-파라미터로-받아-클래스간-결합도를-낮춰보자">인터페이스를 생성자 파라미터로 받아 클래스간 결합도를 낮춰보자.</h3>
+<p>그러나 아직 <code>UserDao</code>가 <code>SimpleConnectionMaker</code>의 존재를 알아야 코드가 동작한다라는 문제를 해결하지 못했다. 즉 아직 클래스끼리 강결합된 상태이다. 이 강하게 결합된 것을 풀어주기 위해서는 어떻게 해야 할까? 바로 생성자의 파라미터로, <code>ConnectionMaker</code>를 받는 것이다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDao</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">private</span> ConnectionMaker connectionMaker<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">UserDao</span><span style="color:#f92672">(</span>ConnectionMaker connectionMaker<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">connectionMaker</span> <span style="color:#f92672">=</span> connectionMaker<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><p>이제 main 메서드가 테스트 코드라는 것을 조금 더 명확히 하기 위해, <code>UserDaoTest</code>라는 클래스를 만들고 거기에다 옮겨놓자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDaoTest</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException<span style="color:#f92672">,</span> ClassNotFoundException <span style="color:#f92672">{</span>
+        ConnectionMaker connectionMaker <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">();</span>
+        UserDao dao <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> UserDao<span style="color:#f92672">(</span>connectionMaker<span style="color:#f92672">);</span>
+
+        User user <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> User<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;gurumee&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;hyunwoo&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;ilovespring&#34;</span><span style="color:#f92672">);</span>
+        dao<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; register success&#34;</span><span style="color:#f92672">);</span>
+
+        User user2 <span style="color:#f92672">=</span> dao<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;gurumee&#34;</span><span style="color:#f92672">);</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getPassword</span><span style="color:#f92672">());</span>
+        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>user2<span style="color:#f92672">.</span><span style="color:#a6e22e">getId</span><span style="color:#f92672">()</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; query success&#34;</span><span style="color:#f92672">);</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>먼저 리팩토링을 했으니 main 코드가 잘 동작하는지 확인하고 넘어간다. 위처럼 <code>UserDao</code> 생성자 파라미터로 <code>ConnectionMaker</code>를 받음으로써 <code>UserDao</code>는 <code>ConnectionMaker</code>의 구현 클래스를 몰라도 된다. 또한, <code>UserDaoTest</code>는 각 클래스간 관계를 맺게 하기 위한 코드가 있다. 이를 &ldquo;외부에서 주입한다&quot;라고 말할 수 있다.</p>
+<p>이제 <code>UserDao</code>는 어떤 구현 클래스건 <code>Connection</code>을 반환하는 <code>makeConnection</code> 메소드를 구현하기만 한다면, 이를 사용할 수 있다. 뭐, main 코드에서 <code>ConnectionMaker</code>의 구현 클래스를 생성해서 관계를 맺어줘야 한다라는 점은 있지만 이전보다 훨씬 더 유연한 코드를 작성할 수 있게 되었다. 그림으로 표현하면 이렇게 되겠지(DConnectionMaker가 SimpleConnectionMaker라고 보면 된다.)</p>
+<p><img src="https://gurumee92.github.io/images/studies/tobby-spring/01-object-and-dependency-relation/05.png" alt="05"></p>
+<p>여태까지 한 코드 개선은, <strong>SOLID 원칙</strong>을 충실히 따라 진행되었다. 특히 <strong>개방 폐쇄 원칙</strong>을 잘 따르고 있다. 간단하게 말해서, &ldquo;확장엔 열려 있으면, 변경엔 닫혀 있어야 한다&quot;라는 원칙인데, <code>UserDao</code>는 &ldquo;DB 연결 방법&quot;이라는 기능에 대해서 확장점을 열어두었다. 하지만, DB 연결 방법이 변경되더라도(명세는 바뀌지 않는다.), <code>UserDao</code>에 다른 코드에는 영향을 미치지 않는다. 이를 &ldquo;높은 응집도와 낮은 결합도&quot;를 가졌다고 말하기도 한다.</p>
+<p>디자인 패턴의 관점으로 보면 위 코드는 <strong>전략 패턴</strong>에 해당한다. 전략 패턴은 위의 &ldquo;개방 폐쇄 원칙&quot;에 잘 부합하는 디자인 패턴이기도 하다. 쉽게 말하면, 자신의 컨텍스트에서 필요에 따라 변경이 필요한 알고리즘을 인터페이스를 통해 외부로 분리하는 디자인 패턴이다. 외부로 구현된 코드로 인해 동작이 동적으로 변경된다.</p>
+<p>&ldquo;SOLID 원칙&quot;과 전략 패턴에 대해서는 다음을 참고하라.</p>
+<ul>
+<li><a href="https://gmlwjd9405.github.io/2018/07/06/strategy-pattern.html">스트렛지(전략) 패턴</a></li>
+<li><a href="https://johngrib.github.io/wiki/SOLID/">SOLID 원칙</a></li>
+</ul>
+<h2 id="ioc와-스프링-ioc">IoC와 스프링 IoC</h2>
+<h3 id="ioc가-뭔데">IoC가 뭔데?</h3>
+<p>먼저 <code>IoC</code>가 무엇일까? &ldquo;Inversion of Control&quot;의 약자로 직역하면 &ldquo;제어의 역전&quot;이다. 뭐 간단히 설명하면, 메소드/객체의 호출 작업을 개발자가 결정하는 것이 아니라 <strong>외부에서 결정하는 것</strong>이라고 말할 수 있다.</p>
+<p>이를 위해 <strong>팩토리</strong>를 만들기도 한다. 팩토리란 객체의 생성 방법을 결정하고 그렇게 만들어진 오브젝트를 돌려주는 녀석이다. 이는 이전 절에서 언급했던 &ldquo;xxx 팩토리 메서드 패턴&quot;과는 다르니 혼동하지 말자.</p>
+<p>먼저 <code>DaoFactory</code>를 다음과 같이 만들자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DaoFactory</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> UserDao <span style="color:#a6e22e">userDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        ConnectionMaker connectionMaker <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">();</span>
+        UserDao userDao <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> UserDao<span style="color:#f92672">(</span>connectionMaker<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> userDao<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>이 팩토리를 이용한다면, <code>UserDao</code>는 <code>SimpleConnectionMaker</code>를 이용해서 DB 연결을 한다. 이 팩토리를 참조하는 모든 클라이언트는 그 <code>UserDao</code>를 이용하게 된다. 이제, 클라이언트인 <code>UserDaoTest</code>를 다음과 같이 수정한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDaoTest</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException<span style="color:#f92672">,</span> ClassNotFoundException <span style="color:#f92672">{</span>
+        UserDao dao <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DaoFactory<span style="color:#f92672">().</span><span style="color:#a6e22e">userDao</span><span style="color:#f92672">();</span>
+
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>리팩토링을 했으니 다시 테스트 코드를 돌려보자. 정상적으로 동작하면 넘어가자. 현재까지 설계도는 다음과 같아진다.</p>
+<p><img src="https://gurumee92.github.io/images/studies/tobby-spring/01-object-and-dependency-relation/06.png" alt="06"></p>
+<p>팩토리의 장점은, 각 클래스간 관계를 맺을 때 매우 쉽게 만들 수 있다는 것이다. 여러 DAO를 생성해야 한다고 해보자.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DaoFactory</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> UserDao <span style="color:#a6e22e">userDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> UserDao<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> AccountDao <span style="color:#a6e22e">accountDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> AccountDao<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> MessageDao <span style="color:#a6e22e">messageDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MessageDao<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>이렇게 DAO 객체를 생성할 때, <code>new SimpleConnectionMaker()</code>가 중복되는데, 이 코드 역시 다음과 같이 중복을 제거할 수도 있다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DaoFactory</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> UserDao <span style="color:#a6e22e">userDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> UserDao<span style="color:#f92672">(</span>connectionMaker<span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> AccountDao <span style="color:#a6e22e">accountDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> AccountDao<span style="color:#f92672">(</span>connectionMaker<span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> MessageDao <span style="color:#a6e22e">messageDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> MessageDao<span style="color:#f92672">(</span>connectionMaker<span style="color:#f92672">());</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> SimpleConnectionMaker <span style="color:#a6e22e">connectionMaker</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">();</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>우리가 작성한 <code>UserDao</code>와 <code>DaoFactory</code>는 <code>IoC</code>의 개념이 잘 정립되어 있다. 원래 <code>ConnectionMaker</code> 구현 클래스를 만들고 사용하는 이른 바, 제어권은 <code>UserDao</code>에게 있었으나 현재는 <code>DaoFacotry</code>에게 위임되었다. 또한 <code>UserDao</code> 본인 역시 팩토리에게 생성된다. 이것이 바로 제어의 역전이다. 스프링 프레임워크는 이 <code>IoC</code>를 극한까지 쓰는 프레임워크라고 책에서는 소개하고 있다.</p>
+<p>참고적으로, 라이브러리와 프레임워크의 차이를 짚고 넘어가자. 라이브러리는 코드의 흐름이 개발자에게 있다. 코드에서 라이브러리에 필요한 부분을 적재적소에 호출한다. 반면 프레임워크는 코드의 흐름이 프레임워크에게 있다. 개발자는 프레임워크 코드 흐름에 맞춰 필요 부분만 작성한다라고 보면 된다.</p>
+<h3 id="스프링-ioc">스프링 IoC</h3>
+<p>이제 <code>스프링 프레임워크</code>를 써보자. <code>스프링 프레임워크</code>에서 <code>IoC</code> 개념을 구현한 것이 <code>ApplicationContext</code>라는 클래스이다. 이를 사용해보자. 먼저, <code>DaoFactory</code>와 <code>UserDao</code>를 스프링 IoC 컨테이너가 관리하는 &ldquo;스프링 빈&quot;으로 만들어주어야 한다. 코드를 다음과 같이 수정한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a6e22e">@Configuration</span>
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DaoFactory</span> <span style="color:#f92672">{</span>
+    <span style="color:#a6e22e">@Bean</span>
+    <span style="color:#66d9ef">public</span> UserDao <span style="color:#a6e22e">userDao</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        ConnectionMaker connectionMaker <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> SimpleConnectionMaker<span style="color:#f92672">();</span>
+        UserDao userDao <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> UserDao<span style="color:#f92672">(</span>connectionMaker<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> userDao<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><code>@Configuration</code> 애노테이션은, 해당 클래스를 스프링 빈으로 만든다. 클래스 레벨에서 스프링 빈을 만드는 애노테이션이 여러 개 있는데, 여기서는 그냥 넘어가자. 또한 <code>@Bean</code> 애노테이션은 클래스 레벨, 메서드 레벨에서 사용되어 해당 객체를 스프링 빈으로 만든다. 이렇게 되면, <code>DaoFactory</code>와 그 메서드로 반환되는 <code>UserDao</code>는 스프링 IoC 컨테이너에 스프링 빈으로 관리된다.</p>
+<p>이제 이를 직접 사용해보자. <code>UserDaoTest</code>를 다음과 같이 수정한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserDaoTest</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException<span style="color:#f92672">,</span> ClassNotFoundException <span style="color:#f92672">{</span>
+        ApplicationContext applicationContext <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AnnotationConfigApplicationContext<span style="color:#f92672">(</span>DaoFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+        UserDao dao <span style="color:#f92672">=</span> applicationContext<span style="color:#f92672">.</span><span style="color:#a6e22e">getBean</span><span style="color:#f92672">(</span>UserDao<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">);</span>
+
+        <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>애노테이션 기반의 스프링 IoC 컨테이너를 생성하는 <code>AnnotationConfigApplicationContext</code>을 이용한다. 이 때 스프링 빈 등록을 위해서, <code>DaoFactory.class</code>를 파라미터로 넘긴다.</p>
+<p>스프링 IoC 컨테이너가 관리하는 빈을 사용하려면, <code>getBean</code> 메소드를 사용하면 된다. (이는 스프링 IoC 컨테이너가, 빈 팩토리라는 것임을 알려준다.) 역시 테스트 코드가 잘 동작하는지 확인한다.</p>
+<p>이 <code>ApplicationContext</code>의 동작 방식은 다음과 같다.</p>
+<p><img src="https://gurumee92.github.io/images/studies/tobby-spring/01-object-and-dependency-relation/07.png" alt="07"></p>
+<p>앞서 언급했듯이, <code>ApplicationContext</code>는 빈 팩토리라고 부를 수 있다. 실제로 위 인터페이스는 <code>BeanFactory</code>라는 인터페이스를 상속하고 있다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ApplicationContext</span> <span style="color:#66d9ef">extends</span> EnvironmentCapable<span style="color:#f92672">,</span> ListableBeanFactory<span style="color:#f92672">,</span> HierarchicalBeanFactory<span style="color:#f92672">,</span>
+		MessageSource<span style="color:#f92672">,</span> ApplicationEventPublisher<span style="color:#f92672">,</span> ResourcePatternResolver <span style="color:#f92672">{</span>
+            <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span><span style="color:#f92672">}</span>
+</code></pre></div><p><code>@Configuration</code> 애노테이션이 붙은 <code>DaoFactory</code>를 빈 중 설정을 담당하는 빈으로 보고, <code>@Bean</code>이 붙은 <code>UserDao</code>는 빈 목록에 담는다. 이제 클라이언트가 <code>getBean</code>을 호출했을 때, <code>DaoFacotry</code>에게 생성을 요청하고 그 객체를 클라이언트에게 제공하는 것이다.</p>
+<p>우리가, 직접 팩토리를 만들어서 사용하는 것보다, 스프링 IoC 컨테이너인 <code>ApplicationContext</code>를 이용하는 것의 장점은 다음과 같다.</p>
+<ol>
+<li>클라이언트는 구체적인 팩토리 클래스를 알 필요가 없다.</li>
+<li>ApplicationContext는 종합 IoC 서비스를 제공한다.</li>
+<li>ApplicationContext는 빈을 검색하는 다양한 방법을 제공한다.</li>
+</ol>
+<p>마지막으로 용어만 정리해두자.</p>
+<ul>
+<li>Bean : 빈은 스프링 IoC 컨테이너가 관리하는 오브젝트이다.</li>
+<li>Bean Factory : 스프링의 IoC를 담당하는 핵심 컨테이너를 말한다. 빈을 등록하고, 생성하고 조회하고, 반환하는 등 빈을 관리한다.</li>
+<li>Application Context : 빈 팩토리를 확장한 IoC 컨테이넌이다. 기본적인 기능은 빅팩토리와 동일하다. 이외에 애플리케이션 지원 기능을 포함하고 있다.</li>
+<li>Configuration/Metadata : 애플리케이션 컨텍스트 혹은 빈 팩토리가 IoC를 적용하기 위해 사용되는 메타 정보를 말한다. 예전에는 xml 방식으로 했으나 요즘은 애노테이션 기반으로 한다.</li>
+<li>Container/IoC Container : IoC 방식으로 빈을 관리하는 컨테이너를 말한다. 걍 스프링 빈을 관리하는 녀석이라고 보면 된다. 위의 빈 팩토리/애플리케이션 컨텍스트와 그 의미는 크게 다르지 않다.</li>
+<li>Spring Framework : IoC 컨테이너, 애플리케이션 컨텍스트를 포함하여 스프링이 제공하는 모든 기능을 통들어 말할 때 주로 사용한다. 그냥 스프링이라고 말하기도 한다.</li>
+</ul>
+<h2 id="스터디원들의-생각-공유">스터디원들의 생각 공유</h2>
+<h3 id="나의-질문과-답">나의 질문과 답</h3>
+<ol>
+<li>UserDao에서, DB 연결에 대한 관심을 분리할 수 있었다. 그럼 Statement를 실행시키거나, 리소스들을 해제하는 것은 어떻게 분리할 수 있을까?
+<ul>
+<li>책 &ldquo;자바 웹 프로그래밍 Next Step&quot;에서 잘 설명하고 있음.
+<ol>
+<li>Statement, PreparedStatement를 처리하는 클래스를 위와 같이 구현한다.(JdbcTemplate)
+<ol>
+<li>굳이 분리할 필요가 없다? (K1)</li>
+<li>xml 쿼리 작성으로 분리 가능하지 않을까? (L)</li>
+</ol>
+</li>
+<li>리소스 해제는 try-with-resource 구문을 사용한다.</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>최근에는 <code>Spring Boot</code>를 사용하기 때문에 <code>ApplicationContext</code>, <code>BeanFactory</code>를 잘 몰라도 스프링 프레임워크를 대충 쓸 수는 있다. 이것들을 알았을 때 장점은 무엇일까?
+<ul>
+<li>커스터마이징을 잘 할 수 있다?
+<ul>
+<li>스프링이 제공하는 모듈이 아닌 외부 모듈을 설정할 때, 이를 알아야 설정이 가능하다. (K2)</li>
+</ul>
+</li>
+<li>내부 동작 구현을 알고 쓰는 것과 모르고 쓰는 것은 명백히 차이가 있다. 그 차이점이 뭐지..?</li>
+</ul>
+</li>
+</ol>
+<h3 id="스터디원들의-질문과-답">스터디원들의 질문과 답</h3>
+<p>개발자 K4 :</p>
+<ul>
+<li>ApplicationContext 사용 시 장점?
+<ul>
+<li>책에 나와있음</li>
+</ul>
+</li>
+<li>낮은 결합도, 높은 응집도?</li>
+</ul>
+<p>개발자 K2 :</p>
+<ul>
+<li>&ldquo;런타임 시 의존 관계 설정&quot;이 핵심..?</li>
+<li>낮은 결합도 &gt; 높은 응집도</li>
+</ul>
+<p>개발자 L :</p>
+<ul>
+<li>1년 전에 읽었으면 삽질을 덜 하지 않았을까.. -&gt; 스프링의 근본철학을 앞에다 설명.. 굳</li>
+<li>모든 부분에서 테스트 코드를 자연스럽게 진행하는 방식으로 설정</li>
+<li>1 ~ 7 장 읽으면 참 좋겠당.</li>
+<li>베스트 프랙티스의 적용? 생산성을 위한 코드로 발전하면서 기본을 잃은 것이 아닌가</li>
+<li>IoC vs DI, IoC 는 방대한 개념, DI는 IoC에 속하는 조금 더 좁은 개념.</li>
+</ul>
+<p>개발자 K3 :</p>
+<ul>
+<li>ApplicationContext 여러 개 생성되는 것?? 실무에서 이런 적이 있는가?</li>
+</ul>
+<p>개발자 K1 :</p>
+<ul>
+<li>전략 패턴 왜 쓰지?에 대해서 알게 됨.
+<ul>
+<li>if 문은 (인터페이스 같은) 다른 코드로 대체 가능하다. (K3)</li>
+</ul>
+</li>
+<li>close() 메소드 구현?
+<ul>
+<li>ResultSet -&gt; OracleResultSet 널 처리</li>
+<li>Statement -&gt; JdbcConnection 널 처리</li>
+<li>Connection -&gt; Session Set에서 UserSession을 제거</li>
+</ul>
+</li>
+<li>라이브러리 vs 프레임워크의 차이 -&gt; 사용의 주체로 판단하는 것이 감명 깊다.</li>
+</ul>
+<p>개발자 K5 :</p>
+<ul>
+<li>라이브러리/프레임워크</li>
+<li>템플릿 메서드 패턴 vs 팩토리 메서드 패턴의 차이를 알아봐야겠다.
+<ul>
+<li>추상화된 레이어?</li>
+<li>템플릿 메서드는 하위 클래스에게 구현을 위임하는 것</li>
+<li>팩토리 메서드는 하위 클래스에게 객체 생성 처리를 분리하는 것.</li>
+</ul>
+</li>
+</ul>
+<h3 id="면접-질문으로-생각해볼-것">면접 질문으로 생각해볼 것?</h3>
+<ol>
+<li>라이브러리 vs 프레임워크</li>
+<li>SOLID 원칙과 스프링</li>
+<li>디자인 패턴</li>
+<li>IoC란</li>
+</ol>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/java/">java</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/spring/">spring</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%86%A0%EB%B9%84%EC%9D%98-%EC%8A%A4%ED%94%84%EB%A7%81/">토비의 스프링</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/object/">object</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/dependencies/">dependencies</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/ioc-container/">IoC Container</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/spring-core/">Spring Core</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/11/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-3-github-actions-slack%EC%9C%BC%EB%A1%9C-ci/cd-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/" data-tooltip="지리오 서비스 구축기 (3) Github Actions, Slack으로 CI/CD 구축하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+            
+              
+                
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/11/%EC%A7%80%EB%A6%AC%EC%98%A4-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B5%AC%EC%B6%95%EA%B8%B0-3-github-actions-slack%EC%9C%BC%EB%A1%9C-ci/cd-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/" data-tooltip="지리오 서비스 구축기 (3) Github Actions, Slack으로 CI/CD 구축하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F11%2F1%25EC%259E%25A5-%25EC%2598%25A4%25EB%25B8%258C%25EC%25A0%259D%25ED%258A%25B8%25EC%2599%2580-%25EC%259D%2598%25EC%25A1%25B4%25EA%25B4%2580%25EA%25B3%2584-1%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F11%2F1%25EC%259E%25A5-%25EC%2598%25A4%25EB%25B8%258C%25EC%25A0%259D%25ED%258A%25B8%25EC%2599%2580-%25EC%259D%2598%25EC%25A1%25B4%25EA%25B4%2580%25EA%25B3%2584-1%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F11%2F1%25EC%259E%25A5-%25EC%2598%25A4%25EB%25B8%258C%25EC%25A0%259D%25ED%258A%25B8%25EC%2599%2580-%25EC%259D%2598%25EC%25A1%25B4%25EA%25B4%2580%25EA%25B3%2584-1%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script data-ad-client="ca-pub-7631742708971063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/11\/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-1\/';
+          
+            this.page.identifier = '\/2020\/11\/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-1\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
