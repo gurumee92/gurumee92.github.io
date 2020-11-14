@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="tech">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="알고리즘 문제 풀이: 베스트 앨범">
+<meta name="twitter:title" content="알고리즘 문제 풀이: 베스트 앨범">
+<meta property="og:url" content="https://gurumee92.github.io/2020/11/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EB%B2%A0%EC%8A%A4%ED%8A%B8-%EC%95%A8%EB%B2%94/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/11/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EB%B2%A0%EC%8A%A4%ED%8A%B8-%EC%95%A8%EB%B2%94/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-11-15T08:36:48">
+  
+  
+    <meta property="article:modified_time" content="2020-11-15T08:36:48">
+  
+  
+  
+    
+      <meta property="article:section" content="algorithm">
+    
+      <meta property="article:section" content="programmers">
+    
+      <meta property="article:section" content="high_score_kit">
+    
+  
+  
+    
+      <meta property="article:tag" content="알고리즘">
+    
+      <meta property="article:tag" content="프로그래머스 문제 풀이">
+    
+      <meta property="article:tag" content="코딩테스트 고득점 kit">
+    
+      <meta property="article:tag" content="해시">
+    
+      <meta property="article:tag" content="우선순위 큐">
+    
+      <meta property="article:tag" content="hash">
+    
+      <meta property="article:tag" content="proirity queue">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/algorithm/programmers/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/algorithm/programmers/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>알고리즘 문제 풀이: 베스트 앨범</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/11/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EB%B2%A0%EC%8A%A4%ED%8A%B8-%EC%95%A8%EB%B2%94/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      알고리즘 문제 풀이: 베스트 앨범
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-11-15T08:36:48&#43;09:00">
+        
+  November 15, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/algorithm">algorithm</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/programmers">programmers</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/high_score_kit">high_score_kit</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/algorithm/programmers/logo.png" alt="logo"></p>
+<blockquote>
+<p>프로그래머스 &gt; 코딩테스트 연습 &gt; 코딩테스트 고득점 Kit &gt; 해시 &gt; &ldquo;베스트 앨범&rdquo; 문제에 대한 풀이입니다.</p>
+<p>문제 링크는 <a href="https://programmers.co.kr/learn/courses/30/lessons/42579?language=java">이 곳</a>에서 확인할 수 있습니다.</p>
+</blockquote>
+<h2 id="문제-분석">문제 분석</h2>
+<p>문제의 입력과 함께 문제를 풀어보면서 어떻게 풀어야 할 지 분석을 해보자.</p>
+<p>문제 입력:</p>
+<pre><code>genres = [&quot;classic&quot;, &quot;pop&quot;, &quot;classic&quot;, &quot;classic&quot;, &quot;pop&quot;]
+plays = [500, 600, 150, 800, 2500]
+</code></pre><p>여기서, 각 노래는 id를 부여 받는다. id 별로 노래를 보면 다음과 같다.</p>
+<pre><code>id : 0
+genre : classic
+play : 500
+--------------
+id : 1
+genre : pop
+play : 600
+--------------
+id : 2
+genre : classic
+play : 150
+--------------
+id : 3
+genre : classic
+play : 800
+--------------
+id : 4
+genre : pop
+play : 2500
+--------------
+</code></pre><p>그럼 문제에서처럼, 장르 별로 플레이 횟수가 높은 순으로 모아보자.</p>
+<pre><code>genre : &quot;pop&quot;
+total_play : 3100
+songs: [
+    {
+        id : 4,
+        genre : pop,
+        play : 2500
+    },
+    {
+        id : 1,
+        genre : pop,
+        play : 600
+    },
+]
+--------------
+genre : &quot;classic&quot;
+total_play : 1450
+songs: [
+    {
+        id : 3,
+        genre : classic,
+        play : 800
+    },
+    {
+        id : 0,
+        genre : classic,
+        play : 500
+    },
+    {
+        id : 2,
+        genre : pop,
+        play : 150
+    },
+]
+</code></pre><p>이제 많이 플레이된 장르 순으로, 장르 별 제일 많이 플레이된 노래 2곡씩 뽑아서, id의 리스트 형태로 만들어주면 된다.</p>
+<pre><code>result = [4, 1, 3, 0]
+</code></pre><p>이 문제는 해시와 우선순위 큐를 적절하게 조합하여 사용하면 쉽게 풀 수 있다.</p>
+<h2 id="문제-풀이">문제 풀이</h2>
+<p>&ldquo;우선 순위 큐&quot;는 정렬된 상태로 객체가 저장된다. 자바 클래스는 <code>Comparable&lt;T&gt;</code> 인터페이스를 구현해야 적절하게 원하는 순서로 만들 수 있다. 여기서는 2개의 우선순위 큐가 필요하다.</p>
+<p>각각의 우선순위 큐는 다음의 정보를 가진 객체를 저장한다.</p>
+<ol>
+<li>{id, 플레이 횟수} 형태의 객체를 플레이 횟수 별 내림차순, 만약에 같을 땐 고유번호 별 오름차순으로 정렬하는 우선순위 큐</li>
+<li>{(1) 형태의 우선순위 큐와, 우선 순위큐에 저장된 총 플레이 횟수} 형태의 객체를 총 플레이 횟수 내림차순으로 정렬하는 우선 순위 큐</li>
+</ol>
+<p>자바에서는 우선순위 큐에 커스텀한 정렬을 적용하려면, 객체를 정의하고 <code>Comparable&lt;T&gt;</code> 인터페이스를 구현해야 한다. 먼저, {id, 플레이 횟} <code>Song</code>이란 클래스로 정의하겠다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Song</span> <span style="color:#66d9ef">implements</span> Comparable<span style="color:#f92672">&lt;</span>Song<span style="color:#f92672">&gt;</span>  <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> plays<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Song</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> id<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> plays<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> id<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">plays</span> <span style="color:#f92672">=</span> plays<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>Song other<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>other<span style="color:#f92672">.</span><span style="color:#a6e22e">plays</span><span style="color:#f92672">,</span> plays<span style="color:#f92672">);</span>
+
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>result <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">return</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> other<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">);</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>그리고, 이제 장르별로 저장된 노래들의 우선순위 큐와 그 노래들의 총 플레이 횟수 정보를 담은 것을 <code>Track</code>이란 클래스로 정의한다. 역시 우선 순위 큐에 &ldquo;총 플레이 횟수&rdquo; 별로 내림차순 해야 하기 때문에 <code>Comparable&lt;T&gt;</code> 인터페이스를 구현해야 한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Track</span> <span style="color:#66d9ef">implements</span> Comparable<span style="color:#f92672">&lt;</span>Track<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> totalPlay<span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">public</span> PriorityQueue<span style="color:#f92672">&lt;</span>Song<span style="color:#f92672">&gt;</span> queue<span style="color:#f92672">;</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Track</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+        totalPlay <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+        queue <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PriorityQueue<span style="color:#f92672">&lt;&gt;();</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#a6e22e">@Override</span>
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>Track other<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>other<span style="color:#f92672">.</span><span style="color:#a6e22e">totalPlay</span><span style="color:#f92672">,</span> totalPlay<span style="color:#f92672">);</span>
+        <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>이제 위에서 했던 것을 고대로 코드로 구현하면 된다. 정리하면 순서는 다음과 같다.</p>
+<ol>
+<li>&ldquo;genre&quot;를 키로, <code>Track</code>을 값으로 갖는 해시를 만든다. // 장르 별로, 정렬된 노래 목록을 만든다.</li>
+<li>입력 &ldquo;genres&rdquo;, &ldquo;plays&rdquo; 길이만큼 순회한다.(둘은 같은 길이를 가닌다.)
+<ol>
+<li>해시에 &ldquo;genre&rdquo; 키가 없다면, &ldquo;genre&quot;를 키로 빈 <code>Track</code>을 값으로 해시에 저장한다.</li>
+<li>&ldquo;genre&quot;를 키로 해시에서 <code>Track</code>을 가져온다.</li>
+<li><code>Track</code>의 총 플레이 횟수에서 &ldquo;play&quot;를 더해준다.</li>
+<li><code>Track</code>의 우선순위 큐에, &ldquo;play&rdquo; 그리고 순회하는 인덱스를 &ldquo;id&quot;로 <code>Song</code>을 만든 후 저장한다.</li>
+</ol>
+</li>
+<li>이제 <code>Track</code>을 저장하는 우선순위 큐 &ldquo;pq&quot;를 만든다.</li>
+<li>해시를 순회하여, pq에 <code>Track</code>을 저장한다.</li>
+<li><code>Song</code>을 저장하는 리스트를 만든다. 이를 &ldquo;albums&quot;라고 한다.</li>
+<li>이제 우선순위 큐 pq가 저장된 <code>Track</code>이 없을 때까지 순회한다.
+<ol>
+<li>pq에서 <code>Track</code>을 가져온다.</li>
+<li>이 <code>Track</code>의 <code>Song</code> 객체를 저장하고 있는 우선순위 큐에서 2개의 <code>Song</code>을 가져와서 &ldquo;albums&quot;에 저장한다.</li>
+</ol>
+</li>
+<li>이제 &ldquo;albums&quot;를 <code>Song</code> 클래스에서 &ldquo;id&quot;로 변환한 후 정수형 배열로 만든 후 반환한다.</li>
+</ol>
+<p>이를 자바 코드로 옮기면 다음과 같다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#f92672">import</span> java.util.*<span style="color:#f92672">;</span>
+
+<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Solution</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Song</span> <span style="color:#66d9ef">implements</span> Comparable<span style="color:#f92672">&lt;</span>Song<span style="color:#f92672">&gt;</span>  <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> id<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">int</span> plays<span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Song</span><span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> id<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span> plays<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> id<span style="color:#f92672">;</span>
+            <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">plays</span> <span style="color:#f92672">=</span> plays<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#a6e22e">@Override</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>c other<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>other<span style="color:#f92672">.</span><span style="color:#a6e22e">plays</span><span style="color:#f92672">,</span> plays<span style="color:#f92672">);</span>
+
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>result <span style="color:#f92672">==</span> 0<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                <span style="color:#66d9ef">return</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> other<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">);</span>
+            <span style="color:#f92672">}</span>
+
+            <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Track</span> <span style="color:#66d9ef">implements</span> Comparable<span style="color:#f92672">&lt;</span>Track<span style="color:#f92672">&gt;</span> <span style="color:#f92672">{</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> totalPlay<span style="color:#f92672">;</span>
+        <span style="color:#66d9ef">public</span> PriorityQueue<span style="color:#f92672">&lt;</span>Song<span style="color:#f92672">&gt;</span> queue<span style="color:#f92672">;</span>
+
+        <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Track</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+            totalPlay <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+            queue <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PriorityQueue<span style="color:#f92672">&lt;&gt;();</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#a6e22e">@Override</span>
+        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">compareTo</span><span style="color:#f92672">(</span>Track other<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+            <span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> Integer<span style="color:#f92672">.</span><span style="color:#a6e22e">compare</span><span style="color:#f92672">(</span>other<span style="color:#f92672">.</span><span style="color:#a6e22e">totalPlay</span><span style="color:#f92672">,</span> totalPlay<span style="color:#f92672">);</span>
+            <span style="color:#66d9ef">return</span> result<span style="color:#f92672">;</span>
+        <span style="color:#f92672">}</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> <span style="color:#a6e22e">solution</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> genres<span style="color:#f92672">,</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">[]</span> plays<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+        Map<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Track<span style="color:#f92672">&gt;</span> q <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HashMap<span style="color:#f92672">&lt;&gt;();</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>0<span style="color:#f92672">;</span> i<span style="color:#f92672">&lt;</span>genres<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+            String genre <span style="color:#f92672">=</span> genres<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+            <span style="color:#66d9ef">int</span> play <span style="color:#f92672">=</span> plays<span style="color:#f92672">[</span>i<span style="color:#f92672">];</span>
+
+            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(!</span>q<span style="color:#f92672">.</span><span style="color:#a6e22e">containsKey</span><span style="color:#f92672">(</span>genre<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+                q<span style="color:#f92672">.</span><span style="color:#a6e22e">put</span><span style="color:#f92672">(</span>genre<span style="color:#f92672">,</span> <span style="color:#66d9ef">new</span> Track<span style="color:#f92672">());</span>
+            <span style="color:#f92672">}</span>
+
+            Track t <span style="color:#f92672">=</span> q<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>genre<span style="color:#f92672">);</span>
+            t<span style="color:#f92672">.</span><span style="color:#a6e22e">totalPlay</span> <span style="color:#f92672">+=</span> play<span style="color:#f92672">;</span>
+            t<span style="color:#f92672">.</span><span style="color:#a6e22e">queue</span><span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Song<span style="color:#f92672">(</span>i<span style="color:#f92672">,</span> play<span style="color:#f92672">));</span>
+        <span style="color:#f92672">}</span>
+
+        PriorityQueue<span style="color:#f92672">&lt;</span>Track<span style="color:#f92672">&gt;</span> pq <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PriorityQueue<span style="color:#f92672">&lt;&gt;();</span>
+
+        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>Map<span style="color:#f92672">.</span><span style="color:#a6e22e">Entry</span><span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Track<span style="color:#f92672">&gt;</span> entry <span style="color:#f92672">:</span> q<span style="color:#f92672">.</span><span style="color:#a6e22e">entrySet</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            pq<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>entry<span style="color:#f92672">.</span><span style="color:#a6e22e">getValue</span><span style="color:#f92672">());</span>
+        <span style="color:#f92672">}</span>
+
+        List<span style="color:#f92672">&lt;</span>Song<span style="color:#f92672">&gt;</span> albums <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+
+        <span style="color:#66d9ef">while</span> <span style="color:#f92672">(!</span>pq<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+            Track t <span style="color:#f92672">=</span> pq<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">();</span>
+            <span style="color:#66d9ef">int</span> cnt <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span>
+
+            <span style="color:#66d9ef">while</span> <span style="color:#f92672">(!</span>t<span style="color:#f92672">.</span><span style="color:#a6e22e">queue</span><span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">()</span> <span style="color:#f92672">&amp;&amp;</span> cnt <span style="color:#f92672">&lt;</span> 2<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+                Song sing <span style="color:#f92672">=</span> t<span style="color:#f92672">.</span><span style="color:#a6e22e">queue</span><span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">();</span>
+                albums<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>sing<span style="color:#f92672">);</span>
+                cnt <span style="color:#f92672">+=</span> 1<span style="color:#f92672">;</span>
+            <span style="color:#f92672">}</span>
+        <span style="color:#f92672">}</span>
+
+        <span style="color:#66d9ef">int</span> <span style="color:#f92672">[]</span> answer <span style="color:#f92672">=</span> albums<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">mapToInt</span><span style="color:#f92672">(</span>s <span style="color:#f92672">-&gt;</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">id</span><span style="color:#f92672">)</span>
+                <span style="color:#f92672">.</span><span style="color:#a6e22e">toArray</span><span style="color:#f92672">();</span>
+        <span style="color:#66d9ef">return</span> answer<span style="color:#f92672">;</span>
+    <span style="color:#f92672">}</span>
+<span style="color:#f92672">}</span>
+</code></pre></div>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">알고리즘</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4/">프로그래머스 문제 풀이</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8-%EA%B3%A0%EB%93%9D%EC%A0%90-kit/">코딩테스트 고득점 kit</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%ED%95%B4%EC%8B%9C/">해시</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84-%ED%81%90/">우선순위 큐</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/hash/">hash</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/proirity-queue/">proirity queue</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/11/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-2/" data-tooltip="1장 오브젝트와 의존관계 (2)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+            
+              
+                
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/11/1%EC%9E%A5-%EC%98%A4%EB%B8%8C%EC%A0%9D%ED%8A%B8%EC%99%80-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-2/" data-tooltip="1장 오브젝트와 의존관계 (2)">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F11%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EB%25B2%25A0%25EC%258A%25A4%25ED%258A%25B8-%25EC%2595%25A8%25EB%25B2%2594%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F11%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EB%25B2%25A0%25EC%258A%25A4%25ED%258A%25B8-%25EC%2595%25A8%25EB%25B2%2594%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F11%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598-%25EB%25AC%25B8%25EC%25A0%259C-%25ED%2592%2580%25EC%259D%25B4-%25EB%25B2%25A0%25EC%258A%25A4%25ED%258A%25B8-%25EC%2595%25A8%25EB%25B2%2594%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script data-ad-client="ca-pub-7631742708971063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/11\/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EB%B2%A0%EC%8A%A4%ED%8A%B8-%EC%95%A8%EB%B2%94\/';
+          
+            this.page.identifier = '\/2020\/11\/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%AC%B8%EC%A0%9C-%ED%92%80%EC%9D%B4-%EB%B2%A0%EC%8A%A4%ED%8A%B8-%EC%95%A8%EB%B2%94\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+

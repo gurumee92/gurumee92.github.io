@@ -6,10 +6,37 @@
     <description>Recent content in Categories on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 15 Nov 2020 00:00:52 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2020 08:36:48 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>algorithm</title>
+      <link>https://gurumee92.github.io/categories/algorithm/</link>
+      <pubDate>Sun, 15 Nov 2020 08:36:48 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/algorithm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>high_score_kit</title>
+      <link>https://gurumee92.github.io/categories/high_score_kit/</link>
+      <pubDate>Sun, 15 Nov 2020 08:36:48 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/high_score_kit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>programmers</title>
+      <link>https://gurumee92.github.io/categories/programmers/</link>
+      <pubDate>Sun, 15 Nov 2020 08:36:48 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/programmers/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>studies</title>
@@ -62,33 +89,6 @@
       <pubDate>Sat, 31 Oct 2020 19:33:29 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/categories/github-actions/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>algorithm</title>
-      <link>https://gurumee92.github.io/categories/algorithm/</link>
-      <pubDate>Sun, 25 Oct 2020 13:54:18 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/algorithm/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>high_score_kit</title>
-      <link>https://gurumee92.github.io/categories/high_score_kit/</link>
-      <pubDate>Sun, 25 Oct 2020 13:54:18 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/high_score_kit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>programmers</title>
-      <link>https://gurumee92.github.io/categories/programmers/</link>
-      <pubDate>Sun, 25 Oct 2020 13:54:18 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/programmers/</guid>
       <description></description>
     </item>
     
