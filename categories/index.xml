@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Dec 2020 21:15:18 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 01 Dec 2020 21:18:43 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>influxdb-v2</title>
+      <link>https://gurumee92.github.io/categories/influxdb-v2/</link>
+      <pubDate>Tue, 01 Dec 2020 21:18:43 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/influxdb-v2/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>monitoring</title>
+      <link>https://gurumee92.github.io/categories/monitoring/</link>
+      <pubDate>Tue, 01 Dec 2020 21:18:43 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/categories/monitoring/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>aws</title>

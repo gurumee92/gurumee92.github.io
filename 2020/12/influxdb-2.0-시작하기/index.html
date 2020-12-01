@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="aws">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="InfluxDB 2.0 시작하기">
+<meta name="twitter:title" content="InfluxDB 2.0 시작하기">
+<meta property="og:url" content="https://gurumee92.github.io/2020/12/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/12/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-12-01T21:18:43">
+  
+  
+    <meta property="article:modified_time" content="2020-12-01T21:18:43">
+  
+  
+  
+    
+      <meta property="article:section" content="monitoring">
+    
+      <meta property="article:section" content="influxdb-v2">
+    
+  
+  
+    
+      <meta property="article:tag" content="influxdb 2.0">
+    
+      <meta property="article:tag" content="influxdata">
+    
+      <meta property="article:tag" content="monitoring">
+    
+      <meta property="article:tag" content="tutorial">
+    
+      <meta property="article:tag" content="install">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/monitoring/influxdb-v2/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/monitoring/influxdb-v2/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>InfluxDB 2.0 시작하기</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/12/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      InfluxDB 2.0 시작하기
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-12-01T21:18:43&#43;09:00">
+        
+  December 1, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/monitoring">monitoring</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/influxdb-v2">influxdb-v2</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/logo.png" alt="logo"></p>
+<blockquote>
+<p>InfluxDB 2.0 설치 및 시작하기 위한 설정에 대한 문서입니다.</p>
+</blockquote>
+<h2 id="요구-사항">요구 사항</h2>
+<p>요구사항은 다음과 같다.</p>
+<ul>
+<li>RedHat/CentOS 기반의 리눅스 운영체제가 설치된 머신 1대</li>
+</ul>
+<p>나는 다음과 같은 환경에서 진행하였다.</p>
+<ul>
+<li>AWS EC2 Linux AMI(t2.micro)</li>
+</ul>
+<h2 id="influxdb-20-설치하기">InfluxDB 2.0 설치하기</h2>
+<p>현재 안타깝지만, <code>InfluxDB 2.0</code>을 한 번에 설치할 수 있는 패키지가 준비되어 있지 않다.(내가 아는 한&hellip;) 그래서 바이너리 파일을 직접 설치할 것이다. 먼저 서버 내에서 적당한 디렉토리로 이동한 후, 다음을 순서대로 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 현재 위치</span>
+$ pwd
+/home/ec2-user
+
+<span style="color:#75715e"># 나의 경우 &#34;apps&#34;이란 디렉토리에 설치 파일들을 모아둔다. 그래서 apps 디렉토리로 이동한다.</span>
+$ cd apps
+
+<span style="color:#75715e"># 공식 문서에서 제공되는 influxdb 2.0 바이너리 파일이 압축된 tar 파일 다운로드 경로이다.</span>
+$ wget https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.3_linux_amd64.tar.gz
+--2020-11-03 01:59:49--  https://dl.influxdata.com/influxdb/releases/influxdb-2.0.0-rc.3_linux_amd64.tar.gz
+Resolving dl.influxdata.com <span style="color:#f92672">(</span>dl.influxdata.com<span style="color:#f92672">)</span>... 13.249.43.98, 13.249.43.124, 13.249.43.59, ...
+Connecting to dl.influxdata.com <span style="color:#f92672">(</span>dl.influxdata.com<span style="color:#f92672">)</span>|13.249.43.98|:443... connected.
+HTTP request sent, awaiting response... <span style="color:#ae81ff">200</span> OK
+Length: <span style="color:#ae81ff">46135619</span> <span style="color:#f92672">(</span>44M<span style="color:#f92672">)</span> <span style="color:#f92672">[</span>application/x-gzip<span style="color:#f92672">]</span>
+Saving to: ‘influxdb-2.0.0-rc.3_linux_amd64.tar.gz’
+
+100%<span style="color:#f92672">[===================================================================================================================</span>&gt;<span style="color:#f92672">]</span> 46,135,619  27.8MB/s   in 1.6s
+
+2020-11-03 01:59:51 <span style="color:#f92672">(</span>27.8 MB/s<span style="color:#f92672">)</span> - ‘influxdb-2.0.0-rc.3_linux_amd64.tar.gz’ saved <span style="color:#f92672">[</span>46135619/46135619<span style="color:#f92672">]</span>
+
+<span style="color:#75715e"># 다운로드 확인</span>
+$ ll
+합계 <span style="color:#ae81ff">48660</span>
+-rw-rw-r-- <span style="color:#ae81ff">1</span> ec2-user ec2-user <span style="color:#ae81ff">49826885</span> 10월 <span style="color:#ae81ff">29</span> 22:29 influxdb-2.0.0-rc.3_darwin_amd64.tar.gz
+
+<span style="color:#75715e"># 압축 파일 해제</span>
+$ tar zxvf influxdb-2.0.0-rc.3_linux_amd64.tar.gz
+influxdb-2.0.0-rc.3_linux_amd64/LICENSE
+influxdb-2.0.0-rc.3_linux_amd64/README.md
+influxdb-2.0.0-rc.3_linux_amd64/influx
+influxdb-2.0.0-rc.3_linux_amd64/influxd
+
+<span style="color:#75715e"># 실행 경로에 &#34;influx&#34;, &#34;influxd&#34;를 옮긴다. 나의 실행 경로는 &#34;/usr/local/bin&#34;이다.</span>
+$ sudo cp influxdb-2.0.0-rc.3_linux_amd64/<span style="color:#f92672">{</span>influx,influxd<span style="color:#f92672">}</span> /usr/local/bin/
+
+<span style="color:#75715e"># influxdb 실행</span>
+$ influxd
+2020-11-03T02:02:35.897826Z	info	Welcome to InfluxDB	<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log_id&#34;</span>: <span style="color:#e6db74">&#34;0QEyJTzG000&#34;</span>, <span style="color:#e6db74">&#34;version&#34;</span>: <span style="color:#e6db74">&#34;2.0.0-rc.3&#34;</span>, <span style="color:#e6db74">&#34;commit&#34;</span>: <span style="color:#e6db74">&#34;f46a3bd91e&#34;</span>, <span style="color:#e6db74">&#34;build_date&#34;</span>: <span style="color:#e6db74">&#34;2020-10-29T22:17:55Z&#34;</span><span style="color:#f92672">}</span>
+2020-11-03T02:02:35.902393Z	info	Resources opened	<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log_id&#34;</span>: <span style="color:#e6db74">&#34;0QEyJTzG000&#34;</span>, <span style="color:#e6db74">&#34;service&#34;</span>: <span style="color:#e6db74">&#34;bolt&#34;</span>, <span style="color:#e6db74">&#34;path&#34;</span>: <span style="color:#e6db74">&#34;/home/ec2-user/.influxdbv2/influxd.bolt&#34;</span><span style="color:#f92672">}</span>
+2020-11-03T02:02:35.903899Z	info	Migration <span style="color:#e6db74">&#34;initial migration&#34;</span> started <span style="color:#f92672">(</span>up<span style="color:#f92672">)</span>	<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log_id&#34;</span>: <span style="color:#e6db74">&#34;0QEyJTzG000&#34;</span>, <span style="color:#e6db74">&#34;service&#34;</span>: <span style="color:#e6db74">&#34;migrations&#34;</span><span style="color:#f92672">}</span>
+2020-11-03T02:02:35.964158Z	info	Migration <span style="color:#e6db74">&#34;initial migration&#34;</span> completed <span style="color:#f92672">(</span>up<span style="color:#f92672">)</span>	<span style="color:#f92672">{</span><span style="color:#e6db74">&#34;log_id&#34;</span>: <span style="color:#e6db74">&#34;0QEyJTzG000&#34;</span>, <span style="color:#e6db74">&#34;service&#34;</span>: <span style="color:#e6db74">&#34;migrations&#34;</span><span style="color:#f92672">}</span>
+...
+</code></pre></div><p>그 후 브라우저에서, 현재 머신의 IP 주소 + 8086 포트에 접속하면, 다음 화면을 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/00-getting-started-influxdb-v2/01.png" alt="01"></p>
+<h2 id="influxdb-20-서비스로-만들기">InfluxDB 2.0 서비스로 만들기</h2>
+<p>바로 공식 문서대로 UI기반으로 <code>InfluxDB 2.0</code>을 세팅할 수 있다. 그 전에 조금 더 편하게 운영하기 위해서, 서비스 형태로 <code>InfluxDB 2.0</code>을 구동시켜보자. 먼저, 터미널에서 실행하고 있는 <code>influxd</code>를 종료한다.</p>
+<p>리눅스의 경우, <code>systemctl</code>로 <code>.service</code>파일을 서비스로 시작/종료/상태 확인이 가능하다. <code>systemctl</code> 명령어는 <code>/lib/sytemd/system</code> 디렉토리 밑에 <code>.service</code> 파일들을 참조하기 때문에  <code>influxdb2.service</code> 파일을 &ldquo;sudo&rdquo; 권한으로 해당 디렉토리 경로에 생성한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo vi /lib/systemd/system/influxdb2.service
+</code></pre></div><p>그럼 vi 터미널이 열리는데, 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-service" data-lang="service"><span style="color:#66d9ef">[Unit]</span>
+<span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">InfluxDB 2.0 service file.</span>
+
+<span style="color:#66d9ef">[Service]</span>
+<span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/local/bin/influxd</span>
+<span style="color:#a6e22e">Restart</span><span style="color:#f92672">=</span><span style="color:#e6db74">on-failure</span>
+<span style="color:#a6e22e">StartLimitBurst</span><span style="color:#f92672">=</span><span style="color:#e6db74">2</span>
+<span style="color:#a6e22e">StartLimitInterval</span><span style="color:#f92672">=</span><span style="color:#e6db74">30</span>
+
+<span style="color:#66d9ef">[Install]</span>
+<span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">multi-user.target</span>
+</code></pre></div><p><code>:wq</code> 명령어를 눌러 저장하고 종료한다. 이제 터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 서비스 실행</span>
+$ sudo systemctl start influxdb2
+
+<span style="color:#75715e"># 서비스 상태 확인</span>
+$ sudo systemctl status influxdb2
+● influxdb2.service - InfluxDB 2.0 service file.
+   Loaded: loaded <span style="color:#f92672">(</span>/usr/lib/systemd/system/influxdb2.service; disabled; vendor preset: disabled<span style="color:#f92672">)</span>
+   Active: active <span style="color:#f92672">(</span>running<span style="color:#f92672">)</span> since 화 2020-11-03 02:39:54 UTC; 10s ago
+ Main PID: <span style="color:#ae81ff">15094</span> <span style="color:#f92672">(</span>influxd<span style="color:#f92672">)</span>
+   CGroup: /system.slice/influxdb2.service
+           └─15094 /usr/local/bin/influxd
+
+...
+</code></pre></div><h2 id="influxdb-20-설정하기">InfluxDB 2.0 설정하기</h2>
+<p>이제 UI기반으로 <code>InfluxDB 2.0</code>을 설정해보자. 다음 화면을 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/00-getting-started-influxdb-v2/02.png" alt="02"></p>
+<p>이제 &ldquo;Get Started&quot;를 눌러서 세팅을 진행해보자.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/00-getting-started-influxdb-v2/03.png" alt="03"></p>
+<p>그럼 위의 화면이 뜨는데, 입력 창에 값을 적적하게 넣어준다. 입력 값은 순서대로 다음과 같다.</p>
+<ul>
+<li>Username</li>
+<li>Password/Confirm Password</li>
+<li>Oranization</li>
+<li>Bucket</li>
+</ul>
+<p>입력값을 모두 입력했으면 &ldquo;Continue&quot;를 눌러보자.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/00-getting-started-influxdb-v2/04.png" alt="04"></p>
+<p>이제 &ldquo;Continue Later&quot;를 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/00-getting-started-influxdb-v2/05.png" alt="05"></p>
+<p>그럼 다음 화면이 뜬다. 이렇게 해서 <code>InfluxDB 2.0</code> 시작하기 위한 설정이 모두 끝났다.</p>
+<h2 id="참고">참고</h2>
+<ul>
+<li><a href="https://docs.influxdata.com/influxdb/v2.0/get-started/">공식 문서 - InfluxDB 2.0 시작하기</a></li>
+<li><a href="https://khann.tistory.com/5">khann님의 리눅스에서 서비스 등록하기</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/influxdb-2.0/">influxdb 2.0</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/influxdata/">influxdata</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/monitoring/">monitoring</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/tutorial/">tutorial</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/install/">install</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/12/ec2-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%ED%83%84%EB%A0%A5%EC%A0%81-ip-%EC%A3%BC%EC%86%8C-%ED%95%A0%EB%8B%B9%ED%95%98%EA%B8%B0/" data-tooltip="EC2 인스턴스에 탄력적 IP 주소 할당하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+            
+              
+                
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/12/ec2-%EC%9D%B8%EC%8A%A4%ED%84%B4%EC%8A%A4%EC%97%90-%ED%83%84%EB%A0%A5%EC%A0%81-ip-%EC%A3%BC%EC%86%8C-%ED%95%A0%EB%8B%B9%ED%95%98%EA%B8%B0/" data-tooltip="EC2 인스턴스에 탄력적 IP 주소 할당하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F12%2Finfluxdb-2.0-%25EC%258B%259C%25EC%259E%2591%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F12%2Finfluxdb-2.0-%25EC%258B%259C%25EC%259E%2591%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F12%2Finfluxdb-2.0-%25EC%258B%259C%25EC%259E%2591%25ED%2595%2598%25EA%25B8%25B0%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script data-ad-client="ca-pub-7631742708971063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/12\/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0\/';
+          
+            this.page.identifier = '\/2020\/12\/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
