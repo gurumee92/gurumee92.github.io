@@ -6,53 +6,26 @@
     <description>Recent content in Categories on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 15 Nov 2020 08:36:48 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 01 Dec 2020 21:10:54 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>algorithm</title>
-      <link>https://gurumee92.github.io/categories/algorithm/</link>
-      <pubDate>Sun, 15 Nov 2020 08:36:48 +0900</pubDate>
+      <title>aws</title>
+      <link>https://gurumee92.github.io/categories/aws/</link>
+      <pubDate>Tue, 01 Dec 2020 21:10:54 +0900</pubDate>
       
-      <guid>https://gurumee92.github.io/categories/algorithm/</guid>
+      <guid>https://gurumee92.github.io/categories/aws/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>high_score_kit</title>
-      <link>https://gurumee92.github.io/categories/high_score_kit/</link>
-      <pubDate>Sun, 15 Nov 2020 08:36:48 +0900</pubDate>
+      <title>cloud</title>
+      <link>https://gurumee92.github.io/categories/cloud/</link>
+      <pubDate>Tue, 01 Dec 2020 21:10:54 +0900</pubDate>
       
-      <guid>https://gurumee92.github.io/categories/high_score_kit/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>programmers</title>
-      <link>https://gurumee92.github.io/categories/programmers/</link>
-      <pubDate>Sun, 15 Nov 2020 08:36:48 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/programmers/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>studies</title>
-      <link>https://gurumee92.github.io/categories/studies/</link>
-      <pubDate>Sun, 15 Nov 2020 00:00:52 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/studies/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>tobby-spring</title>
-      <link>https://gurumee92.github.io/categories/tobby-spring/</link>
-      <pubDate>Sun, 15 Nov 2020 00:00:52 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/tobby-spring/</guid>
+      <guid>https://gurumee92.github.io/categories/cloud/</guid>
       <description></description>
     </item>
     
@@ -93,15 +66,6 @@
     </item>
     
     <item>
-      <title>cloud</title>
-      <link>https://gurumee92.github.io/categories/cloud/</link>
-      <pubDate>Sat, 17 Oct 2020 22:37:00 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/cloud/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>gcp</title>
       <link>https://gurumee92.github.io/categories/gcp/</link>
       <pubDate>Sat, 17 Oct 2020 22:37:00 +0900</pubDate>
@@ -116,24 +80,6 @@
       <pubDate>Sun, 27 Sep 2020 22:04:40 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/categories/hugo&#43;github.ioblog/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>java</title>
-      <link>https://gurumee92.github.io/categories/java/</link>
-      <pubDate>Sun, 20 Sep 2020 23:04:03 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/java/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>programming</title>
-      <link>https://gurumee92.github.io/categories/programming/</link>
-      <pubDate>Sun, 20 Sep 2020 23:04:03 +0900</pubDate>
-      
-      <guid>https://gurumee92.github.io/categories/programming/</guid>
       <description></description>
     </item>
     
