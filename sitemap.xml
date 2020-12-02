@@ -4,61 +4,76 @@
   
   <url>
     <loc>https://gurumee92.github.io/categories/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/tags/influxdata/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/tags/influxdb-2.0/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://gurumee92.github.io/2020/12/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/categories/influxdb-v2/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/tags/install/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/tags/monitoring/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/categories/monitoring/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/post/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/system-metric-monitoring/</loc>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/tags/</loc>
-    <lastmod>2020-12-01T21:18:43+09:00</lastmod>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/tags/telegraf/</loc>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://gurumee92.github.io/tags/tutorial/</loc>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/2020/12/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%A9%94%ED%8A%B8%EB%A6%AD-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-with-telegraf/</loc>
+    <lastmod>2020-12-02T21:28:51+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://gurumee92.github.io/2020/12/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/</loc>
     <lastmod>2020-12-01T21:18:43+09:00</lastmod>
   </url>
   

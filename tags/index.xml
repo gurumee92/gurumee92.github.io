@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Gurumee92&#39;s Devlog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Dec 2020 21:18:43 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 02 Dec 2020 21:28:51 +0900</lastBuildDate>
     
 	<atom:link href="https://gurumee92.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>influxdata</title>
       <link>https://gurumee92.github.io/tags/influxdata/</link>
-      <pubDate>Tue, 01 Dec 2020 21:18:43 +0900</pubDate>
+      <pubDate>Wed, 02 Dec 2020 21:28:51 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/influxdata/</guid>
       <description></description>
@@ -23,7 +23,7 @@
     <item>
       <title>influxdb 2.0</title>
       <link>https://gurumee92.github.io/tags/influxdb-2.0/</link>
-      <pubDate>Tue, 01 Dec 2020 21:18:43 +0900</pubDate>
+      <pubDate>Wed, 02 Dec 2020 21:28:51 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/influxdb-2.0/</guid>
       <description></description>
@@ -32,7 +32,7 @@
     <item>
       <title>install</title>
       <link>https://gurumee92.github.io/tags/install/</link>
-      <pubDate>Tue, 01 Dec 2020 21:18:43 +0900</pubDate>
+      <pubDate>Wed, 02 Dec 2020 21:28:51 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/install/</guid>
       <description></description>
@@ -41,16 +41,34 @@
     <item>
       <title>monitoring</title>
       <link>https://gurumee92.github.io/tags/monitoring/</link>
-      <pubDate>Tue, 01 Dec 2020 21:18:43 +0900</pubDate>
+      <pubDate>Wed, 02 Dec 2020 21:28:51 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/monitoring/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>system metric monitoring</title>
+      <link>https://gurumee92.github.io/tags/system-metric-monitoring/</link>
+      <pubDate>Wed, 02 Dec 2020 21:28:51 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/system-metric-monitoring/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>telegraf</title>
+      <link>https://gurumee92.github.io/tags/telegraf/</link>
+      <pubDate>Wed, 02 Dec 2020 21:28:51 +0900</pubDate>
+      
+      <guid>https://gurumee92.github.io/tags/telegraf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>tutorial</title>
       <link>https://gurumee92.github.io/tags/tutorial/</link>
-      <pubDate>Tue, 01 Dec 2020 21:18:43 +0900</pubDate>
+      <pubDate>Wed, 02 Dec 2020 21:28:51 +0900</pubDate>
       
       <guid>https://gurumee92.github.io/tags/tutorial/</guid>
       <description></description>

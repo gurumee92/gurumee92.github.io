@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.74.3 with theme Tranquilpeak 0.4.8-BETA">
+<meta name="author" content="Hyunwoo Jang">
+<meta name="keywords" content="influxdb">
+<meta name="description" content="">
+
+
+<meta property="og:description" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="시스템 메트릭 모니터링 시스템 구축하기 (With Telegraf)">
+<meta name="twitter:title" content="시스템 메트릭 모니터링 시스템 구축하기 (With Telegraf)">
+<meta property="og:url" content="https://gurumee92.github.io/2020/12/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%A9%94%ED%8A%B8%EB%A6%AD-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-with-telegraf/">
+<meta property="twitter:url" content="https://gurumee92.github.io/2020/12/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%A9%94%ED%8A%B8%EB%A6%AD-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-with-telegraf/">
+<meta property="og:site_name" content="Gurumee92&#39;s Devlog">
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+<meta property="og:locale" content="en-us">
+
+  
+    <meta property="article:published_time" content="2020-12-02T21:28:51">
+  
+  
+    <meta property="article:modified_time" content="2020-12-02T21:28:51">
+  
+  
+  
+    
+      <meta property="article:section" content="monitoring">
+    
+      <meta property="article:section" content="influxdb-v2">
+    
+  
+  
+    
+      <meta property="article:tag" content="influxdb 2.0">
+    
+      <meta property="article:tag" content="telegraf">
+    
+      <meta property="article:tag" content="influxdata">
+    
+      <meta property="article:tag" content="monitoring">
+    
+      <meta property="article:tag" content="tutorial">
+    
+      <meta property="article:tag" content="install">
+    
+      <meta property="article:tag" content="system metric monitoring">
+    
+  
+
+
+<meta name="twitter:card" content="summary">
+
+
+
+
+
+
+
+  <meta property="og:image" content="//gurumee92.github.io/images/monitoring/influxdb-v2/logo.png">
+  <meta property="twitter:image" content="//gurumee92.github.io/images/monitoring/influxdb-v2/logo.png">
+
+
+
+
+
+  <meta property="og:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+  <meta property="twitter:image" content="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=640">
+
+
+    <title>시스템 메트릭 모니터링 시스템 구축하기 (With Telegraf)</title>
+
+    <link rel="icon" href="https://gurumee92.github.io/favicon.png">
+    
+
+    
+
+    <link rel="canonical" href="https://gurumee92.github.io/2020/12/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%A9%94%ED%8A%B8%EB%A6%AD-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-with-telegraf/">
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/jquery.fancybox.min.css" integrity="sha256-vuXZ9LGmmwtjqFX1F+EKin1ThZMub58gKULUyf0qECk=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.4/helpers/jquery.fancybox-thumbs.min.css" integrity="sha256-SEa4XYAHihTcEP1f5gARTB2K26Uk8PsndQYHQC1f4jU=" crossorigin="anonymous" />
+    
+    
+    <link rel="stylesheet" href="https://gurumee92.github.io/css/style-twzjdbqhmnnacqs0pwwdzcdbt8yhv8giawvjqjmyfoqnvazl0dalmnhdkvp7.min.css" />
+    
+    
+
+    
+      
+    
+    
+  </head>
+
+  <body>
+    <div id="blog">
+      <header id="header" data-behavior="4">
+  <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+  <div class="header-title">
+    <a class="header-title-link" href="https://gurumee92.github.io/">Gurumee92&#39;s Devlog</a>
+  </div>
+  
+    
+      <a class="header-right-picture "
+         href="https://gurumee92.github.io/#about">
+    
+    
+    
+      
+        <img class="header-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=90" alt="Author&#39;s picture" />
+      
+    
+    </a>
+  
+  <meta name="google-site-verification" content="I_FLkkafdg_yCDzm6weheL57jqr1eXM9VFYr8igrlCE" />
+</header>
+
+      <nav id="sidebar" data-behavior="4">
+  <div class="sidebar-container">
+    
+      <div class="sidebar-profile">
+        <a href="https://gurumee92.github.io/#about">
+          <img class="sidebar-profile-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+        </a>
+        <h4 class="sidebar-profile-name">Hyunwoo Jang</h4>
+        
+          <h5 class="sidebar-profile-bio">안녕하세요. 구르미입니다.</h5>
+        
+      </div>
+    
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+      
+      <span class="sidebar-button-desc">Home</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/categories">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+      
+      <span class="sidebar-button-desc">Categories</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/tags">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+      
+      <span class="sidebar-button-desc">Tags</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/archives">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+      
+      <span class="sidebar-button-desc">Archives</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://github.com/gurumee92" target="_blank" rel="noopener">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+      
+      <span class="sidebar-button-desc">GitHub</span>
+    </a>
+  </li>
+
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/portfolio/">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-address-book"></i>
+      
+      <span class="sidebar-button-desc">Portfolio</span>
+    </a>
+  </li>
+
+
+    </ul>
+    <ul class="sidebar-buttons">
+      
+  <li class="sidebar-button">
+    
+      <a class="sidebar-button-link " href="https://gurumee92.github.io/index.xml">
+    
+      <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+      
+      <span class="sidebar-button-desc">RSS</span>
+    </a>
+  </li>
+
+
+    </ul>
+  </div>
+</nav>
+
+      
+
+      <div id="main" data-behavior="4"
+        class="
+               hasCoverMetaIn
+               ">
+        <article class="post" itemscope itemType="http://schema.org/BlogPosting">
+          
+          
+            <div class="post-header main-content-wrap text-left">
+  
+    <h1 class="post-title" itemprop="headline">
+      시스템 메트릭 모니터링 시스템 구축하기 (With Telegraf)
+    </h1>
+  
+  
+  <div class="postShorten-meta post-meta">
+    
+      <time itemprop="datePublished" datetime="2020-12-02T21:28:51&#43;09:00">
+        
+  December 2, 2020
+
+      </time>
+    
+    
+  
+  
+    <span>in</span>
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/monitoring">monitoring</a>, 
+    
+      <a class="category-link" href="https://gurumee92.github.io/categories/influxdb-v2">influxdb-v2</a>
+    
+  
+
+  </div>
+
+</div>
+          
+          <div class="post-content markdown" itemprop="articleBody">
+            <div class="main-content-wrap">
+              <p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/logo.png" alt="logo"></p>
+<blockquote>
+<p>Telegraf 설치 및 InfluxDB 2.0과 연동하여, 시스템 메트릭을 수집하여 모니터링 대시보드를 만드는 것에 대한 문서입니다.</p>
+</blockquote>
+<h2 id="telegraf-설치">Telegraf 설치</h2>
+<p><code>Telegraf</code>를 설치한다. 이번엔 패키지 매니저 기반으로 설치한다. 이 때, 패키지 매니저가 최신 <code>telegraf</code>를 설치할 수 있도록, <code>/etc/yum.repos.d/</code> 밑에 <code>influxdb.repo</code>를 만들어주어야 한다. 터미널에 다음을 입력한다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># /etc/yum.repos.d/ 밑에 influxdb.repo 생성</span>
+$ cat <span style="color:#e6db74">&lt;&lt; EOF | sudo tee /etc/yum.repos.d/influxdb.repo
+</span><span style="color:#e6db74">[influxdb]
+</span><span style="color:#e6db74">name = InfluxDB Repository - RHEL $releasever
+</span><span style="color:#e6db74">baseurl = https://repos.influxdata.com/rhel/7/\$basearch/stable
+</span><span style="color:#e6db74">enabled = 1
+</span><span style="color:#e6db74">gpgcheck = 1
+</span><span style="color:#e6db74">gpgkey = https://repos.influxdata.com/influxdb.key
+</span><span style="color:#e6db74">retries = 7
+</span><span style="color:#e6db74">skip_if_unavailable = 1
+</span><span style="color:#e6db74">keepcache = 0
+</span><span style="color:#e6db74">timeout = 5.0
+</span><span style="color:#e6db74">EOF</span>
+
+<span style="color:#75715e"># telegraf 설치</span>
+$ sudo yum install telegraf
+...
+
+<span style="color:#75715e"># telegraf 실행</span>
+$ sudo systemctl start telegraf
+
+<span style="color:#75715e"># telegraf 상태 확인</span>
+$ sudo systemctl status telegraf
+● telegraf.service - The plugin-driven server agent <span style="color:#66d9ef">for</span> reporting metrics into InfluxDB
+   Loaded: loaded <span style="color:#f92672">(</span>/usr/lib/systemd/system/telegraf.service; enabled; vendor preset: disabled<span style="color:#f92672">)</span>
+   Active: active <span style="color:#f92672">(</span>running<span style="color:#f92672">)</span> since 화 2020-11-03 06:51:45 UTC; 7s ago
+     Docs: https://github.com/influxdata/telegraf
+ Main PID: <span style="color:#ae81ff">16687</span> <span style="color:#f92672">(</span>telegraf<span style="color:#f92672">)</span>
+   CGroup: /system.slice/telegraf.service
+           └─16687 /usr/bin/telegraf -config /etc/telegraf/telegraf.conf -config-directory /etc/telegraf/telegraf.d
+...
+</code></pre></div><h2 id="influxdb-20---telegraf-연동">InfluxDB 2.0 - Telegraf 연동</h2>
+<p>이제 <code>InfluxDB 2.0</code>과 <code>Telegraf</code>를 연동시켜보자. <code>InfluxDB 2.0</code>을 웹 브라우저를 통해서 접속한다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/01.png" alt="01"></p>
+<p>로그인하게 되면, 첫 화면인데, &ldquo;Load your data&quot;를 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/02.png" alt="02"></p>
+<p>그 다음, &ldquo;Telegraf&quot;를 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/03.png" alt="03"></p>
+<p>위의 화면에서, &ldquo;Create Configuration&quot;을 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/04.png" alt="04"></p>
+<p>그럼 위의 모달 창이 뜬다. 그러면, &ldquo;System&quot;을 클릭한다. 그럼 하단에 &ldquo;Continue&rdquo; 버튼이 활성화된다. 이 버튼을 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/05.png" alt="05"></p>
+<p>위의 화면에서 입력 창에 적절한 값을 주고 &ldquo;Create and Verify&rdquo; 버튼을 클릭한다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/06.png" alt="06"></p>
+<p>이 때 첫 칸에 입력되어 있는 토큰 값을 기억해두자. 이제 하단에 &ldquo;Finish&rdquo; 버튼을 누른다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/07.png" alt="07"></p>
+<p>이제 &ldquo;Data&rdquo; &gt; &ldquo;Telegraf&quot;에 위와 같이 설정 목록이 추가된 것을 확인할 수 있다. 이를 클릭하면 <code>Telegraf</code>에 수정할 설정들을 확인할 수 있다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/08.png" alt="08"></p>
+<p>또한 &ldquo;Data&rdquo; &gt; &ldquo;Tokens&quot;로 이동해보면, <code>Telegraf</code>용 토큰이 생긴 것을 확인할 수 있다. 아까 기억하지 못했다면, 여기서 토큰 값을 기억하면 된다.</p>
+<p>이제 &ldquo;sudo&quot;권한으로 <code>/etc/telegraf/telegraf.conf</code>를 다음과 같이 수정한다.</p>
+<pre><code class="language-conf" data-lang="conf">[agent]
+  interval = &quot;10s&quot;
+  round_interval = true
+  metric_batch_size = 1000
+  metric_buffer_limit = 10000
+  collection_jitter = &quot;0s&quot;
+  flush_interval = &quot;10s&quot;
+  flush_jitter = &quot;0s&quot;
+  precision = &quot;&quot;
+  debug = false
+  quiet = false
+  logfile = &quot;&quot;
+  hostname = &quot;&quot;
+  omit_hostname = false
+[[outputs.influxdb_v2]]	
+  urls = [&quot;http://localhost:8086&quot;]
+
+  ## Token for authentication.
+  # 이것은 &quot;Data &gt; TOKENS&quot;에서 확인했던 토큰으로 업데이트 해준다.
+  token = &quot;&lt;아까 받았던 토큰&gt;&quot;
+  organization = &quot;11st-team-infra-platform&quot;
+  bucket = &quot;data&quot;
+[[inputs.cpu]]
+  percpu = true
+  totalcpu = true
+  collect_cpu_time = false
+  report_active = false
+[[inputs.disk]]
+  ignore_fs = [&quot;tmpfs&quot;, &quot;devtmpfs&quot;, &quot;devfs&quot;, &quot;overlay&quot;, &quot;aufs&quot;, &quot;squashfs&quot;]
+[[inputs.diskio]]
+[[inputs.mem]]
+[[inputs.net]]
+[[inputs.processes]]
+[[inputs.swap]]
+[[inputs.system]]
+</code></pre><p>그 후 <code>Telegraf</code>를 재실행하면 된다.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo systemctl restart telegraf
+</code></pre></div><p>이제 몇 초 후 웹 페이지에서 &ldquo;Boards&rdquo; &gt; &ldquo;System&quot;를 누른다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/09.png" alt="09"></p>
+<p>다음 대시보드가 보이면 성공이다.</p>
+<p><img src="https://gurumee92.github.io/images/monitoring/influxdb-v2/01-system-monitoring-with-telegraf/10.png" alt="10"></p>
+<p>끝났다. <code>EC2</code> 인스턴스 시스템 메트릭을 확인할 수 있는 모니터링 시스템을 성공적으로 구축하였다.</p>
+<h2 id="참고">참고</h2>
+<ul>
+<li><a href="https://docs.influxdata.com/influxdb/v2.0/write-data/no-code/use-telegraf/auto-config/">InfluxDB 2.0 공식 문서 - Automatically configure Telegraf</a></li>
+<li><a href="http://blog.naver.com/PostView.nhn?blogId=jsf3rd&amp;logNo=220719782584">jsf3rd 님의 AWS Amazon Linux에 InfluxDB 설치</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <div id="post-footer" class="post-footer main-content-wrap">
+            
+              
+                
+                
+                  <div class="post-footer-tags">
+                    <span class="text-color-light text-small">TAGGED IN</span><br/>
+                    
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/influxdb-2.0/">influxdb 2.0</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/telegraf/">telegraf</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/influxdata/">influxdata</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/monitoring/">monitoring</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/tutorial/">tutorial</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/install/">install</a>
+
+  <a class="tag tag--primary tag--small" href="https://gurumee92.github.io/tags/system-metric-monitoring/">system metric monitoring</a>
+
+                  </div>
+                
+              
+            
+            <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/12/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/" data-tooltip="InfluxDB 2.0 시작하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+            
+              
+                
+<script src="https://utteranc.es/client.js"
+        repo="gurumee92/blog-comments"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+              
+            
+          </div>
+        </article>
+        <footer id="footer" class="main-content-wrap">
+  <span class="copyrights">
+    &copy; 2020 Hyunwoo Jang. All Rights Reserved
+  </span>
+</footer>
+
+      </div>
+      <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+        <div class="post-actions-wrap">
+  
+      <nav >
+        <ul class="post-actions post-action-nav">
+          
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--disabled">
+              
+                  <i class="fa fa-angle-left"></i>
+                  <span class="hide-xs hide-sm text-small icon-ml">NEXT</span>
+                </a>
+            </li>
+            <li class="post-action">
+              
+                <a class="post-action-btn btn btn--default tooltip--top" href="https://gurumee92.github.io/2020/12/influxdb-2.0-%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0/" data-tooltip="InfluxDB 2.0 시작하기">
+              
+                  <span class="hide-xs hide-sm text-small icon-mr">PREVIOUS</span>
+                  <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+          
+        </ul>
+      </nav>
+    <ul class="post-actions post-action-share" >
+      
+      
+      
+    </ul>
+  
+</div>
+
+      </div>
+      <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+  <i id="btn-close-shareoptions" class="fa fa-close"></i>
+  <ul class="share-options">
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgurumee92.github.io%2F2020%2F12%2F%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C-%25EB%25A9%2594%25ED%258A%25B8%25EB%25A6%25AD-%25EB%25AA%25A8%25EB%258B%2588%25ED%2584%25B0%25EB%25A7%2581-%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C-%25EA%25B5%25AC%25EC%25B6%2595%25ED%2595%2598%25EA%25B8%25B0-with-telegraf%2F">
+          <i class="fa fa-facebook-official"></i><span>Share on Facebook</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=https%3A%2F%2Fgurumee92.github.io%2F2020%2F12%2F%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C-%25EB%25A9%2594%25ED%258A%25B8%25EB%25A6%25AD-%25EB%25AA%25A8%25EB%258B%2588%25ED%2584%25B0%25EB%25A7%2581-%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C-%25EA%25B5%25AC%25EC%25B6%2595%25ED%2595%2598%25EA%25B8%25B0-with-telegraf%2F">
+          <i class="fa fa-twitter"></i><span>Share on Twitter</span>
+        </a>
+      </li>
+    
+      <li class="share-option">
+        <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=https%3A%2F%2Fgurumee92.github.io%2F2020%2F12%2F%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C-%25EB%25A9%2594%25ED%258A%25B8%25EB%25A6%25AD-%25EB%25AA%25A8%25EB%258B%2588%25ED%2584%25B0%25EB%25A7%2581-%25EC%258B%259C%25EC%258A%25A4%25ED%2585%259C-%25EA%25B5%25AC%25EC%25B6%2595%25ED%2595%2598%25EA%25B8%25B0-with-telegraf%2F">
+          <i class="fa fa-google-plus"></i><span>Share on Google&#43;</span>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+    </div>
+    
+    <div id="about">
+  <div id="about-card">
+    <div id="about-btn-close">
+      <i class="fa fa-remove"></i>
+    </div>
+    
+      <img id="about-card-picture" src="https://www.gravatar.com/avatar/33f76a006a1adfd8a2109cb4ce4f1fa3?s=110" alt="Author&#39;s picture" />
+    
+    <h4 id="about-card-name">Hyunwoo Jang</h4>
+    
+      <div id="about-card-bio">안녕하세요. 구르미입니다.</div>
+    
+    
+      <div id="about-card-job">
+        <i class="fa fa-briefcase"></i>
+        <br/>
+        Devops Engineer
+      </div>
+    
+    
+      <div id="about-card-location">
+        <i class="fa fa-map-marker"></i>
+        <br/>
+        Korea
+      </div>
+    
+  </div>
+</div>
+
+    
+
+    
+  
+    
+      <div id="cover" style="background-image:url('https://gurumee92.github.io/images/cover.jpg');"></div>
+    
+  
+
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.7/js/jquery.fancybox.min.js" integrity="sha256-GEAnjcTqVP+vBp3SSc8bEDQqvWAZMiHyUSIorrWwH50=" crossorigin="anonymous"></script>
+
+
+<script data-ad-client="ca-pub-7631742708971063" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script src="https://gurumee92.github.io/js/script-pcw6v3xilnxydl1vddzazdverrnn9ctynvnxgwho987mfyqkuylcb1nlt.min.js"></script>
+
+
+<script lang="javascript">
+window.onload = updateMinWidth;
+window.onresize = updateMinWidth;
+document.getElementById("sidebar").addEventListener("transitionend", updateMinWidth);
+function updateMinWidth() {
+  var sidebar = document.getElementById("sidebar");
+  var main = document.getElementById("main");
+  main.style.minWidth = "";
+  var w1 = getComputedStyle(main).getPropertyValue("min-width");
+  var w2 = getComputedStyle(sidebar).getPropertyValue("width");
+  var w3 = getComputedStyle(sidebar).getPropertyValue("left");
+  main.style.minWidth = `calc(${w1} - ${w2} - ${w3})`;
+}
+</script>
+
+<script>
+$(document).ready(function() {
+  hljs.configure({ classPrefix: '', useBR: false });
+  $('pre.code-highlight > code, pre > code').each(function(i, block) {
+    if (!$(this).hasClass('codeblock')) {
+      $(this).addClass('codeblock');
+    }
+    hljs.highlightBlock(block);
+  });
+});
+</script>
+
+
+  
+    
+      <script>
+        var disqus_config = function () {
+          this.page.url = 'https:\/\/gurumee92.github.io\/2020\/12\/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%A9%94%ED%8A%B8%EB%A6%AD-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-with-telegraf\/';
+          
+            this.page.identifier = '\/2020\/12\/%EC%8B%9C%EC%8A%A4%ED%85%9C-%EB%A9%94%ED%8A%B8%EB%A6%AD-%EB%AA%A8%EB%8B%88%ED%84%B0%EB%A7%81-%EC%8B%9C%EC%8A%A4%ED%85%9C-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0-with-telegraf\/'
+          
+        };
+        (function() {
+          
+          
+          if (window.location.hostname == "localhost") {
+            return;
+          }
+          var d = document, s = d.createElement('script');
+          var disqus_shortname = 'hugo-tranquilpeak-theme';
+          s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+        })();
+      </script>
+    
+  
+
+
+
+
+    
+  </body>
+</html>
+
