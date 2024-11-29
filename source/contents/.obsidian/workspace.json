@@ -11,20 +11,14 @@
             "id": "bc77a07805545748",
             "type": "leaf",
             "state": {
-              "type": "kanban",
+              "type": "markdown",
               "state": {
-                "file": "주간 칸반/11월 4주차.md",
-                "kanbanViewState": {
-                  "kanban-plugin": "board",
-                  "list-collapse": [
-                    false,
-                    false,
-                    false
-                  ]
-                }
+                "file": "index.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-trello",
-              "title": "11월 4주차"
+              "icon": "lucide-file",
+              "title": "index"
             }
           }
         ]
@@ -143,10 +137,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "주간 칸반/11월 4주차.md"
+                "file": "index.md"
               },
               "icon": "lucide-list",
-              "title": "11월 4주차 개요"
+              "title": "index 개요"
             }
           },
           {
@@ -190,9 +184,9 @@
   },
   "active": "bc77a07805545748",
   "lastOpenFiles": [
+    "주간 칸반/index.md",
     "주간 칸반/11월 4주차.md",
     "index.md",
-    "주간 칸반/index.md",
     "무제 파일.md",
     "category-folder/index.md",
     "category-folder/Some note.md",
