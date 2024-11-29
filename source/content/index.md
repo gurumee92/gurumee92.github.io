@@ -1,8 +1,6 @@
 ---
-title: My GitHub Pages Notebook!
+title: 구르미의 개발 블로그에 오신 것을 환영합니다.
 ---
 
-Hello world!
+안녕하세요! 개발자 구르미입니다.
 
-Write some words here! 
-테스트.. 어떻게 퍼블리싱 되는가
