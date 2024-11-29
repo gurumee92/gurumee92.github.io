@@ -11,13 +11,20 @@
             "id": "bc77a07805545748",
             "type": "leaf",
             "state": {
-              "type": "diff-view",
+              "type": "kanban",
               "state": {
-                "file": "source/contents/.obsidian/workspace.json",
-                "staged": false
+                "file": "주간 칸반/11월 4주차.md",
+                "kanbanViewState": {
+                  "kanban-plugin": "board",
+                  "list-collapse": [
+                    false,
+                    false,
+                    false
+                  ]
+                }
               },
-              "icon": "git-pull-request",
-              "title": "Diff View (workspace.json)"
+              "icon": "lucide-trello",
+              "title": "11월 4주차"
             }
           }
         ]
