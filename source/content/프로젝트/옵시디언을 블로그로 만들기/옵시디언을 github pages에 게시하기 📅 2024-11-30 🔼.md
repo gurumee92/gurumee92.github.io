@@ -1,5 +1,8 @@
 ---
-title: 옵시디언을 github pages에 퍼브리싱하기
+title: 옵시디언을 github pages에 게시하기
+tags:
+  - github
+  - obsidian
 ---
 ## 개요
 
