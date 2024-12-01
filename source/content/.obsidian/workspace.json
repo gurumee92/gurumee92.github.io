@@ -4,25 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "986878ab0d5f4d1c",
+        "id": "f933805375fcb101",
         "type": "tabs",
         "children": [
           {
-            "id": "8684f53552dc355f",
+            "id": "825881fe29e98696",
             "type": "leaf",
             "state": {
-              "type": "kanban",
+              "type": "markdown",
               "state": {
-                "file": "주간 칸반/24년/12월 1주차.md",
-                "kanbanViewState": {
-                  "kanban-plugin": "board",
-                  "list-collapse": [
-                    false
-                  ]
-                }
+                "file": "프로젝트/옵시디언을 블로그로 만들기/옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-trello",
-              "title": "12월 1주차"
+              "icon": "lucide-file",
+              "title": "옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼"
             }
           }
         ]
@@ -97,6 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "프로젝트/옵시디언을 블로그로 만들기/옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -106,7 +103,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "백링크"
+              "title": "옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼의 백링크"
             }
           },
           {
@@ -115,11 +112,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "프로젝트/옵시디언을 블로그로 만들기/옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "나가는 링크"
+              "title": "옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼의 나가는 링크"
             }
           },
           {
@@ -186,19 +184,21 @@
       "obsidian-kanban:새 보드 만들기": false
     }
   },
-  "active": "8684f53552dc355f",
+  "active": "24173af47b84a66f",
   "lastOpenFiles": [
-    "주간 칸반/24년/12월 1주차.md",
     "주간 칸반/24년/11월 4주차.md",
+    "주간 칸반/index.md",
+    "주간 칸반/24년/12월 1주차.md",
+    "index.md",
+    "프로젝트/옵시디언을 블로그로 만들기/옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼.md",
+    "프로젝트/옵시디언을 블로그로 만들기/images/logo.png",
+    "프로젝트/옵시디언을 블로그로 만들기/images",
     "주간 칸반/24년/무제 파일.md",
     "주간 칸반/24년",
-    "프로젝트/옵시디언을 블로그로 만들기/옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼.md",
     "프로젝트/index.md",
     "프로젝트/옵시디언을 블로그로 만들기/index.md",
-    "주간 칸반/index.md",
     "프로젝트/옵시디언을 블로그로 만들기",
     "프로젝트",
-    "index.md",
     "무제 파일.md",
     "category-folder/index.md",
     "category-folder/Some note.md",
