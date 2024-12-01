@@ -1,10 +1,10 @@
 ---
-title: 옵시디언을 github pages에 게시하기
+title: 옵시디언 노트를 github pages에 게시하기 📅 2024-11-30 🔼
 tags:
   - github
   - obsidian
 ---
-![logo](./images/logo.png)
+![logo](logo.png)
 ## 개요
 
 
