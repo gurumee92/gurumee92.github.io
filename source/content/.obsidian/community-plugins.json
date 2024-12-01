@@ -4,5 +4,6 @@
   "obsidian-tasks-plugin",
   "obsidian-kanban",
   "dataview",
-  "codeblock-tabs"
+  "codeblock-tabs",
+  "folder-note-plugin"
 ]
