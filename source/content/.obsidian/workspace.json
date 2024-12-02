@@ -11,10 +11,13 @@
             "id": "2c56514978addcd1",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "새 탭"
+              "type": "diff-view",
+              "state": {
+                "file": "source/content/.obsidian/workspace.json",
+                "staged": false
+              },
+              "icon": "git-pull-request",
+              "title": "Diff View (workspace.json)"
             }
           }
         ]
@@ -178,8 +181,9 @@
       "obsidian-kanban:새 보드 만들기": false
     }
   },
-  "active": "b77831b90dd9f87b",
+  "active": "2c56514978addcd1",
   "lastOpenFiles": [
+    "주간 칸반/24년/11월/4주차.md",
     "주간 칸반/24년/12월/1주차.md",
     "주간 칸반/24년/12월",
     "주간 칸반/24년/11월",
@@ -189,7 +193,6 @@
     "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 블로그로 만들기.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/logo.png",
     "프로젝트/옵시디언 노트를 블로그로 만들기/README.md",
-    "주간 칸반/24년/11월/4주차.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/images/logo.png",
     "프로젝트/옵시디언 노트를 블로그로 만들기/images/index.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/images",
