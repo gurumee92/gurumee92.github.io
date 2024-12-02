@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "f1fc145e9370a8f8",
+        "id": "8739ab4bd659189f",
         "type": "tabs",
         "children": [
           {
-            "id": "93b2d5209fb7ee5f",
+            "id": "2c56514978addcd1",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 github pages에 게시하기 📅 2024-11-30 🔼.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "옵시디언 노트를 github pages에 게시하기 📅 2024-11-30 🔼"
+              "title": "새 탭"
             }
           }
         ]
@@ -168,7 +164,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -182,16 +178,18 @@
       "obsidian-kanban:새 보드 만들기": false
     }
   },
-  "active": "93b2d5209fb7ee5f",
+  "active": "b77831b90dd9f87b",
   "lastOpenFiles": [
+    "주간 칸반/24년/12월/1주차.md",
+    "주간 칸반/24년/12월",
+    "주간 칸반/24년/11월",
+    "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 github pages에 게시하기 📅 2024-11-30 🔼.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/index.md",
     "프로젝트/index.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 블로그로 만들기.md",
-    "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 github pages에 게시하기 📅 2024-11-30 🔼.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/logo.png",
     "프로젝트/옵시디언 노트를 블로그로 만들기/README.md",
-    "주간 칸반/24년/12월 1주차.md",
-    "주간 칸반/24년/11월 4주차.md",
+    "주간 칸반/24년/11월/4주차.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/images/logo.png",
     "프로젝트/옵시디언 노트를 블로그로 만들기/images/index.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/images",
@@ -217,8 +215,6 @@
     "프로젝트/옵시디언을 블로그로 만들기/images",
     "주간 칸반/24년/무제 파일.md",
     "주간 칸반/24년",
-    "프로젝트/옵시디언을 블로그로 만들기",
-    "프로젝트",
     "무제 파일.md",
     "category-folder/index.md",
     "category-folder/Some note.md"
