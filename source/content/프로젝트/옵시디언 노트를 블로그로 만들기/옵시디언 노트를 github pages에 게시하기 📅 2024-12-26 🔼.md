@@ -119,5 +119,13 @@ $ git clone https://github.com/gurumee92/gurumee92.github.io.git
 
 최초에 로그인 정보를 요구할 것입니다. 아이디와 비밀번호를 입력해서 본인 깃헙 계정이랑 연동이 완료되면 위와 같이 변경 사항들을 확인할 수 있고, commit, push 등 깃 명령어를 UI로 실행할 수 있습니다.
 ## 포스팅하기
+이제 index.md를 수정해서 게시해봅시다. index.md를 열어보면 다음과 같이 내용을 확인할 수 있을 것입니다.
+![[1-21.png]]
+다음과 같이 원하는대로 수정을 해 봅시다.
+![[1-22.png]]
+그 후 다음 버튼을 눌러 커밋/푸시를 진행해봅시다.
+![[1-23.png]]
+
+
 ## 참고
 * [Host your Obsidian notebook on GitHub Pages for free - DEV Community](https://dev.to/defenderofbasic/host-your-obsidian-notebook-on-github-pages-for-free-8l1)
