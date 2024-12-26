@@ -11,18 +11,14 @@
             "id": "696b24951d346578",
             "type": "leaf",
             "state": {
-              "type": "kanban",
+              "type": "markdown",
               "state": {
-                "file": "주간 칸반/24년/12월/4주차.md",
-                "kanbanViewState": {
-                  "kanban-plugin": "board",
-                  "list-collapse": [
-                    false
-                  ]
-                }
+                "file": "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 github pages에 게시하기 📅 2024-12-26 🔼.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-trello",
-              "title": "4주차"
+              "icon": "lucide-file",
+              "title": "옵시디언 노트를 github pages에 게시하기 📅 2024-12-26 🔼"
             }
           }
         ]
@@ -186,21 +182,22 @@
       "obsidian-kanban:새 보드 만들기": false
     }
   },
-  "active": "24173af47b84a66f",
+  "active": "696b24951d346578",
   "lastOpenFiles": [
-    "기타/무제 파일.md",
+    "임대 아파트 청약 📅 2024-12-24 🔺.md",
+    "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 github pages에 게시하기 📅 2024-12-26 🔼.md",
     "주간 칸반/24년/12월/4주차.md",
+    "주간 칸반/index.md",
+    "프로젝트/옵시디언 노트를 블로그로 만들기/logo.png",
+    "프로젝트/옵시디언 노트를 블로그로 만들기/index.md",
+    "기타/무제 파일.md",
     "개인",
     "개인/임대 아파트 청약 📅 2024-12-24 🔺.md",
-    "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 github pages에 게시하기 📅 2024-12-26 🔼.md",
-    "프로젝트/옵시디언 노트를 블로그로 만들기/logo.png",
-    "주간 칸반/index.md",
     "주간 칸반/24년/12월/2주차.md",
     "주간 칸반/24년/12월/1주차.md",
     "주간 칸반/24년/11월/4주차.md",
     "주간 칸반/24년/12월",
     "주간 칸반/24년/11월",
-    "프로젝트/옵시디언 노트를 블로그로 만들기/index.md",
     "프로젝트/index.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 블로그로 만들기.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/README.md",
@@ -226,8 +223,6 @@
     "index.md",
     "프로젝트/옵시디언을 블로그로 만들기/images/logo.png",
     "프로젝트/옵시디언을 블로그로 만들기/images",
-    "주간 칸반/24년/무제 파일.md",
-    "무제 파일.md",
-    "category-folder/index.md"
+    "주간 칸반/24년/무제 파일.md"
   ]
 }
