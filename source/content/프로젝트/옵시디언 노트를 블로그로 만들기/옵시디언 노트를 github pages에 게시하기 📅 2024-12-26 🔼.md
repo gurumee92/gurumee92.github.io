@@ -31,7 +31,7 @@ tags:
 > [!info] 포크란?
 > 포크란 간단하게 말해서 다른 사람이 만든 깃헙 레포를 복제한다는 의미입니다.  
 
-이제 레포 이름을 입력합니다. 깃헙 블로그 이름의 관례는 `<Github ID>.github.io`입니다. 예를 들어 저 같은 경우는 `gurumee92.github.io`입니다.
+이제 레포 이름을 입력합니다. 깃헙 블로그 이름의 관례는 `<깃헙 계정>.github.io`입니다. 예를 들어 저 같은 경우는 `gurumee92.github.io`입니다.
 ![[1-2.png]]
 
 그러면 다음과 같이 개인 레포가 생성될 것입니다
@@ -126,6 +126,11 @@ $ git clone https://github.com/gurumee92/gurumee92.github.io.git
 그 후 다음 버튼을 눌러 커밋/푸시를 진행해봅시다.
 ![[1-23.png]]
 
+그러면 깃헙 레포를 보면 다음과 같이 업데이트 되었을 것입니다.
+![[1-24.png]]
+
+이제 조금만 기다리면, 이전 절에서 `Github Actions`를 설정한대로 본인 깃헙 페이지 "https://<깃헙 계정>.github.io"에 다음과 같이 페이지가 자동으로 수정되는 것을 확인할 수 있습니다.
+![[1-25.png]]
 
 ## 참고
 * [Host your Obsidian notebook on GitHub Pages for free - DEV Community](https://dev.to/defenderofbasic/host-your-obsidian-notebook-on-github-pages-for-free-8l1)
