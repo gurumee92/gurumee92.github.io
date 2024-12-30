@@ -35,14 +35,13 @@
             "id": "961ff263935e12bd",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "diff-view",
               "state": {
-                "file": "옵시디언 블로그 검색 엔진에 노출시키기 📅 2025-01-05 🔺.md",
-                "mode": "source",
-                "source": false
+                "file": "source/quartz.config.ts",
+                "staged": false
               },
-              "icon": "lucide-file",
-              "title": "옵시디언 블로그 검색 엔진에 노출시키기 📅 2025-01-05 🔺"
+              "icon": "git-pull-request",
+              "title": "Diff View (quartz.config.ts)"
             }
           }
         ]
@@ -208,9 +207,9 @@
   },
   "active": "961ff263935e12bd",
   "lastOpenFiles": [
+    "옵시디언 블로그 검색 엔진에 노출시키기 📅 2025-01-05 🔺.md",
     "BingSiteAuth.xml",
     "주간 칸반/25년/1월/1주차.md",
-    "옵시디언 블로그 검색 엔진에 노출시키기 📅 2025-01-05 🔺.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 github pages에 게시하기.md",
     "index.md",
     "naver274297f11ac141ad1d772a0dc2850a1a.html",
@@ -240,7 +239,6 @@
     "주간 칸반/24년/12월/2주차.md",
     "주간 칸반/24년/12월/1주차.md",
     "주간 칸반/24년/11월/4주차.md",
-    "주간 칸반/24년/12월",
     "프로젝트/옵시디언 노트를 블로그로 만들기/index.md",
     "프로젝트/index.md",
     "프로젝트/옵시디언 노트를 블로그로 만들기/옵시디언 노트를 블로그로 만들기.md",
