@@ -11,18 +11,14 @@
             "id": "952454638f9f27d7",
             "type": "leaf",
             "state": {
-              "type": "kanban",
+              "type": "markdown",
               "state": {
-                "file": "주간 칸반/25년/1월/1주차.md",
-                "kanbanViewState": {
-                  "kanban-plugin": "board",
-                  "list-collapse": [
-                    false
-                  ]
-                }
+                "file": "index.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-trello",
-              "title": "1주차"
+              "icon": "lucide-file",
+              "title": "index"
             }
           }
         ]
@@ -186,9 +182,11 @@
       "obsidian-kanban:새 보드 만들기": false
     }
   },
-  "active": "952454638f9f27d7",
+  "active": "b77831b90dd9f87b",
   "lastOpenFiles": [
     "주간 칸반/25년/1월/1주차.md",
+    "site.xml",
+    "robots.txt",
     "주간 칸반/25년/1월",
     "주간 칸반/24년/12월/4주차.md",
     "주간 칸반/25년",
@@ -225,11 +223,9 @@
     "projects/make-obsidian-blog/옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼.md",
     "projects/make-obsidian-blog/index.md",
     "projects/make-obsidian-blog/images",
-    "projects/make-obsidian-blog",
     "프로젝트/옵시디언을 블로그로 만들기/옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼.md",
     "projects/옵시디언을 블로그로 만들기/옵시디언을 github pages에 게시하기 📅 2024-11-30 🔼.md",
     "projects/옵시디언을 블로그로 만들기/index.md",
-    "projects/옵시디언을 블로그로 만들기/images",
     "projects/index.md",
     "프로젝트/옵시디언을 블로그로 만들기/index.md",
     "index.md"
