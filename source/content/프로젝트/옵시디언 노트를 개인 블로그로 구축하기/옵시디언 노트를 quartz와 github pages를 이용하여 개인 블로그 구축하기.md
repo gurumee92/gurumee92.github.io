@@ -4,6 +4,7 @@ tags:
   - github
   - obsidian
   - blog
+  - quartz
 ---
 ![[logo.png]]
 ## 개요
