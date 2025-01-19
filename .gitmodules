@@ -1,0 +1,4 @@
+[submodule "source/content"]
+	path = source/content
+	url = https://github.com/gurumee92/blog-contents.git
+	branch = main
