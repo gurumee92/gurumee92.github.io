@@ -1,0 +1,4 @@
+baseURL = 'https://gurumee92.github.io/'
+languageCode = 'en-us'
+title = '구르미의 기술 블로그'
+theme = 'hugo-book'
