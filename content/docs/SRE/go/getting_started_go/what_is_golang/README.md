@@ -1,10 +1,10 @@
 ---
-title: "01. Go 언어 시작하기"
+title: "01. Go 언어란 무엇인가"
 weight: 3
 bookCollapseSection: true
 ---
 
-# Go 언어 시작하기
+# Go 언어란 무엇인가
 
 ## Go 언어란 무엇인가
 

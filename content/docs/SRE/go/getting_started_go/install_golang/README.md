@@ -6,6 +6,8 @@ bookCollapseSection: true
 
 # Go 언어 설치하기 
 
+## Go 언어 설치하기
+
 각 플랫폼 별로 다음과 같이 설치할 수 있습니다.
 
 ### Windows
