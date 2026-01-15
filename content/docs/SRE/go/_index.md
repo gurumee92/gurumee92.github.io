@@ -1,5 +1,5 @@
 ---
-title: "테트리스 게임을 만들면서 배우는 Go언어"
+title: "Go 언어"
 weight: 2
 bookCollapseSection: true
 ---
