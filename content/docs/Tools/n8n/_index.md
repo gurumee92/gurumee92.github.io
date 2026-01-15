@@ -1,5 +1,5 @@
 ---
 title: "n8n"
-weight: 10
+weight: 2
 bookCollapseSection: true
 ---
